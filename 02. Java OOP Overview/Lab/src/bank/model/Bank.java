@@ -75,9 +75,9 @@ public final class Bank {
 
         if (amount > ZERO && amount > account.getBalance()) {
             return INSUFFICIENT_BALANCE;
-        } else {
-            account.withdraw(amount);
         }
+
+        account.withdraw(amount);
 
         return String.format(WITHDRAWN_FROM_ACCOUNT, amount, account);
     }
@@ -91,9 +91,10 @@ public final class Bank {
 
         if (amount > ZERO) {
             account.deposit(amount);
+            return String.format(DEPOSITED_TO_ACCOUNT, amount, account);
         }
 
-        return String.format(DEPOSITED_TO_ACCOUNT, amount, account);
+        return null;
     }
 
     public String createAccount(int id) {
