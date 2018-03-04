@@ -8,7 +8,9 @@
 
 ### IntelliJ IDEA ###
 **/out/
-.idea
+**/.idea/*
+!**/.idea/misc.xml
+!**/.idea/modules.xml
 *.iws
 #*.iml
 *.ipr
