@@ -43,7 +43,8 @@ public class Song {
         return this.durationInSeconds;
     }
 
-    private void setDuration(String duration) throws InvalidSongLengthException {
+    private void setDuration(String duration)
+            throws InvalidSongLengthException {
         String[] tokens = duration.split(":");
 
         if (tokens.length != 2) {

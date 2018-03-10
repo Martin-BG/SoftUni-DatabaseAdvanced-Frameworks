@@ -19,13 +19,8 @@ public class Main {
                 .map(Song::getDuration)
                 .reduce(0, (d1, d2) -> d1 + d2);
 
-        int hours = playlistLength / (60 * 60);
-        playlistLength %= 60 * 60;
-        int minutes = playlistLength / 60;
-        int seconds = playlistLength % 60;
-
         System.out.printf("Songs added: %d%n", songs.size());
-        System.out.printf("Playlist length: %dh %dm %ds%n", hours, minutes, seconds);
+        System.out.printf("Playlist length: %s%n", getPlaylistDurationString(playlistLength));
     }
 
     private static List<Song> getSongs() {
@@ -71,5 +66,15 @@ public class Main {
         }
 
         return songs;
+    }
+
+    private static String getPlaylistDurationString(int playlistLength) {
+
+        int hours = playlistLength / (60 * 60);
+        playlistLength %= 60 * 60;
+        int minutes = playlistLength / 60;
+        int seconds = playlistLength % 60;
+
+        return String.format("%dh %dm %ds", hours, minutes, seconds);
     }
 }
