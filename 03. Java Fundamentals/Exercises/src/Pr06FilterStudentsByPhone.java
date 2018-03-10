@@ -29,6 +29,6 @@ public class Pr06FilterStudentsByPhone {
             e.printStackTrace();
         }
 
-        return input.stream().map(str -> str.split("\\s++"));
+        return input.stream().map(str -> str.split("\\s+"));
     }
 }

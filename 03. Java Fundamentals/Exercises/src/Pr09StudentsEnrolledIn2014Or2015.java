@@ -33,6 +33,6 @@ public class Pr09StudentsEnrolledIn2014Or2015 {
             e.printStackTrace();
         }
 
-        return input.stream().map(str -> str.split("\\s++"));
+        return input.stream().map(str -> str.split("\\s+"));
     }
 }

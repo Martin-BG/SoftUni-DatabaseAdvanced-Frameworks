@@ -32,6 +32,6 @@ public class Pr03StudentsByAge {
             e.printStackTrace();
         }
 
-        return input.stream().map(str -> str.split("\\s++"));
+        return input.stream().map(str -> str.split("\\s+"));
     }
 }

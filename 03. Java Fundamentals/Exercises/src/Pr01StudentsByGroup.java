@@ -31,6 +31,6 @@ public class Pr01StudentsByGroup {
             e.printStackTrace();
         }
 
-        return input.stream().map(str -> str.split("\\s++"));
+        return input.stream().map(str -> str.split("\\s+"));
     }
 }
