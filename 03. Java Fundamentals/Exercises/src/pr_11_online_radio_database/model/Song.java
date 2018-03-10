@@ -1,6 +1,6 @@
-package pr_11_online_radio_data_base.model;
+package pr_11_online_radio_database.model;
 
-import pr_11_online_radio_data_base.exceptions.*;
+import pr_11_online_radio_database.exceptions.*;
 
 public class Song {
 

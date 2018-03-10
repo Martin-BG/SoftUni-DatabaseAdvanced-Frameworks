@@ -1,7 +1,7 @@
-package pr_11_online_radio_data_base;
+package pr_11_online_radio_database;
 
-import pr_11_online_radio_data_base.exceptions.*;
-import pr_11_online_radio_data_base.model.Song;
+import pr_11_online_radio_database.exceptions.*;
+import pr_11_online_radio_database.model.Song;
 
 import java.io.BufferedReader;
 import java.io.IOException;
