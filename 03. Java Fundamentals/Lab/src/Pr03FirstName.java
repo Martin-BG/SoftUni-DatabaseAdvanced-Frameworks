@@ -15,7 +15,6 @@ public class Pr03FirstName {
 
             HashSet<Character> chars = Arrays.stream(reader.readLine().split("\\s+"))
                     .map(s -> s.toUpperCase().charAt(0))
-                    .distinct()
                     .collect(Collectors.toCollection(HashSet::new));
 
             System.out.println(namesStream
