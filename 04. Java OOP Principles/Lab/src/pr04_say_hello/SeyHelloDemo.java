@@ -13,7 +13,6 @@ class SeyHelloDemo {
     public static void main(String[] args) {
         List<Person> persons = new ArrayList<>();
 
-
         persons.add(new Bulgarian("Pesho"));
         persons.add(new European("Pesho"));
         persons.add(new Chinese("Pesho"));
