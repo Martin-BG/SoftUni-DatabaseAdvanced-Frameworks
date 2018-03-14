@@ -1,15 +1,15 @@
 package pr09_animals.model;
 
+import pr09_animals.constants.Constants;
+
 public class Cat extends Animal {
 
-    private static final String SOUND = "MiauMiau";
-
-    public Cat(String name, int age, String gender) {
-        super(name, age, gender);
+    public Cat(String name, int age, String gender, String type) {
+        super(name, age, gender, type);
     }
 
     @Override
     public String produceSound() {
-        return SOUND;
+        return Constants.CAT_SOUND;
     }
 }

@@ -1,49 +1,53 @@
 package pr09_animals.model;
 
-import pr09_animals.constants.MessageConstants;
+import pr09_animals.constants.Constants;
 
-public class Animal {
-
-    private static final String SOUND = "Not implemented!";
+public abstract class Animal {
 
     private String name;
     private int age;
     private String gender;
+    private final String type;
 
-    public Animal(String name, int age, String gender) {
+    Animal(String name, int age, String gender, final String type) {
         this.setName(name);
         this.setAge(age);
         this.setGender(gender);
+        this.type = type;
     }
 
     private void setName(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException(MessageConstants.INVALID_INPUT);
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException(Constants.INVALID_INPUT);
         }
-        this.name = name.trim();
+
+        this.name = name;
     }
 
     private void setAge(int age) {
-        if (age < 1) {
-            throw new IllegalArgumentException(MessageConstants.INVALID_INPUT);
+        if (age < 0) {
+            throw new IllegalArgumentException(Constants.INVALID_INPUT);
         }
+
         this.age = age;
     }
 
-    protected void setGender(String gender) {
-        if (gender == null || gender.trim().isEmpty() ||
-                (!MessageConstants.MALE.equalsIgnoreCase(gender.trim()) &&
-                        !MessageConstants.FEMALE.equalsIgnoreCase(gender.trim()))) {
-            throw new IllegalArgumentException(MessageConstants.INVALID_INPUT);
+    private void setGender(String gender) {
+        if (gender == null || gender.isEmpty() ||
+                (!Constants.MALE.equalsIgnoreCase(gender) &&
+                        !Constants.FEMALE.equalsIgnoreCase(gender))) {
+            throw new IllegalArgumentException(Constants.INVALID_INPUT);
         }
-        this.gender = gender.trim();
+
+        this.gender = gender;
     }
 
     public String getInfo() {
-        return String.format("%s%n%s %d %s%n%s", this.getClass().getSimpleName(), this.name, this.age, this.gender, this.produceSound());
+        return String.format(Constants.ANIMAL_INFO_STRING_FORMAT,
+                this.type, this.name, this.age, this.gender, this.produceSound());
     }
 
-    public String produceSound() {
-        return SOUND;
+    String produceSound() {
+        return Constants.ANIMAL_SOUND;
     }
 }

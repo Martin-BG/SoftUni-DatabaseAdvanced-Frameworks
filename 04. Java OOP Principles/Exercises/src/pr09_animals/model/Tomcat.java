@@ -1,25 +1,16 @@
 package pr09_animals.model;
 
-import pr09_animals.constants.MessageConstants;
+
+import pr09_animals.constants.Constants;
 
 public class Tomcat extends Cat {
 
-    private static final String SOUND = "Give me one million b***h";
-
-    public Tomcat(String name, int age, String gender) {
-        super(name, age, gender);
-    }
-
-    @Override
-    protected void setGender(String gender) {
-        if (!MessageConstants.MALE.equalsIgnoreCase(gender)) {
-            throw new IllegalArgumentException(MessageConstants.INVALID_INPUT);
-        }
-        super.setGender(gender);
+    public Tomcat(String name, int age, String gender, String type) {
+        super(name, age, gender, type);
     }
 
     @Override
     public String produceSound() {
-        return SOUND;
+        return Constants.TOMCAT_SOUND;
     }
 }
