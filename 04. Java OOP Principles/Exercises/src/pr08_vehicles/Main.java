@@ -22,15 +22,14 @@ public class Main {
             int commands = Integer.parseInt(reader.readLine());
             while (commands-- > 0) {
                 tokens = reader.readLine().trim().split("\\s+");
-                String command = tokens[0].toLowerCase();
-                String target = tokens[1].toLowerCase();
-                double value;
 
-                try {
-                    value = Double.parseDouble(tokens[2]);
-                } catch (Exception e) {
+                if (tokens.length != 3) {
                     continue;
                 }
+
+                String command = tokens[0].toLowerCase();
+                String target = tokens[1].toLowerCase();
+                double value = Double.parseDouble(tokens[2]);
 
                 Vehicle vehicle;
 
