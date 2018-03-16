@@ -1,14 +1,15 @@
 package pr05_say_hello_extend.model;
 
-public final class Bulgarian extends AbstractPerson {
+import pr05_say_hello_extend.contracts.Person;
+
+public final class Bulgarian extends BasePerson implements Person {
 
     public Bulgarian(String name) {
         super(name);
     }
 
     @Override
-    public void sayHello() {
-        System.out.println("Здравей");
+    public String sayHello() {
+        return "Здравей";
     }
-
 }

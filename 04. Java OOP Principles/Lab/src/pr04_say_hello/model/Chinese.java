@@ -16,8 +16,7 @@ public final class Chinese implements Person {
     }
 
     @Override
-    public void sayHello() {
-        System.out.println("Ni Hao");
+    public String sayHello() {
+        return "Djydjybydjy";
     }
-
 }

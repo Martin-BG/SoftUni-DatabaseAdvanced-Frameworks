@@ -6,7 +6,7 @@ import pr03_car_shop_extend.contracts.Sellable;
 import pr03_car_shop_extend.model.Audi;
 import pr03_car_shop_extend.model.Seat;
 
-public class CarShopExtendDemo {
+public class Main {
 
 
     public static void main(String[] args) {

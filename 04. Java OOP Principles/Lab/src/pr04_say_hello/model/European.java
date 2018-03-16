@@ -16,8 +16,7 @@ public final class European implements Person {
     }
 
     @Override
-    public void sayHello() {
-        System.out.println("Hello");
+    public String sayHello() {
+        return "Hello";
     }
-
 }

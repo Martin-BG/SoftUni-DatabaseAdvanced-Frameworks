@@ -3,7 +3,7 @@ package pr02_car_shop;
 import pr02_car_shop.contracts.Car;
 import pr02_car_shop.model.Seat;
 
-public class CarShopDemo {
+public class Main {
 
     public static void main(String[] args) {
         Car seat = new Seat("Leon", "gray", 110, "Spain");

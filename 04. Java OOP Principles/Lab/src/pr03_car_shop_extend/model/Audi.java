@@ -7,8 +7,8 @@ public final class Audi extends AbstractCar implements Rentable {
     private final int minRentDays;
     private final double pricePerDay;
 
-    public Audi(String model, String color, int horsePower, String countryProduced,
-                int minRentDays, double pricePerDay) {
+    public Audi(String model, String color, Integer horsePower, String countryProduced,
+                Integer minRentDays, Double pricePerDay) {
         super(model, color, horsePower, countryProduced);
         this.minRentDays = minRentDays;
         this.pricePerDay = pricePerDay;
@@ -20,7 +20,7 @@ public final class Audi extends AbstractCar implements Rentable {
     }
 
     @Override
-    public double getPricePerDay() {
+    public Double getPricePerDay() {
         return this.pricePerDay;
     }
 

@@ -9,7 +9,7 @@ public abstract class AbstractCar implements Car {
     private final int horsePower;
     private final String countryProduced;
 
-    public AbstractCar(String model, String color, int horsePower, String countryProduced) {
+    AbstractCar(String model, String color, Integer horsePower, String countryProduced) {
         this.model = model;
         this.color = color;
         this.horsePower = horsePower;
@@ -19,11 +19,6 @@ public abstract class AbstractCar implements Car {
     @Override
     public String getModel() {
         return this.model;
-    }
-
-    @Override
-    public String getCountryProduced() {
-        return this.countryProduced;
     }
 
     @Override
@@ -38,7 +33,7 @@ public abstract class AbstractCar implements Car {
 
     @Override
     public String toString() {
-        return String.format("This is %s produced in %s and has %d tires.",
-                this.getModel(), this.getCountryProduced(), TIRES);
+        return String.format("This is %s produced in %s and have %d tires.",
+                this.getModel(), this.countryProduced, TYRES);
     }
 }

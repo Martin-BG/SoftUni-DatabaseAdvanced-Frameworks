@@ -11,15 +11,11 @@ public class Seat implements Car, Serializable {
     private final int horsePower;
     private final String countryProduced;
 
-    public Seat(String model, String color, int horsePower, String countryProduced) {
+    public Seat(String model, String color, Integer horsePower, String countryProduced) {
         this.model = model;
         this.color = color;
         this.horsePower = horsePower;
         this.countryProduced = countryProduced;
-    }
-
-    public String getCountryProduced() {
-        return this.countryProduced;
     }
 
     @Override
@@ -39,7 +35,7 @@ public class Seat implements Car, Serializable {
 
     @Override
     public String toString() {
-        return String.format("This is %s produced in %s and has %d tires",
-                this.getModel(), this.getCountryProduced(), TIRES);
+        return String.format("This is %s produced in %s and have %d tires",
+                this.getModel(), this.countryProduced, TYRES);
     }
 }

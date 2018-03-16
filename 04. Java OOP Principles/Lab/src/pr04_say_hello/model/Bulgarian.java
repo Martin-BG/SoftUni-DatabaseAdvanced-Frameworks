@@ -16,8 +16,7 @@ public final class Bulgarian implements Person {
     }
 
     @Override
-    public void sayHello() {
-        System.out.println("Здравей");
+    public String sayHello() {
+        return "Здравей";
     }
-
 }

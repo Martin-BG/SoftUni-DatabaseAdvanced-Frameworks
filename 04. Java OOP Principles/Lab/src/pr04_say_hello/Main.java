@@ -8,7 +8,7 @@ import pr04_say_hello.model.European;
 import java.util.ArrayList;
 import java.util.List;
 
-class SeyHelloDemo {
+class Main {
 
     public static void main(String[] args) {
         List<Person> persons = new ArrayList<>();
@@ -18,11 +18,7 @@ class SeyHelloDemo {
         persons.add(new Chinese("Pesho"));
 
         for (Person person : persons) {
-            print(person);
+            System.out.println(person.sayHello());
         }
-    }
-
-    private static void print(Person person) {
-        person.sayHello();
     }
 }
