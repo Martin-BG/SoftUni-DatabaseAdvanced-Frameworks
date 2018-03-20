@@ -21,7 +21,7 @@ public class Pr01ConnectionAndProperties {
                     "SELECT " +
                             "CONCAT_WS(' ', e.first_name, e.last_name) AS 'full_name', e.salary\n" +
                     "FROM " +
-                            "`employees` AS e\n" +
+                            "soft_uni.`employees` AS e\n" +
                     "WHERE " +
                             "e.salary > ?\n" +
                     "ORDER BY " +
