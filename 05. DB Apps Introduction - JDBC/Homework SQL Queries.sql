@@ -37,7 +37,7 @@ CREATE TABLE `villains` (
 
 CREATE TABLE `minions_villains` (
   `minion_id`  INT UNSIGNED NOT NULL,
-  `villain_id` INT UNSIGNED NOT NULL,
+  villains`villain_id` INT UNSIGNED NOT NULL,
   CONSTRAINT `fk_minions_villains_minions` FOREIGN KEY (`minion_id`)
   REFERENCES `minions` (`id`),
   CONSTRAINT `fk_minions_villains_villains` FOREIGN KEY (`villain_id`)
@@ -71,7 +71,8 @@ VALUES
   ('Victor', 'super evil'),
   ('Koko', 'evil'),
   ('Juji', 'bad'),
-  ('Misho', 'good');
+  ('Misho', 'good'),
+  ('Empty', 'evil');
 
 INSERT INTO `minions_villains`
 VALUES
@@ -98,12 +99,65 @@ VALUES
 SELECT *
 FROM
   (SELECT
-     v.name,
-     COUNT(mv.minion_id) AS 'mn'
+     v.name AS 'villain',
+     COUNT(mv.minion_id) AS 'minions'
    FROM
      `villains` AS v
      JOIN `minions_villains` AS mv ON v.id = mv.villain_id
    GROUP BY v.id
-   ORDER BY `mn` DESC) AS vm
+   ORDER BY `minions` DESC) AS vm
 WHERE
-  vm.mn >= 3;
+  vm.minions >= 3;
+
+
+-- 3. Get Minion Names
+-- Write a program that prints on the console all minion 
+-- names and age for given villain id.
+
+SELECT 
+    v.name
+FROM
+    `villains` AS v
+WHERE
+    v.id = 1;
+
+SELECT 
+    m.name, m.age
+FROM
+    `villains` AS v
+        JOIN
+    `minions_villains` AS mv ON v.id = mv.villain_id
+        JOIN
+    `minions` AS m ON m.id = mv.minion_id
+WHERE
+    v.id = 1;
+
+
+-- 4. Add Minion
+-- Write a program that reads information about minion and its villain and adds
+-- it to the database. In case the town of the minion is not in the database insert
+-- it as well. In case the villain is not present in the database add him too with
+-- default evilness factor of “evil”. Finally set the new minion to be servant of
+-- the villain and villain. Print appropriate messages after each operation.
+-- *Bonus task: Make sure all operations are executed successfully. 
+-- In case of an error do not change the database.
+
+
+SELECT 
+    t.id
+FROM
+    `towns` AS t
+WHERE
+    t.name = 'Madrid';
+    
+INSERT INTO `towns`
+    (`name`, `country`)
+VALUES
+    ('Madrid', 'Spain');
+    
+SELECT
+    v.id
+FROM
+    `villains` AS v
+WHERE
+    v.name = "Gru";

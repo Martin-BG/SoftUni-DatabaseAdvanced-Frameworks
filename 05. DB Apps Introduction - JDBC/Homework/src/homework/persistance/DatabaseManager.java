@@ -59,7 +59,8 @@ public class DatabaseManager {
         }
     }
 
-    public List<Map<String, Object>> executePreparedStatements(String Host, Properties properties, String query, Map<ParameterType, Object> params) throws SQLException {
+    public List<Map<String, Object>> executePreparedStatement(
+            String Host, Properties properties, String query, Map<ParameterType, Object> params) throws SQLException {
         try (Connection connection = DriverManager.getConnection(Host, properties)) {
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
@@ -105,7 +106,46 @@ public class DatabaseManager {
                 }
 
             } catch (SQLException e) {
+                throw new SQLException(e.getCause());
+            }
+        }
+    }
 
+    public int executeUpdate(String Host, Properties properties, String query,
+                             Map<ParameterType, Object> params) throws SQLException {
+        try (Connection connection = DriverManager.getConnection(Host, properties)) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+                int index = 1;
+                for (Map.Entry<ParameterType, Object> kvp : params.entrySet()) {
+                    switch (kvp.getKey()) {
+                    case INTEGER:
+                        preparedStatement.setInt(index++, (Integer) kvp.getValue());
+                        break;
+                    case STRING:
+                        preparedStatement.setString(index++, (String) kvp.getValue());
+                        break;
+                    default:
+                        throw new SQLException(Messages.UNKNOWN_PARAMETER_TYPE);
+                    }
+
+                }
+
+                connection.setAutoCommit(false);
+
+                try {
+                    int affectedRows = preparedStatement.executeUpdate();
+
+                    connection.commit();
+
+                    return affectedRows;
+
+                } catch (SQLException e) {
+                    connection.rollback();
+                    throw new SQLException(e.getCause());
+                }
+
+            } catch (SQLException e) {
                 throw new SQLException(e.getCause());
             }
         }

@@ -19,6 +19,8 @@ public final class Messages {
     public static final String VILLAIN = "Villain: ";
     public static final String ENTER_VILLAIN_ID = "Enter villain id: ";
     public static final String GET_MINION_NAMES = "03. Get Minion Names";
+    public static final String MINION = "Minion: ";
+    public static final String TOWN_ADDED_TO_DATABASE = "Town %s was added to the database.";
 
     private Messages() {
 

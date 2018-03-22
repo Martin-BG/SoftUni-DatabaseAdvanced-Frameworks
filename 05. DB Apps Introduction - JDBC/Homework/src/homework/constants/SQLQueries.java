@@ -43,6 +43,23 @@ public final class SQLQueries {
                     "    v.id = ?",
             Tables.TABLE_VILLAINS, Tables.TABLE_MINIONS_VILLAINS, Tables.TABLE_MINIONS);
 
+    public static final String FIND_TOWN_ID_BY_NAME = String.format(
+            "" +
+                    "SELECT %n" +
+                    "    c.id%n" +
+                    "FROM%n" +
+                    "    `%s` AS c%n" +
+                    "WHERE%n" +
+                    "    c.name = ?",
+            Tables.TABLE_TOWNS);
+    public static final String INSERT_NEW_TOWN = String.format(
+            "" +
+                    "INSERT INTO `%s`%n" +
+                    "    (`name`, `country`)%n" +
+                    "VALUES%n" +
+                    "    (?, 'Unknown')",
+            Tables.TABLE_TOWNS);
+
     private SQLQueries() {
     }
 }

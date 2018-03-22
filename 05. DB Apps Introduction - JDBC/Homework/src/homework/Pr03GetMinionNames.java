@@ -31,7 +31,7 @@ public class Pr03GetMinionNames {
         parameters.put(ParameterType.INTEGER, villainId);
 
         try {
-            List<Map<String, Object>> result = DatabaseManager.getInstance().executePreparedStatements(
+            List<Map<String, Object>> result = DatabaseManager.getInstance().executePreparedStatement(
                     DBConnection.URL_DATABASE,
                     null,
                     SQLQueries.GET_VILLAIN_NAME_FROM_ID,
@@ -47,7 +47,7 @@ public class Pr03GetMinionNames {
                     .append(result.get(0).get(Tables.NAME))
                     .append(System.lineSeparator());
 
-            result = DatabaseManager.getInstance().executePreparedStatements(
+            result = DatabaseManager.getInstance().executePreparedStatement(
                     DBConnection.URL_DATABASE,
                     null,
                     SQLQueries.GET_MINIONS_FOR_VILLAIN,
