@@ -40,7 +40,8 @@ public final class SQLTestData {
                         "    ('Victor', 'super evil'),%n" +
                         "    ('Koko', 'evil'),%n" +
                         "    ('Juji', 'bad'),%n" +
-                        "    ('Misho', 'good')",
+                        "    ('Misho', 'good'),%n" +
+                        "    ('Empty', 'evil')",
                 Tables.TABLE_VILLAINS);
 
         INSERT_INTO_MINIONS_VILLAINS = String.format(

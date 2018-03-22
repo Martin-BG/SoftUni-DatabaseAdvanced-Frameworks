@@ -4,6 +4,7 @@ import homework.constants.DBConnection;
 import homework.constants.Messages;
 import homework.constants.SQLQueries;
 import homework.persistance.DatabaseManager;
+import homework.view.ResultsParser;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -21,26 +22,18 @@ public class Pr02GetVillainsNames {
     }
 
     private static String getVillainsWithAtLeastThreeMinions() {
-        StringBuilder sb = new StringBuilder();
         try {
             List<Map<String, Object>> result = DatabaseManager.getInstance().executeQuery(
                     DBConnection.URL_DATABASE,
                     null,
                     SQLQueries.SELECT_VILLAINS_WITH_MORE_THAN_THREE_MINIONS);
 
-            for (Map<String, Object> aResult : result) {
-                for (Object obj : aResult.values()) {
-                    sb.append(obj).append(Messages.SEPARATOR);
-                }
-
-                sb.append(System.lineSeparator());
-            }
+            return ResultsParser.getInstance()
+                    .parseResults(result, true, Messages.SEPARATOR, 0, -1);
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return Messages.ERROR_GETTING_VILLAINS_FROM_DATABASE;
+            return Messages.DATABASE_ERROR;
         }
-
-        return sb.toString().trim();
     }
 }

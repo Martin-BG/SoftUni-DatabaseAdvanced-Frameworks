@@ -8,15 +8,40 @@ public final class SQLQueries {
                     "    *%n" +
                     "FROM%n" +
                     "    (SELECT%n" +
-                    "        v.name, COUNT(mv.minion_id) AS 'mn'%n" +
+                    "        v.name AS 'villain', COUNT(mv.minion_id) AS 'minions'%n" +
                     "    FROM%n" +
                     "        `%s` AS v%n" +
                     "    JOIN `%s` AS mv ON v.id = mv.villain_id%n" +
                     "    GROUP BY v.id%n" +
-                    "    ORDER BY `mn` DESC) AS vm%n" +
+                    "    ORDER BY `minions` DESC) AS vm%n" +
                     "WHERE%n" +
-                    "    vm.mn >= 3",
+                    "    vm.minions >= 3",
             Tables.TABLE_VILLAINS, Tables.TABLE_MINIONS_VILLAINS);
+
+    public static final String GET_VILLAIN_NAME_FROM_ID = String.format(
+            "" +
+                    "SELECT %n" +
+                    "    v.name%n" +
+                    "FROM%n" +
+                    "    `%s` AS v%n" +
+                    "WHERE%n" +
+                    "    v.id = ?",
+            Tables.TABLE_VILLAINS
+    );
+
+    public static final String GET_MINIONS_FOR_VILLAIN = String.format(
+            "" +
+                    "SELECT %n" +
+                    "    m.name, m.age%n" +
+                    "FROM%n" +
+                    "    `%s` AS v%n" +
+                    "        JOIN%n" +
+                    "    `%s` AS mv ON v.id = mv.villain_id%n" +
+                    "        JOIN%n" +
+                    "    `%s` AS m ON m.id = mv.minion_id%n" +
+                    "WHERE%n" +
+                    "    v.id = ?",
+            Tables.TABLE_VILLAINS, Tables.TABLE_MINIONS_VILLAINS, Tables.TABLE_MINIONS);
 
     private SQLQueries() {
     }
