@@ -26,7 +26,7 @@ public final class SQLTestData {
                         "INSERT INTO `%s`%n" +
                         "    (`name`, `age`, `town_id`)%n" +
                         "VALUES%n" +
-                        "    ('Bob', 10, 1),%n" +
+                        "    ('Bobo', 10, 1),%n" +
                         "    ('Kevin', 13, 3),%n" +
                         "    ('Steward', 8, 2),%n" +
                         "    ('Jimmy', 16, 5),%n" +

@@ -37,7 +37,7 @@ CREATE TABLE `villains` (
 
 CREATE TABLE `minions_villains` (
   `minion_id`  INT UNSIGNED NOT NULL,
-  villains`villain_id` INT UNSIGNED NOT NULL,
+  `villain_id` INT UNSIGNED NOT NULL,
   CONSTRAINT `fk_minions_villains_minions` FOREIGN KEY (`minion_id`)
   REFERENCES `minions` (`id`),
   CONSTRAINT `fk_minions_villains_villains` FOREIGN KEY (`villain_id`)
@@ -58,7 +58,7 @@ VALUES
 INSERT INTO `minions`
 (`name`, `age`, `town_id`)
 VALUES
-  ('Bob', 10, 1),
+  ('Bobo', 10, 1),
   ('Kevin', 13, 3),
   ('Steward', 8, 2),
   ('Jimmy', 16, 5),

@@ -34,7 +34,7 @@ public class Pr04AddMinion {
              PreparedStatement getNewMinionIdStatement = connection.prepareStatement(getMinionIdSQL);
              PreparedStatement addMinionToVillainStatement = connection.prepareStatement(addMinionToVillainSQL)) {
 
-            //connection.setAutoCommit(false);
+            connection.setAutoCommit(false);
 
             try {
                 townStatement.setString(1, minionTown);
@@ -42,8 +42,6 @@ public class Pr04AddMinion {
                 ResultSet towns = townStatement.executeQuery();
 
                 if (!towns.isBeforeFirst()) {
-                    //add town to db
-
                     addTownStatement.setString(1, minionTown);
                     addTownStatement.executeUpdate();
 
@@ -58,8 +56,6 @@ public class Pr04AddMinion {
 
                 ResultSet villain = villainStatement.executeQuery();
                 if (!villain.isBeforeFirst()) {
-                    //add villain to db
-
                     addVillainStatement.setString(1, villainName);
                     addVillainStatement.executeUpdate();
 
@@ -71,31 +67,28 @@ public class Pr04AddMinion {
                 int villainID = villain.getInt(Constants.ID);
 
                 //add minion
-
                 addMinionStatement.setString(1, minionName);
                 addMinionStatement.setInt(2, minionAge);
                 addMinionStatement.setInt(3, townID);
                 addMinionStatement.executeUpdate();
 
                 //get minion ID
-
                 getNewMinionIdStatement.setString(1, minionName);
                 ResultSet minions = getNewMinionIdStatement.executeQuery();
                 minions.first();
                 int minionID = minions.getInt(Constants.ID);
 
                 //add record in villains_minions table
-
                 addMinionToVillainStatement.setInt(1, minionID);
                 addMinionToVillainStatement.setInt(2, villainID);
                 addMinionToVillainStatement.executeUpdate();
 
                 System.out.printf("Successfully added %s to be minion of %s", minionName, villainName);
 
-                // connection.commit();
-            } catch (Exception e) {
-                // connection.rollback();
-                throw new SQLException(e.getCause());
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new SQLException(e.toString(), e.getSQLState(), e.getCause());
             }
         } catch (SQLException e) {
             e.printStackTrace();
