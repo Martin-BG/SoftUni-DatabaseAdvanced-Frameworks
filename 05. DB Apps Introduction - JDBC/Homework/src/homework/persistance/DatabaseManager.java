@@ -67,7 +67,7 @@ public class DatabaseManager {
                 for (Map.Entry<ParameterType, Object> kvp : params.entrySet()) {
                     switch (kvp.getKey()) {
                     case INTEGER:
-                        preparedStatement.setInt(index++, (Integer) (kvp.getValue()));
+                        preparedStatement.setInt(index++, (Integer) kvp.getValue());
                         break;
                     case STRING:
                         preparedStatement.setString(index++, (String) kvp.getValue());

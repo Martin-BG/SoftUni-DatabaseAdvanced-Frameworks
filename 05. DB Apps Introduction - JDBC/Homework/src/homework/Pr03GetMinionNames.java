@@ -43,7 +43,9 @@ public class Pr03GetMinionNames {
 
             StringBuilder sb = new StringBuilder();
 
-            sb.append(Messages.VILLAIN).append(result.get(0).get(Tables.NAME)).append(System.lineSeparator());
+            sb.append(Messages.VILLAIN)
+                    .append(result.get(0).get(Tables.NAME))
+                    .append(System.lineSeparator());
 
             result = DatabaseManager.getInstance().executePreparedStatements(
                     DBConnection.URL_DATABASE,
@@ -52,21 +54,31 @@ public class Pr03GetMinionNames {
                     parameters);
 
             if (result.isEmpty()) {
+
                 sb.append(Messages.NO_MINIONS);
+
             } else {
+
                 int minion = 1;
+
                 for (Map<String, Object> row : result) {
+
                     sb.append(minion++).append(". ");
+
                     for (Object obj : row.values()) {
                         sb.append(obj).append(Messages.SEPARATOR);
                     }
+
                     sb.append(System.lineSeparator());
                 }
             }
 
             return sb.toString();
+
         } catch (SQLException e) {
+
             e.printStackTrace();
+
             return Messages.DATABASE_ERROR;
         }
     }
