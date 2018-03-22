@@ -28,6 +28,7 @@ public final class Constants {
     public static final String ENTER_VILLAIN_ID = "Enter villain id: ";
     public static final String DEFAULT_ENCODING = "UTF-8";
     public static final String TOKENS_SEPARATOR = "\\s+";
+    public static final String VILLAIN_ADDED = "Villain %s was added to the database.%n";
     private static final String JDBC = "jdbc";
     private static final String DRIVER = "mysql";
     private static final String HOST = "localhost";
@@ -35,6 +36,9 @@ public final class Constants {
     private static final String PARAMETERS = "useSSL=false";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
+    public static final String TOWN_ADDED = "Town %s was added to the database.%n";
+    public static final String ADDED_MINION_TO_VILLAIN = "Successfully added %s to be minion of %s";
+    public static final String NO_TOWN_NAMES_WERE_AFFECTED = "No town names were affected.";
 
     static {
         URL_HOST = String.format("%s:%s://%s:%s?user=%s&password=%s&%s",

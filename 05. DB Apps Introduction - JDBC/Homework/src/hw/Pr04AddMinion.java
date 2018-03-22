@@ -7,6 +7,15 @@ import java.util.Scanner;
 
 public class Pr04AddMinion {
 
+    private static final String TOWN_SQL = String.format("SELECT t.id FROM `%s` AS t WHERE t.name = ?", Constants.TABLE_TOWNS);
+    private static final String ADD_TOWN_SQL = String.format("INSERT INTO `%s` (`name`, `country`) VALUES (?, 'Unknown')", Constants.TABLE_TOWNS);
+    private static final String VILLAIN_SQL = String.format("SELECT * FROM `%s` AS v WHERE v.name = ?", Constants.TABLE_VILLAINS);
+    private static final String ADD_VILLAIN_SQL = String.format("INSERT INTO `%s` (`name`, `evilness_factor`) VALUES (?, 'evil')", Constants.TABLE_VILLAINS);
+    private static final String ADD_MINION_SQL = String.format("INSERT INTO `%s` (`name`, `age`, `town_id`) VALUES (?, ?, ?)", Constants.TABLE_MINIONS);
+    private static final String GET_MINION_ID_SQL = String.format("SELECT m.id FROM `%s` AS m WHERE m.name = ?", Constants.TABLE_MINIONS);
+    private static final String ADD_MINION_TO_VILLAIN_SQL = String.format("INSERT INTO `%s` (`minion_id`, `villain_id`) VALUES (?, ?)", Constants.TABLE_MINIONS_VILLAINS);
+
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in, Constants.DEFAULT_ENCODING);
@@ -17,22 +26,17 @@ public class Pr04AddMinion {
         String minionTown = tokens[3];
         String villainName = scanner.nextLine().split(Constants.TOKENS_SEPARATOR)[1];
 
-        String townSQL = String.format("SELECT t.id FROM `%s` AS t WHERE t.name = ?", Constants.TABLE_TOWNS);
-        String addTownSQL = String.format("INSERT INTO `%s` (`name`, `country`) VALUES (?, 'Unknown')", Constants.TABLE_TOWNS);
-        String villainSQL = String.format("SELECT * FROM `%s` AS v WHERE v.name = ?", Constants.TABLE_VILLAINS);
-        String addVillainSQL = String.format("INSERT INTO `%s` (`name`, `evilness_factor`) VALUES (?, 'evil')", Constants.TABLE_VILLAINS);
-        String addMinionSQL = String.format("INSERT INTO `%s` (`name`, `age`, `town_id`) VALUES (?, ?, ?)", Constants.TABLE_MINIONS);
-        String getMinionIdSQL = String.format("SELECT m.id FROM `%s` AS m WHERE m.name = ?", Constants.TABLE_MINIONS);
-        String addMinionToVillainSQL = String.format("INSERT INTO `%s` (`minion_id`, `villain_id`) VALUES (?, ?)", Constants.TABLE_MINIONS_VILLAINS);
+
+        StringBuilder sb = new StringBuilder();
 
         try (Connection connection = DriverManager.getConnection(Constants.URL_DATABASE);
-             PreparedStatement townStatement = connection.prepareStatement(townSQL);
-             PreparedStatement addTownStatement = connection.prepareStatement(addTownSQL);
-             PreparedStatement villainStatement = connection.prepareStatement(villainSQL);
-             PreparedStatement addVillainStatement = connection.prepareStatement(addVillainSQL);
-             PreparedStatement addMinionStatement = connection.prepareStatement(addMinionSQL);
-             PreparedStatement getNewMinionIdStatement = connection.prepareStatement(getMinionIdSQL);
-             PreparedStatement addMinionToVillainStatement = connection.prepareStatement(addMinionToVillainSQL)) {
+             PreparedStatement townStatement = connection.prepareStatement(TOWN_SQL);
+             PreparedStatement addTownStatement = connection.prepareStatement(ADD_TOWN_SQL);
+             PreparedStatement villainStatement = connection.prepareStatement(VILLAIN_SQL);
+             PreparedStatement addVillainStatement = connection.prepareStatement(ADD_VILLAIN_SQL);
+             PreparedStatement addMinionStatement = connection.prepareStatement(ADD_MINION_SQL);
+             PreparedStatement getNewMinionIdStatement = connection.prepareStatement(GET_MINION_ID_SQL);
+             PreparedStatement addMinionToVillainStatement = connection.prepareStatement(ADD_MINION_TO_VILLAIN_SQL)) {
 
             connection.setAutoCommit(false);
 
@@ -45,7 +49,7 @@ public class Pr04AddMinion {
                     addTownStatement.setString(1, minionTown);
                     addTownStatement.executeUpdate();
 
-                    System.out.printf("Town %s was added to the database.%n", minionTown);
+                    sb.append(String.format(Constants.TOWN_ADDED, minionTown));
                 }
 
                 towns = townStatement.executeQuery();
@@ -59,7 +63,7 @@ public class Pr04AddMinion {
                     addVillainStatement.setString(1, villainName);
                     addVillainStatement.executeUpdate();
 
-                    System.out.printf("Villain %s was added to the database.%n", villainName);
+                    sb.append(String.format(Constants.VILLAIN_ADDED, villainName));
                 }
 
                 villain = villainStatement.executeQuery();
@@ -83,7 +87,7 @@ public class Pr04AddMinion {
                 addMinionToVillainStatement.setInt(2, villainID);
                 addMinionToVillainStatement.executeUpdate();
 
-                System.out.printf("Successfully added %s to be minion of %s", minionName, villainName);
+                sb.append(String.format(Constants.ADDED_MINION_TO_VILLAIN, minionName, villainName));
 
                 connection.commit();
             } catch (SQLException e) {
@@ -93,5 +97,7 @@ public class Pr04AddMinion {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        System.out.println(sb.toString().trim());
     }
 }
