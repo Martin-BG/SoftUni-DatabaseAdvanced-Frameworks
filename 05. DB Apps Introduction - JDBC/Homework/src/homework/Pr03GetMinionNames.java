@@ -1,85 +1,96 @@
 package homework;
 
-import homework.constants.*;
-import homework.persistance.DatabaseManager;
-import homework.persistance.ParameterType;
+import homework.constants.Constants;
 
-import java.sql.SQLException;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.*;
 import java.util.Scanner;
 
 public class Pr03GetMinionNames {
 
+    private static final String GET_VILLAIN_NAME_FROM_ID = String.format(
+            "" +
+                    "SELECT %n" +
+                    "    v.name%n" +
+                    "FROM%n" +
+                    "    `%s` AS v%n" +
+                    "WHERE%n" +
+                    "    v.id = ?",
+            Constants.TABLE_VILLAINS
+    );
+
+    private static final String GET_MINIONS_FOR_VILLAIN = String.format(
+            "" +
+                    "SELECT %n" +
+                    "    m.name, m.age%n" +
+                    "FROM%n" +
+                    "    `%s` AS v%n" +
+                    "        JOIN%n" +
+                    "    `%s` AS mv ON v.id = mv.villain_id%n" +
+                    "        JOIN%n" +
+                    "    `%s` AS m ON m.id = mv.minion_id%n" +
+                    "WHERE%n" +
+                    "    v.id = ?",
+            Constants.TABLE_VILLAINS, Constants.TABLE_MINIONS_VILLAINS, Constants.TABLE_MINIONS);
+
     public static void main(String[] args) {
 
-        System.out.println(Messages.GET_MINION_NAMES);
+        try {
+            System.out.println(getAllMinionsForOneVillain());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        System.out.println(getAllMinionsForOneVillain());
-
-        System.out.println();
     }
 
-    private static String getAllMinionsForOneVillain() {
+    private static String getAllMinionsForOneVillain() throws SQLException {
 
-        System.out.print(Messages.ENTER_VILLAIN_ID);
-        Scanner scanner = new Scanner(System.in, Globals.DEFAULT_ENCODING);
+        System.out.print(Constants.ENTER_VILLAIN_ID);
+        Scanner scanner = new Scanner(System.in, Constants.DEFAULT_ENCODING);
         int villainId = Integer.parseInt(scanner.nextLine());
 
-        Map<ParameterType, Object> parameters = new LinkedHashMap<>();
-        parameters.put(ParameterType.INTEGER, villainId);
+        try (Connection connection = DriverManager.getConnection(Constants.URL_DATABASE)) {
 
-        try {
-            List<Map<String, Object>> result = DatabaseManager.getInstance().executePreparedStatement(
-                    DBConnection.URL_DATABASE,
-                    null,
-                    SQLQueries.GET_VILLAIN_NAME_FROM_ID,
-                    parameters);
+            try (PreparedStatement psVillain = connection.prepareStatement(GET_VILLAIN_NAME_FROM_ID);
+                 PreparedStatement psMinions = connection.prepareStatement(GET_MINIONS_FOR_VILLAIN)) {
 
-            if (result.isEmpty()) {
-                return String.format(Messages.INVALID_VILLAIN_ID, villainId);
-            }
+                psVillain.setInt(1, villainId);
+                psMinions.setInt(1, villainId);
 
-            StringBuilder sb = new StringBuilder();
+                connection.setAutoCommit(false);
 
-            sb.append(Messages.VILLAIN)
-                    .append(result.get(0).get(Tables.NAME))
-                    .append(System.lineSeparator());
+                try (ResultSet rsVillain = psVillain.executeQuery();
+                     ResultSet rsMinion = psMinions.executeQuery()) {
 
-            result = DatabaseManager.getInstance().executePreparedStatement(
-                    DBConnection.URL_DATABASE,
-                    null,
-                    SQLQueries.GET_MINIONS_FOR_VILLAIN,
-                    parameters);
+                    connection.commit();
 
-            if (result.isEmpty()) {
-
-                sb.append(Messages.NO_MINIONS);
-
-            } else {
-
-                int minion = 1;
-
-                for (Map<String, Object> row : result) {
-
-                    sb.append(minion++).append(". ");
-
-                    for (Object obj : row.values()) {
-                        sb.append(obj).append(Messages.SEPARATOR);
+                    if (!rsVillain.isBeforeFirst()) {
+                        return String.format(Constants.INVALID_VILLAIN_ID, villainId);
                     }
 
-                    sb.append(System.lineSeparator());
+                    StringBuilder sb = new StringBuilder();
+
+                    rsVillain.first();
+                    String villainName = rsVillain.getString(Constants.NAME);
+                    sb.append(Constants.VILLAIN).append(villainName).append(System.lineSeparator());
+
+                    if (!rsMinion.isBeforeFirst()) {
+                        sb.append(Constants.NO_MINIONS);
+                    } else {
+                        int index = 1;
+                        while (rsMinion.next()) {
+                            sb.append(index++).append(". ")
+                                    .append(rsMinion.getString(Constants.NAME))
+                                    .append(" ")
+                                    .append(rsMinion.getString(Constants.AGE))
+                                    .append(System.lineSeparator());
+                        }
+                    }
+                    return sb.toString().trim();
+                } catch (SQLException e) {
+                    connection.rollback();
+                    throw new SQLException(e.getCause());
                 }
             }
-
-            return sb.toString();
-
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-
-            return Messages.DATABASE_ERROR;
         }
     }
 }

@@ -1,6 +1,6 @@
-package homework.persistance;
+package too_complex.persistance;
 
-import homework.constants.Messages;
+import too_complex.constants.Messages;
 
 import java.sql.*;
 import java.util.*;

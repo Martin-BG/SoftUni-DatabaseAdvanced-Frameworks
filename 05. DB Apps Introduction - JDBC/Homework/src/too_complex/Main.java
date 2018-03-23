@@ -1,4 +1,4 @@
-package homework;
+package too_complex;
 
 public class Main {
 

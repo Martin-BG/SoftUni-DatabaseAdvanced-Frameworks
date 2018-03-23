@@ -1,6 +1,4 @@
-package hw.constants;
-
-import homework.constants.Tables;
+package too_complex.constants;
 
 public final class SQLTestData {
     public static final String INSERT_INTO_TOWNS;

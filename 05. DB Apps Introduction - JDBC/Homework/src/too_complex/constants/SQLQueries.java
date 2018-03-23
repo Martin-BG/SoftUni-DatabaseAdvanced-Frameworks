@@ -1,4 +1,4 @@
-package homework.constants;
+package too_complex.constants;
 
 public final class SQLQueries {
 
