@@ -1,34 +1,27 @@
-package hw;
+package homework;
 
-import hw.constants.Constants;
+import homework.constants.Constants;
 
 import java.sql.*;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Pr08IncreaseMinionsAge {
 
+    private static final String SOME_MINIONS_SQL = "SELECT * FROM minions WHERE id IN ?";
+    private static final String ALL_MINIONS_SQL = "SELECT * FROM minions";
+
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-        String[] inputTokens = sc.nextLine().split(Constants.TOKENS_SEPARATOR);
-
-        StringBuilder ids = new StringBuilder();
-        ids.append("(");
-        for (String inputToken : inputTokens) {
-            ids.append(inputToken).append(", ");
-        }
-        ids.delete(ids.lastIndexOf(", "), ids.length());
-        ids.append(")");
-
-        String minionsSQL = "SELECT * FROM minions WHERE id IN " + ids.toString();
-        String allMinionsSQL = "SELECT * FROM minions";
+        Scanner sc = new Scanner(System.in, Constants.DEFAULT_ENCODING);
+        String ids = Arrays.toString(sc.nextLine().split(Constants.INPUT_SEPARATOR))
+                .replaceAll("\\[", "(").replaceAll("]", ")");
 
         try (Connection connection = DriverManager.getConnection(Constants.URL_DATABASE);
              Statement minionsStatement = connection.createStatement(
                      ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
-             Statement allMinionsStatement = connection.createStatement()) {
-
-            ResultSet minions = minionsStatement.executeQuery(minionsSQL);
+             PreparedStatement allMinionsStatement = connection.prepareStatement(SOME_MINIONS_SQL);
+             ResultSet minions = minionsStatement.executeQuery(SOME_MINIONS_SQL)) {
 
             while (minions.next()) {
                 String name = toTitleCase(minions.getString(Constants.NAME));
@@ -38,18 +31,19 @@ public class Pr08IncreaseMinionsAge {
                 minions.updateRow();
             }
 
-            ResultSet allMinions = allMinionsStatement.executeQuery(allMinionsSQL);
-
-            while (allMinions.next()) {
-                System.out.println(allMinions.getInt(Constants.ID) + Constants.SEPARATOR
-                        + allMinions.getString(Constants.NAME) + Constants.SEPARATOR
-                        + allMinions.getInt(Constants.AGE));
+            allMinionsStatement.setString(1, ids);
+            try (ResultSet allMinions = allMinionsStatement.executeQuery(ALL_MINIONS_SQL)) {
+                while (allMinions.next()) {
+                    System.out.println(allMinions.getInt(Constants.ID) + Constants.OUTPUT_SEPARATOR
+                            + allMinions.getString(Constants.NAME) + Constants.OUTPUT_SEPARATOR
+                            + allMinions.getInt(Constants.AGE));
+                }
             }
-
         } catch (SQLException se) {
             se.printStackTrace();
         }
     }
+
 
     private static String toTitleCase(String input) {
         StringBuilder titleCase = new StringBuilder();

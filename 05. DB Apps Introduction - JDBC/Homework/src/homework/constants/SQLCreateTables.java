@@ -1,5 +1,7 @@
 package homework.constants;
 
+import too_complex.constants.Tables;
+
 public final class SQLCreateTables {
 
     public static final String DROP_DATABASE;

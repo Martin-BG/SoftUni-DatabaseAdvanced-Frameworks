@@ -20,11 +20,11 @@ public class Pr04AddMinion {
 
         Scanner scanner = new Scanner(System.in, Constants.DEFAULT_ENCODING);
 
-        String[] tokens = scanner.nextLine().split(Constants.TOKENS_SEPARATOR);
+        String[] tokens = scanner.nextLine().split(Constants.INPUT_SEPARATOR);
         String minionName = tokens[1];
         int minionAge = Integer.parseInt(tokens[2]);
         String minionTown = tokens[3];
-        String villainName = scanner.nextLine().split(Constants.TOKENS_SEPARATOR)[1];
+        String villainName = scanner.nextLine().split(Constants.INPUT_SEPARATOR)[1];
 
 
         StringBuilder sb = new StringBuilder();

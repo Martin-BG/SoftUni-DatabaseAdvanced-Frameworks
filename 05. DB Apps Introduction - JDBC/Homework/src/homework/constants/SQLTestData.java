@@ -1,5 +1,7 @@
 package homework.constants;
 
+import too_complex.constants.Tables;
+
 public final class SQLTestData {
     public static final String INSERT_INTO_TOWNS;
     public static final String INSERT_INTO_MINIONS;

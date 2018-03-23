@@ -33,24 +33,10 @@ public class Pr02GetVillainsNames {
     }
 
     private static String getVillainsWithAtLeastThreeMinions() {
-        try {
-            List<Map<String, Object>> result = executeQuery(
-                    Constants.URL_DATABASE,
-                    SELECT_VILLAINS_WITH_MORE_THAN_THREE_MINIONS);
 
-            return ResultsParser.getInstance()
-                    .parseResults(result, true, Constants.SEPARATOR, 0, -1);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return Constants.DATABASE_ERROR;
-        }
-    }
-
-    private static List<Map<String, Object>> executeQuery(String Host, String query) throws SQLException {
-        try (Connection connection = DriverManager.getConnection(Host);
+        try (Connection connection = DriverManager.getConnection(Constants.URL_DATABASE);
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
+             ResultSet resultSet = statement.executeQuery(SELECT_VILLAINS_WITH_MORE_THAN_THREE_MINIONS)) {
 
             List<Map<String, Object>> resultList = new ArrayList<>();
 
@@ -67,7 +53,12 @@ public class Pr02GetVillainsNames {
                 resultList.add(row);
             }
 
-            return resultList;
+            return ResultsParser.getInstance()
+                    .parseResults(resultList, true, Constants.OUTPUT_SEPARATOR, 0, -1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Constants.DATABASE_ERROR;
         }
     }
 }

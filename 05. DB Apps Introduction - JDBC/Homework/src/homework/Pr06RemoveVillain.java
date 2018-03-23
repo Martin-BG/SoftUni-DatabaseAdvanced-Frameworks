@@ -1,6 +1,6 @@
-package hw;
+package homework;
 
-import hw.constants.Constants;
+import homework.constants.Constants;
 
 import java.sql.*;
 import java.util.Scanner;
