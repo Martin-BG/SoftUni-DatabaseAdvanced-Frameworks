@@ -1,10 +1,12 @@
 package entities;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 
-@Entity @Table(name = "students")
+@Entity
+@Table(name = "students")
 public class Student {
     private int id;
 
@@ -12,11 +14,11 @@ public class Student {
 
     private Date birthDate;
 
-    public Student(){
+    public Student() {
 
     }
 
-    public Student(String name, Date birthDate){
+    public Student(String name, Date birthDate) {
         this.name = name;
         this.birthDate = birthDate;
     }
