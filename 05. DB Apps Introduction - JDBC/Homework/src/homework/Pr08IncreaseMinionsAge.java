@@ -20,7 +20,7 @@ public class Pr08IncreaseMinionsAge {
         try (Connection connection = DriverManager.getConnection(Constants.URL_DATABASE);
              Statement minionsStatement = connection.createStatement(
                      ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
-             PreparedStatement allMinionsStatement = connection.prepareStatement(SOME_MINIONS_SQL);
+             PreparedStatement allMinionsStatement = connection.prepareStatement(ALL_MINIONS_SQL);
              ResultSet minions = minionsStatement.executeQuery(SOME_MINIONS_SQL)) {
 
             while (minions.next()) {

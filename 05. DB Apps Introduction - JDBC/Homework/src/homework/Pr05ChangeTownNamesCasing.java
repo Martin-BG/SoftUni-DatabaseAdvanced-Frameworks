@@ -9,7 +9,9 @@ import java.util.Scanner;
 
 public class Pr05ChangeTownNamesCasing {
 
-    private static final String TOWNS_TO_UPPER_CASE = "SELECT id, name FROM towns WHERE country = ?";
+    private static final String TOWN_NAMES_WERE_AFFECTED = " town names were affected.";
+
+    private static final String TOWNS_TO_UPPER_CASE = "SELECT t.id, t.name FROM `towns` AS t WHERE t.country = ?";
 
     public static void main(String[] args) {
 
@@ -22,26 +24,27 @@ public class Pr05ChangeTownNamesCasing {
 
             townsFromCountryStatement.setString(1, countryName);
 
-            ResultSet towns = townsFromCountryStatement.executeQuery();
-            if (!towns.isBeforeFirst()) {
-                System.out.println(Constants.NO_TOWN_NAMES_WERE_AFFECTED);
-                return;
-            }
+            try (ResultSet towns = townsFromCountryStatement.executeQuery()) {
+                if (!towns.isBeforeFirst()) {
+                    System.out.println(Constants.NO_TOWN_NAMES_WERE_AFFECTED);
+                    return;
+                }
 
-            while (towns.next()) {
-                String town = towns.getString(Constants.NAME);
-                towns.updateString(Constants.NAME, town.toUpperCase());
-                towns.updateRow();
-            }
+                while (towns.next()) {
+                    String town = towns.getString(Constants.NAME);
+                    towns.updateString(Constants.NAME, town.toUpperCase());
+                    towns.updateRow();
+                }
 
-            List<String> townsUppercase = new ArrayList<>();
+                List<String> townsUppercase = new ArrayList<>();
 
-            towns.beforeFirst();
-            while (towns.next()) {
-                townsUppercase.add(towns.getString(Constants.NAME));
+                towns.beforeFirst();
+                while (towns.next()) {
+                    townsUppercase.add(towns.getString(Constants.NAME));
+                }
+                System.out.println(townsUppercase.size() + TOWN_NAMES_WERE_AFFECTED);
+                System.out.println(townsUppercase);
             }
-            System.out.println(townsUppercase.size() + " town names were affected.");
-            System.out.println(townsUppercase);
         } catch (SQLException se) {
             se.printStackTrace();
         }

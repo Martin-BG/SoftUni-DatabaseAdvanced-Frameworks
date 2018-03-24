@@ -11,9 +11,9 @@ public class Pr09IncreaseAgeStoredProcedure {
     public static void main(String[] args) {
 
         String getOlderSQL = "{CALL usp_get_older (?)}";
-        String minionSQL = "SELECT name, age FROM minions WHERE id = ?";
+        String minionSQL = "SELECT m.name, m.age FROM `minions` AS m WHERE id = ?";
 
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in, Constants.DEFAULT_ENCODING);
         int id = sc.nextInt();
 
         try (Connection connection = DriverManager.getConnection(Constants.URL_DATABASE);
@@ -24,10 +24,11 @@ public class Pr09IncreaseAgeStoredProcedure {
             getOlderStoredProcedure.execute();
 
             minionsStatement.setInt(1, id);
-            ResultSet minions = minionsStatement.executeQuery();
-
-            minions.first();
-            System.out.println(minions.getString(Constants.NAME) + " " + minions.getInt(Constants.AGE));
+            try (ResultSet minions = minionsStatement.executeQuery()) {
+                minions.first();
+                System.out.println(minions.getString(Constants.NAME) +
+                        Constants.OUTPUT_SEPARATOR + minions.getInt(Constants.AGE));
+            }
 
         } catch (SQLException se) {
             se.printStackTrace();
