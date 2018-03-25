@@ -12,7 +12,7 @@ public class Pr02ContainsEmployee {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("soft_uni");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Scanner scanner = new Scanner(System.in, "UTF8");
+        Scanner scanner = new Scanner(System.in, "UTF-8");
         System.out.print("Enter employee's first and last names: ");
         String[] employeeNames = scanner.nextLine().trim().split("\\s+");
 

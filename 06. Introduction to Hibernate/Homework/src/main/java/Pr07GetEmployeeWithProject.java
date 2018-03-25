@@ -13,7 +13,7 @@ public class Pr07GetEmployeeWithProject {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("soft_uni");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Scanner scanner = new Scanner(System.in, "UTF8");
+        Scanner scanner = new Scanner(System.in, "UTF-8");
         System.out.print("Enter employee id: ");
         Integer id = Integer.valueOf(scanner.nextLine());
 
