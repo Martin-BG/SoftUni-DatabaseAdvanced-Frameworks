@@ -1,7 +1,5 @@
 package entities;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -67,7 +65,6 @@ public class Course {
     }
 
     @Column(name = "credits")
-    @ColumnDefault("0")
     public int getCredits() {
         return this.credits;
     }

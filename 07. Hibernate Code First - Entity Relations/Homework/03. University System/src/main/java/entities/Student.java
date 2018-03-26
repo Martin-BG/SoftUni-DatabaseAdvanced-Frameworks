@@ -1,7 +1,5 @@
 package entities;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -14,7 +12,6 @@ public class Student extends Person {
     private Set<Course> courses;
 
     @Column(name = "average_grade")
-    @ColumnDefault("0.0")
     public double getAverageGrade() {
         return this.averageGrade;
     }
@@ -24,7 +21,6 @@ public class Student extends Person {
     }
 
     @Column(name = "attendance")
-    @ColumnDefault("0")
     public int getAttendance() {
         return this.attendance;
     }
