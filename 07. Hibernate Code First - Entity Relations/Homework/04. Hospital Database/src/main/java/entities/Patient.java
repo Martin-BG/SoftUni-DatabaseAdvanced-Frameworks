@@ -32,13 +32,19 @@ public class Patient {
     @Column(name = "medical_insurance")
     private boolean hasMedicalInsurance;
 
-    @OneToMany
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<Visitation> visitations;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            joinColumns = @JoinColumn(referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
     private Set<Diagnose> diagnoses;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            joinColumns = @JoinColumn(referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
     private Set<Medicament> prescriptions;
 
     public long getId() {

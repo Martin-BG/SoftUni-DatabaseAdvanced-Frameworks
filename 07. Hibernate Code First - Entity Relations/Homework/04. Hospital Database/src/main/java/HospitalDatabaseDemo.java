@@ -15,17 +15,21 @@ public class HospitalDatabaseDemo {
 
         Medicament medicament = new Medicament();
         medicament.setName("Drug");
+        medicament.setPatients(new HashSet<>());
 
         Medicament medicament2 = new Medicament();
         medicament2.setName("Stronger drug");
+        medicament2.setPatients(new HashSet<>());
 
         Diagnose diagnose = new Diagnose();
         diagnose.setName("Mindless");
         diagnose.setComments("Just joking :)");
+        diagnose.setPatients(new HashSet<>());
 
         Diagnose diagnose2 = new Diagnose();
         diagnose2.setName("Diagnose 2");
         diagnose2.setComments("hohoho");
+        diagnose2.setPatients(new HashSet<>());
 
         Visitation visitation = new Visitation();
         visitation.setDate(new Date());
@@ -80,19 +84,26 @@ public class HospitalDatabaseDemo {
             add(visitation3);
         }});
 
+        diagnose.getPatients().add(patient);
+        diagnose.getPatients().add(patient2);
+        diagnose2.getPatients().add(patient);
+        diagnose2.getPatients().add(patient2);
+
+        medicament.getPatients().add(patient);
+        medicament.getPatients().add(patient2);
+        medicament2.getPatients().add(patient);
+        medicament2.getPatients().add(patient2);
+
+        visitation.setPatient(patient);
+        visitation2.setPatient(patient);
+        visitation3.setPatient(patient2);
+
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hospital");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
             entityManager.getTransaction().begin();
 
-            entityManager.persist(medicament);
-            entityManager.persist(medicament2);
-            entityManager.persist(diagnose);
-            entityManager.persist(diagnose2);
-            entityManager.persist(visitation);
-            entityManager.persist(visitation2);
-            entityManager.persist(visitation3);
             entityManager.persist(patient);
             entityManager.persist(patient2);
 

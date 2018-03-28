@@ -16,6 +16,18 @@ public class Visitation {
     @Column(length = 100)
     private String comments;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(referencedColumnName = "id")
+    private Patient patient;
+
+    public Patient getPatient() {
+        return this.patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
     public long getId() {
         return this.id;
     }
