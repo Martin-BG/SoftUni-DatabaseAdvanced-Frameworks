@@ -8,6 +8,7 @@
 
 ### IntelliJ IDEA ###
 **/out/
+**/target/
 **/.idea/*
 !**/.idea/misc.xml
 !**/.idea/modules.xml
