@@ -14,5 +14,5 @@ public class ResultPrediction implements Serializable {
     private long id;
 
     @Enumerated(EnumType.STRING)
-    private Prediction prediction;
+    private PredictionEnum prediction;
 }

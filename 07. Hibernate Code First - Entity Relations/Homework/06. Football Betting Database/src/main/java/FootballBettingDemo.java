@@ -12,9 +12,6 @@ public class FootballBettingDemo {
         try {
             entityManager.getTransaction().begin();
 
-//            entityManager.persist(user1);
-//            entityManager.persist(user2);
-
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
