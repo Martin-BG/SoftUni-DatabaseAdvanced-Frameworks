@@ -2,8 +2,10 @@ package app;
 
 import app.models.Account;
 import app.models.User;
-import app.services.account.AccountServiceImpl;
-import app.services.user.UserServiceImpl;
+import app.repositories.AccountRepository;
+import app.repositories.UserRepository;
+import app.services.account.AccountService;
+import app.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,18 +13,26 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.List;
 
 @SpringBootApplication
 @Component
 public class ConsoleRunner implements CommandLineRunner {
 
-    private final UserServiceImpl userService;
-    private final AccountServiceImpl accountService;
+    private final UserService userService;
+    private final AccountService accountService;
+    private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
 
     @Autowired
-    public ConsoleRunner(final UserServiceImpl userService, final AccountServiceImpl accountService) {
+    public ConsoleRunner(final UserService userService,
+                         final AccountService accountService,
+                         final UserRepository userRepository,
+                         final AccountRepository accountRepository) {
         this.userService = userService;
         this.accountService = accountService;
+        this.userRepository = userRepository;
+        this.accountRepository = accountRepository;
     }
 
     @Override
@@ -42,5 +52,11 @@ public class ConsoleRunner implements CommandLineRunner {
 
         this.accountService.withdrawMoney(BigDecimal.valueOf(20000), user.getId());
         this.accountService.transferMoney(BigDecimal.valueOf(10000), user.getId());
+
+        User example = this.userRepository.findByUserName("example");
+        System.out.println(example);
+
+        List<Account> all = this.accountRepository.findAll();
+        System.out.println(all.toString());
     }
 }
