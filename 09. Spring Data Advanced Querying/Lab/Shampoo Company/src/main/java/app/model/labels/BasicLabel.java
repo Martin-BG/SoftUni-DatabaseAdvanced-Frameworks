@@ -3,10 +3,11 @@ package app.model.labels;
 import app.model.shampoos.BasicShampoo;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "labels")
-public class BasicLabel implements Label {
+public class BasicLabel implements Label, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

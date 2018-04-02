@@ -5,13 +5,14 @@ import app.model.ingredients.BasicIngredient;
 import app.model.labels.BasicLabel;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "shampoos")
-public class BasicShampoo implements Shampoo {
+public class BasicShampoo implements Shampoo, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private long id;
