@@ -1,6 +1,13 @@
 package user.models.entities;
 
+import org.hibernate.validator.constraints.Length;
+import user.annotations.Password;
+
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -41,7 +48,7 @@ public class User {
     }
 
     @Column(nullable = false, unique = true)
-    // TODO - 4-30 symbols validation
+    @Length(min = 4, max = 30, message = "Username length should be between 4 and 30 symbols")
     public String getUserName() {
         return this.userName;
     }
@@ -51,7 +58,13 @@ public class User {
     }
 
     @Column(nullable = false)
-    // TODO - length and complexity validation
+    @Password(minLength = 6,
+            maxLength = 50,
+            containsDigit = true,
+            containsLowerCase = true,
+            containsUpperCase = true,
+            containsSpecialSymbols = true,
+            message = "Invalid password")
     public String getPassword() {
         return this.password;
     }
@@ -61,7 +74,8 @@ public class User {
     }
 
     @Column(nullable = false, unique = true)
-    // TODO - format validation
+    @Pattern(regexp = "^[a-zA-Z0-9]+[-_.]*[a-zA-Z0-9]+@[a-zA-Z0-9]+[-_.]*[a-zA-Z0-9](\\.[a-zA-Z0-9]+[-_.]*[a-zA-Z0-9]+)+$",
+            message = "Invalid email address")
     public String getEmail() {
         return this.email;
     }
@@ -71,7 +85,7 @@ public class User {
     }
 
     @Lob
-    // TODO - type (and size) check
+    @Size(max = 1024 * 1024)
     public byte[] getProfilePicture() {
         return this.profilePicture;
     }
@@ -96,7 +110,8 @@ public class User {
         this.lastTimeLoggedIn = lastTimeLoggedIn;
     }
 
-    // TODO - 1-120 range validation
+    @Min(value = 1, message = "Age cannot be less than 1")
+    @Max(value = 120, message = "Age cannot be more than 120")
     public Integer getAge() {
         return this.age;
     }
