@@ -8,10 +8,10 @@ import java.util.Set;
 @Table(name = "albums")
 public class Album {
 
-    private long id;
+    private Long id;
     private String name;
     private String backgroundColor;
-    private boolean isPublic;
+    private Boolean isPublic;
     private Set<Picture> pictures;
     private User owner;
 
@@ -20,11 +20,11 @@ public class Album {
     }
 
     @Id
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(final long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -44,11 +44,11 @@ public class Album {
         this.backgroundColor = backgroundColor;
     }
 
-    public boolean isPublic() {
+    public Boolean isPublic() {
         return this.isPublic;
     }
 
-    public void setPublic(final boolean aPublic) {
+    public void setPublic(final Boolean aPublic) {
         isPublic = aPublic;
     }
 

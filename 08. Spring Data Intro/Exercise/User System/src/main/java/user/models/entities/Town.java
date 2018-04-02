@@ -8,7 +8,7 @@ import java.util.Set;
 @Table(name = "towns")
 public class Town {
 
-    private long id;
+    private Long id;
     private String name;
     private Country country;
     private Set<User> born;
@@ -20,11 +20,11 @@ public class Town {
     }
 
     @Id
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(final long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 

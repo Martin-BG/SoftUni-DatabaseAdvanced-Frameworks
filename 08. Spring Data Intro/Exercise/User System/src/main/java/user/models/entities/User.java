@@ -9,15 +9,15 @@ import java.util.Set;
 @Table(name = "users")
 public class User {
 
-    private long id;
+    private Long id;
     private String userName;
     private String password;
     private String email;
     private byte[] profilePicture;
     private Date registeredOn;
     private Date lastTimeLoggedIn;
-    private int age;
-    private boolean isDeleted;
+    private Integer age;
+    private Boolean isDeleted;
     private Town bornTown;
     private Town currentlyLiving;
     private String firstName;
@@ -31,11 +31,11 @@ public class User {
     }
 
     @Id
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(final long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -96,19 +96,19 @@ public class User {
     }
 
     // TODO - 1-120 range validation
-    public int getAge() {
+    public Integer getAge() {
         return this.age;
     }
 
-    public void setAge(final int age) {
+    public void setAge(final Integer age) {
         this.age = age;
     }
 
-    public boolean isDeleted() {
+    public Boolean isDeleted() {
         return this.isDeleted;
     }
 
-    public void setDeleted(final boolean deleted) {
+    public void setDeleted(final Boolean deleted) {
         isDeleted = deleted;
     }
 

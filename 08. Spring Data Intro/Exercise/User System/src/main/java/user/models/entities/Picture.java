@@ -11,7 +11,7 @@ import java.util.Set;
 @Table(name = "pictures")
 public class Picture {
 
-    private long id;
+    private Long id;
     private String title;
     private String caption;
     private String pathOnFileSystem;
@@ -22,11 +22,11 @@ public class Picture {
     }
 
     @Id
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(final long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
