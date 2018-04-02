@@ -47,7 +47,7 @@ public class Town {
         this.country = country;
     }
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "bornTown")
     public Set<User> getBorn() {
         return this.born;
     }
@@ -56,7 +56,7 @@ public class Town {
         this.born = born;
     }
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "currentlyLiving")
     public Set<User> getLive() {
         return this.live;
     }
