@@ -20,6 +20,7 @@ public class Town {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return this.id;
     }

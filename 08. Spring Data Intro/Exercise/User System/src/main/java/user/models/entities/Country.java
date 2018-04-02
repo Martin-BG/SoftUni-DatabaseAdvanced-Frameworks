@@ -17,6 +17,7 @@ public class Country {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return this.id;
     }
