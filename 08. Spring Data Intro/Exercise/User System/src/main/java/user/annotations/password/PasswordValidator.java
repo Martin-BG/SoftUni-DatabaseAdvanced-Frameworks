@@ -1,6 +1,7 @@
 package user.annotations.password;
 
 import org.springframework.stereotype.Component;
+import user.annotations.AnnotationsUtil;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -34,67 +35,39 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
     @Override
     public boolean isValid(final CharSequence value, final ConstraintValidatorContext context) {
         if (value == null) {
-            context.disableDefaultConstraintViolation();
-            context
-                    .buildConstraintViolationWithTemplate("Password cannot be null")
-                    .addConstraintViolation();
-
+            AnnotationsUtil.setErrorMessage(context, "Password cannot be null");
             return false;
         }
 
         if (value.length() < this.minLength) {
-            context.disableDefaultConstraintViolation();
-            context
-                    .buildConstraintViolationWithTemplate("Password too short!")
-                    .addConstraintViolation();
-
+            AnnotationsUtil.setErrorMessage(context, "Password too short!");
             return false;
         }
 
         if (value.length() > this.maxLength) {
-            context.disableDefaultConstraintViolation();
-            context
-                    .buildConstraintViolationWithTemplate("Password too long!")
-                    .addConstraintViolation();
-
+            AnnotationsUtil.setErrorMessage(context, "Password too long!");
             return false;
         }
 
         String password = value.toString();
 
         if (!PATTERN_LOWER.matcher(password).find() && this.hasLower) {
-            context.disableDefaultConstraintViolation();
-            context
-                    .buildConstraintViolationWithTemplate("Password should contain lowercase letter!")
-                    .addConstraintViolation();
-
+            AnnotationsUtil.setErrorMessage(context, "Password should contain lowercase letter!");
             return false;
         }
 
         if (!PATTERN_UPPER.matcher(password).find() && this.hasUpper) {
-            context.disableDefaultConstraintViolation();
-            context
-                    .buildConstraintViolationWithTemplate("Password should contain uppercase letter!")
-                    .addConstraintViolation();
-
+            AnnotationsUtil.setErrorMessage(context, "Password should contain uppercase letter!");
             return false;
         }
 
         if (!PATTERN_DIGIT.matcher(password).find() && this.hasDigit) {
-            context.disableDefaultConstraintViolation();
-            context
-                    .buildConstraintViolationWithTemplate("Password should contain digit!")
-                    .addConstraintViolation();
-
+            AnnotationsUtil.setErrorMessage(context, "Password should contain digit!");
             return false;
         }
 
         if (!PATTERN_SYMBOL.matcher(password).find() && this.hasSpecialSymbol) {
-            context.disableDefaultConstraintViolation();
-            context
-                    .buildConstraintViolationWithTemplate("Password should contain one of: !@#$%^&*()_+<>?")
-                    .addConstraintViolation();
-
+            AnnotationsUtil.setErrorMessage(context, "Password should contain one of: !@#$%^&*()_+<>?");
             return false;
         }
 
