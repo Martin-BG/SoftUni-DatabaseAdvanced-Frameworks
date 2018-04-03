@@ -1,4 +1,4 @@
-package user.annotations;
+package user.annotations.password;
 
 import org.springframework.stereotype.Component;
 

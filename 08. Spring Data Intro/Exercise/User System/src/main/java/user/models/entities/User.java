@@ -1,12 +1,12 @@
 package user.models.entities;
 
 import org.hibernate.validator.constraints.Length;
-import user.annotations.Password;
+import user.annotations.email.Email;
+import user.annotations.password.Password;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
@@ -74,8 +74,10 @@ public class User {
     }
 
     @Column(nullable = false, unique = true)
-    @Pattern(regexp = "^[a-zA-Z0-9]+[-_.]*[a-zA-Z0-9]+@[a-zA-Z0-9]+[-_.]*[a-zA-Z0-9](\\.[a-zA-Z0-9]+[-_.]*[a-zA-Z0-9]+)+$",
-            message = "Invalid email address")
+/*    @Pattern(
+            regexp = "^[a-zA-Z0-9]+[-_.]*[a-zA-Z0-9]+@[a-zA-Z0-9]+[-_.]*[a-zA-Z0-9](\\.[a-zA-Z0-9]+[-_.]*[a-zA-Z0-9]+)+$",
+            message = "Invalid email address")*/
+    @Email
     public String getEmail() {
         return this.email;
     }
