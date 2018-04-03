@@ -3,14 +3,14 @@ package user.runners;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import user.models.entities.User;
 import user.services.api.UserService;
 
 import java.util.Date;
 
 @SpringBootApplication
-@Component
+@Controller
 public class ConsoleRunner implements CommandLineRunner {
 
     private final UserService userService;
