@@ -1,6 +1,7 @@
 package user.annotations.email;
 
 import org.springframework.stereotype.Component;
+import user.constants.TextConstants;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -15,7 +16,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Email {
 
-    String message() default "Invalid email format!";
+    String message() default TextConstants.INVALID_EMAIL_FORMAT;
 
     int minUserNameLength() default 1;
 

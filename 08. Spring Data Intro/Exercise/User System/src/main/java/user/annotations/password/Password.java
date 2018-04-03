@@ -1,6 +1,7 @@
 package user.annotations.password;
 
 import org.springframework.stereotype.Component;
+import user.constants.TextConstants;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -15,7 +16,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Password {
 
-    String message() default "Invalid password format";
+    String message() default TextConstants.INVALID_PASSWORD_FORMAT;
 
     int minLength() default 6;
 

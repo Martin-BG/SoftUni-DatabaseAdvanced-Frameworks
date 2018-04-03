@@ -3,6 +3,7 @@ package user.models.entities;
 import org.hibernate.validator.constraints.Length;
 import user.annotations.email.Email;
 import user.annotations.password.Password;
+import user.constants.TextConstants;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -48,7 +49,7 @@ public class User {
     }
 
     @Column(nullable = false, unique = true)
-    @Length(min = 4, max = 30, message = "Username length should be between 4 and 30 symbols")
+    @Length(min = 4, max = 30, message = TextConstants.USERNAME_INCORRECT_LENGTH)
     public String getUserName() {
         return this.userName;
     }
@@ -63,8 +64,7 @@ public class User {
             containsDigit = true,
             containsLowerCase = true,
             containsUpperCase = true,
-            containsSpecialSymbols = true,
-            message = "Invalid password")
+            containsSpecialSymbols = true)
     public String getPassword() {
         return this.password;
     }
@@ -112,8 +112,8 @@ public class User {
         this.lastTimeLoggedIn = lastTimeLoggedIn;
     }
 
-    @Min(value = 1, message = "Age cannot be less than 1")
-    @Max(value = 120, message = "Age cannot be more than 120")
+    @Min(value = 1, message = TextConstants.AGE_TOO_LOW)
+    @Max(value = 120, message = TextConstants.AGE_TOO_HIGH)
     public Integer getAge() {
         return this.age;
     }

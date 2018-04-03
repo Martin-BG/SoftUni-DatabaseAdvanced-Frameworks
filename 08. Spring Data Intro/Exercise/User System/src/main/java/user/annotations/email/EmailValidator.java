@@ -2,6 +2,7 @@ package user.annotations.email;
 
 import org.springframework.stereotype.Component;
 import user.annotations.AnnotationsUtil;
+import user.constants.TextConstants;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -34,17 +35,17 @@ public class EmailValidator implements ConstraintValidator<Email, CharSequence> 
         int hostNameLength = email.length() - email.lastIndexOf("@") - 1;
 
         if (userNameLength < this.minUserNameLength) {
-            AnnotationsUtil.setErrorMessage(context, "Email name length too short!");
+            AnnotationsUtil.setErrorMessage(context, TextConstants.EMAIL_NAME_LENGTH_TOO_SHORT);
             return false;
         }
 
         if (userNameLength > this.maxUserNameLength) {
-            AnnotationsUtil.setErrorMessage(context, "Email name length too long!");
+            AnnotationsUtil.setErrorMessage(context, TextConstants.EMAIL_NAME_LENGTH_TOO_LONG);
             return false;
         }
 
         if (hostNameLength > this.maxHostNameLength) {
-            AnnotationsUtil.setErrorMessage(context, "Email host length too long!");
+            AnnotationsUtil.setErrorMessage(context, TextConstants.EMAIL_HOST_LENGTH_TOO_LONG);
             return false;
         }
 
