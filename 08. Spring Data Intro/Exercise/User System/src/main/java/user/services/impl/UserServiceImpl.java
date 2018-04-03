@@ -7,8 +7,10 @@ import user.repositories.UserRepository;
 import user.services.api.UserService;
 
 import javax.transaction.Transactional;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -36,5 +38,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(final User user) {
         this.userRepository.save(user);
+    }
+
+    @Override
+    public long getUsersCount() {
+        return this.userRepository.count();
+    }
+
+    @Override
+    public List<String> getUserNamesAndAgeByAgeRange(final int lowBound, final int highBound) {
+        return this.userRepository.findAllByAgeBetween(lowBound, highBound)
+                .stream()
+                .sorted(Comparator.comparingInt(User::getAge))
+                .map(user -> String.format("%s %s - %d years old",
+                        user.getFirstName(), user.getLastName(), user.getAge()))
+                .collect(Collectors.toList());
     }
 }

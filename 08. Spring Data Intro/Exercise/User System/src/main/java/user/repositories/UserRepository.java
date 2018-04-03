@@ -13,4 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAllByEmailEndingWith(String end);
 
     List<User> findAllByLastTimeLoggedInBefore(Date dateTime);
+
+    List<User> findAllByAgeBetween(int lowBound, int highBound);
 }

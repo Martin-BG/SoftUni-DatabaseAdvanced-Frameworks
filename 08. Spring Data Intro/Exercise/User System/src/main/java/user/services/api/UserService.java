@@ -13,4 +13,8 @@ public interface UserService {
 
     void save(User user);
 
+    long getUsersCount();
+
+    List<String> getUserNamesAndAgeByAgeRange(int lowBound, int highBound);
+
 }

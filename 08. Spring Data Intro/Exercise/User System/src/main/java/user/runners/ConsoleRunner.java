@@ -22,9 +22,17 @@ public class ConsoleRunner implements CommandLineRunner {
 
     @Override
     public void run(final String... args) {
-        addUsers(10);
+        if (this.userService.getUsersCount() == 0L) {
+            addUsers(1000);
+        }
         printAllUsersByEmailProvider("abv.bg");
         deactivateUsersInactiveSinceDate(new Date());
+        printAllUsersByAgeRange(20, 25);
+    }
+
+    private void printAllUsersByAgeRange(int lowBound, int highBound) {
+        this.userService.getUserNamesAndAgeByAgeRange(lowBound, highBound)
+                .forEach(System.out::println);
     }
 
     private void deactivateUsersInactiveSinceDate(final Date date) {
@@ -43,7 +51,7 @@ public class ConsoleRunner implements CommandLineRunner {
             user.setUserName("username" + i);
             user.setPassword("pasSword%" + i);
             user.setEmail("mail" + i + "x@abv.bg");
-            user.setAge(20 + i);
+            user.setAge(i % 120 + 1);
             user.setFirstName("First" + i);
             user.setLastName("Last" + i);
             user.setRegisteredOn(new Date());
