@@ -4,12 +4,15 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.regex.Pattern;
 
 @Component
 public class PasswordValidator implements ConstraintValidator<Password, CharSequence> {
+
+    private static final Pattern PATTERN_LOWER = Pattern.compile("[a-z]");
+    private static final Pattern PATTERN_UPPER = Pattern.compile("[A-Z]");
+    private static final Pattern PATTERN_DIGIT = Pattern.compile("[0-9]");
+    private static final Pattern PATTERN_SYMBOL = Pattern.compile("[!@#$%^&*()_+<>?]");
 
     private int minLength;
     private int maxLength;
@@ -29,62 +32,72 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
     }
 
     @Override
-    public boolean isValid(CharSequence charSequence, ConstraintValidatorContext constraintValidatorContext) {
-        if (charSequence == null || charSequence.length() < this.minLength || charSequence.length() > this.maxLength) {
+    public boolean isValid(final CharSequence value, final ConstraintValidatorContext context) {
+        if (value == null) {
+            context.disableDefaultConstraintViolation();
+            context
+                    .buildConstraintViolationWithTemplate("Password cannot be null")
+                    .addConstraintViolation();
+
             return false;
         }
 
-        boolean upper = false;
-        boolean lower = false;
-        boolean digit = false;
-        boolean specialSymbol = false;
+        if (value.length() < this.minLength) {
+            context.disableDefaultConstraintViolation();
+            context
+                    .buildConstraintViolationWithTemplate("Password too short!")
+                    .addConstraintViolation();
 
-        if (this.hasUpper) {
-            for (int i = 0; i < charSequence.length(); i++) {
-                if (Character.isUpperCase(charSequence.charAt(i))) {
-                    upper = true;
-                    break;
-                }
-            }
-        } else {
-            upper = true;
+            return false;
         }
 
-        if (this.hasLower) {
-            for (int i = 0; i < charSequence.length(); i++) {
-                if (Character.isLowerCase(charSequence.charAt(i))) {
-                    lower = true;
-                    break;
-                }
-            }
-        } else {
-            lower = true;
+        if (value.length() > this.maxLength) {
+            context.disableDefaultConstraintViolation();
+            context
+                    .buildConstraintViolationWithTemplate("Password too long!")
+                    .addConstraintViolation();
+
+            return false;
         }
 
-        if (this.hasDigit) {
-            for (int i = 0; i < charSequence.length(); i++) {
-                if (Character.isDigit(charSequence.charAt(i))) {
-                    digit = true;
-                    break;
-                }
-            }
-        } else {
-            digit = true;
+        String password = value.toString();
+
+        if (!PATTERN_LOWER.matcher(password).find() && this.hasLower) {
+            context.disableDefaultConstraintViolation();
+            context
+                    .buildConstraintViolationWithTemplate("Password should contain lowercase letter!")
+                    .addConstraintViolation();
+
+            return false;
         }
 
-        if (this.hasSpecialSymbol) {
-            List<Character> specialSymbols = new ArrayList<>();
-            Collections.addAll(specialSymbols, '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '<', '>', '?');
-            for (int i = 0; i < charSequence.length(); i++) {
-                if (specialSymbols.contains(charSequence.charAt(i))) {
-                    specialSymbol = true;
-                    break;
-                }
-            }
-        } else {
-            specialSymbol = true;
+        if (!PATTERN_UPPER.matcher(password).find() && this.hasUpper) {
+            context.disableDefaultConstraintViolation();
+            context
+                    .buildConstraintViolationWithTemplate("Password should contain uppercase letter!")
+                    .addConstraintViolation();
+
+            return false;
         }
 
-        return upper && lower && digit && specialSymbol;
+        if (!PATTERN_DIGIT.matcher(password).find() && this.hasDigit) {
+            context.disableDefaultConstraintViolation();
+            context
+                    .buildConstraintViolationWithTemplate("Password should contain digit!")
+                    .addConstraintViolation();
+
+            return false;
+        }
+
+        if (!PATTERN_SYMBOL.matcher(password).find() && this.hasSpecialSymbol) {
+            context.disableDefaultConstraintViolation();
+            context
+                    .buildConstraintViolationWithTemplate("Password should contain one of: !@#$%^&*()_+<>?")
+                    .addConstraintViolation();
+
+            return false;
+        }
+
+        return true;
     }
 }
