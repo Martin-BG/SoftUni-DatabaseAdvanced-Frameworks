@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    
+
     List<User> findAllByEmailEndingWith(String end);
 
     List<User> findAllByLastTimeLoggedInBefore(Date dateTime);
