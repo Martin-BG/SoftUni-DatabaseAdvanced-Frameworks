@@ -12,6 +12,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "shampoos")
+@NamedQuery(name = "BasicShampoo.getTotalIngredientsCostForShampooNamedQuery",
+        query = "SELECT sum(i.price) " +
+                "FROM BasicShampoo AS s " +
+                "JOIN s.ingredients AS i " +
+                "WHERE s.brand = :brand")
 public class BasicShampoo implements Shampoo, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

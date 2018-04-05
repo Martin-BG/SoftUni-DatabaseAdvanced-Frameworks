@@ -10,6 +10,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "ingredients")
+@NamedQueries({
+        @NamedQuery(name = "BasicIngredient.deleteIngredientByNameNamedQuery",
+                query = "DELETE FROM BasicIngredient AS b WHERE b.name = :name"),
+        @NamedQuery(name = "BasicIngredient.increaseAllIngredientsPriceBy10PercentsNamedQuery",
+                query = "UPDATE BasicIngredient AS b SET b.price = b.price * 1.1"),
+        @NamedQuery(name = "BasicIngredient.increaseIngredientsPriceBy10PercentsFromListNamedQuery",
+                query = "UPDATE BasicIngredient AS b SET b.price = b.price * 1.1 WHERE b.name IN :names")
+})
 public class BasicIngredient implements Ingredient, Serializable {
     @Id
     @Column(name = "id")
