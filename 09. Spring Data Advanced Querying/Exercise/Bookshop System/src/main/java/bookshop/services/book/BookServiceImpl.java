@@ -1,5 +1,6 @@
 package bookshop.services.book;
 
+import bookshop.dto.book.ReducedBook;
 import bookshop.enums.AgeRestriction;
 import bookshop.enums.EditionType;
 import bookshop.models.Book;
@@ -107,5 +108,11 @@ public class BookServiceImpl implements BookService {
     public int getCountOfBooksWithTitleLongerThan(final int length) {
         return this.bookRepository
                 .getCountOfBooksWithTitleLongerThan(length);
+    }
+
+    @Override
+    public String getBookDetailsByTitle(final String title) {
+        ReducedBook reducedBook = this.bookRepository.getBookByTitle(title);
+        return (reducedBook == null) ? "Book Not Found" : reducedBook.toString();
     }
 }

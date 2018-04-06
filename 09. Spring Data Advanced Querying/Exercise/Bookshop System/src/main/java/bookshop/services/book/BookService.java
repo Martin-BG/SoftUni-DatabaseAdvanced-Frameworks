@@ -29,4 +29,6 @@ public interface BookService {
     List<String> getBookTitleAndAuthorForAuthorsLastNameStartsWith(String starting);
 
     int getCountOfBooksWithTitleLongerThan(int length);
+
+    String getBookDetailsByTitle(String title);
 }

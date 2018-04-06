@@ -1,5 +1,6 @@
 package bookshop.repositories;
 
+import bookshop.dto.book.ReducedBook;
 import bookshop.enums.AgeRestriction;
 import bookshop.enums.EditionType;
 import bookshop.models.Book;
@@ -33,4 +34,10 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query("SELECT COUNT(b) FROM Book AS b WHERE LENGTH(b.title) > :length ")
     int getCountOfBooksWithTitleLongerThan(@Param("length") final int length);
+
+    //    @Query("SELECT new bookshop.dto.book.ReducedBook(b.title, b.editionType, b.ageRestriction, b.price) " +
+//            "FROM Book AS b " +
+//            "WHERE b.title = :title")
+//    ReducedBook getBookByTitle(@Param("title")final String title);
+    ReducedBook getBookByTitle(final String title);
 }

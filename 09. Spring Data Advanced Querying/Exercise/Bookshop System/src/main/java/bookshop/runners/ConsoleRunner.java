@@ -101,6 +101,10 @@ public class ConsoleRunner implements CommandLineRunner {
 
             // 10. Total Book Copies
 //            this.authorService.getAuthorsByBookCopiesCount().forEach(System.out::println);
+
+            // 11. Reduced Book
+//            System.out.print("Enter book title to get details for: ");
+//            System.out.println(this.bookService.getBookDetailsByTitle(reader.readLine().trim()));
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
