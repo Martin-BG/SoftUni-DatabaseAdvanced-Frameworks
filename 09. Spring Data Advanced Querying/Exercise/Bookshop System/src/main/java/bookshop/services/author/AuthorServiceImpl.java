@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -41,5 +42,14 @@ public class AuthorServiceImpl implements AuthorService {
         Random random = new Random();
         int index = (int) ((random.nextLong() & Long.MAX_VALUE) % count); // Ensure positive index (random can produce negative numbers)
         return authors.get(index);
+    }
+
+    @Override
+    public List<String> getAuthorNamesWithFirstNameEndingWith(final String ending) {
+        return this.authorRepository
+                .getAllByFirstNameEndingWith(ending)
+                .stream()
+                .map(author -> String.format("%s %s", author.getFirstName(), author.getLastName()))
+                .collect(Collectors.toList());
     }
 }

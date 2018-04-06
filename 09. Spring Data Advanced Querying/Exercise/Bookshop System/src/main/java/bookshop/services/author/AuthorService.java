@@ -3,6 +3,8 @@ package bookshop.services.author;
 import bookshop.models.Author;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public interface AuthorService {
 
@@ -12,4 +14,5 @@ public interface AuthorService {
 
     Author getRandomAuthor();
 
+    List<String> getAuthorNamesWithFirstNameEndingWith(String ending);
 }

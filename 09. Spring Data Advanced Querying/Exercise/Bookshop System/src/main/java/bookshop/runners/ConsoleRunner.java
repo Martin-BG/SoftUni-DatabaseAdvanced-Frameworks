@@ -77,6 +77,10 @@ public class ConsoleRunner implements CommandLineRunner {
 //            this.bookService.getBookTitleEditionTypeAndPriceForBooksReleasedBeforeDate(date).forEach(System.out::println);
 
             // 06. Authors Search
+            System.out.print("Enter first name ending to search authors: ");
+            this.authorService
+                    .getAuthorNamesWithFirstNameEndingWith(reader.readLine().trim())
+                    .forEach(System.out::println);
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
