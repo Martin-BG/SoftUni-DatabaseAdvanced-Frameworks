@@ -52,4 +52,13 @@ public class AuthorServiceImpl implements AuthorService {
                 .map(author -> String.format("%s %s", author.getFirstName(), author.getLastName()))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<String> getAuthorsByBookCopiesCount() {
+        return this.authorRepository
+                .getAuthorsByBooksCopies()
+                .stream()
+                .map(obj -> (String) obj)
+                .collect(Collectors.toList());
+    }
 }

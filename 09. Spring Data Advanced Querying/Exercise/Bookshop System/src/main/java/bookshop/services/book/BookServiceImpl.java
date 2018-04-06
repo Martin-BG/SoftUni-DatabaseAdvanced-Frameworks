@@ -84,4 +84,28 @@ public class BookServiceImpl implements BookService {
                 .collect(Collectors.toList());
 
     }
+
+    @Override
+    public List<String> getBookTitleForBookTitlesContainingText(final String text) {
+        return this.bookRepository
+                .getBooksByTitleContains(text)
+                .stream()
+                .map(Book::getTitle)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getBookTitleAndAuthorForAuthorsLastNameStartsWith(final String starting) {
+        return this.bookRepository
+                .getBooksByAuthorLastNameStartsWith(starting)
+                .stream()
+                .map(book -> String.format("%s (%s %s)", book.getTitle(), book.getAuthor().getFirstName(), book.getAuthor().getLastName()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public int getCountOfBooksWithTitleLongerThan(final int length) {
+        return this.bookRepository
+                .getCountOfBooksWithTitleLongerThan(length);
+    }
 }

@@ -21,8 +21,16 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     List<Book> getBooksByPriceIsLessThanOrPriceGreaterThan(final BigDecimal lowerThanPrice, final BigDecimal higherThanPrice);
 
-    @Query(value = "SELECT b FROM Book AS b WHERE FUNCTION('YEAR', b.releaseDate) <> :year")
+    @Query("SELECT b FROM Book AS b WHERE FUNCTION('YEAR', b.releaseDate) <> :year")
     List<Book> getBooksByReleaseDateNot_Year(@Param("year") final int year);
 
     List<Book> getBooksByReleaseDateBefore(final LocalDate releaseDate);
+
+    List<Book> getBooksByTitleContains(final String text);
+
+    @Query("SELECT b FROM Book AS b WHERE b.author.lastName LIKE :start%")
+    List<Book> getBooksByAuthorLastNameStartsWith(@Param("start") final String start);
+
+    @Query("SELECT COUNT(b) FROM Book AS b WHERE LENGTH(b.title) > :length ")
+    int getCountOfBooksWithTitleLongerThan(@Param("length") final int length);
 }

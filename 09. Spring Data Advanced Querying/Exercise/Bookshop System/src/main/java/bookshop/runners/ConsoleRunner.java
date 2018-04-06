@@ -77,10 +77,30 @@ public class ConsoleRunner implements CommandLineRunner {
 //            this.bookService.getBookTitleEditionTypeAndPriceForBooksReleasedBeforeDate(date).forEach(System.out::println);
 
             // 06. Authors Search
-            System.out.print("Enter first name ending to search authors: ");
-            this.authorService
-                    .getAuthorNamesWithFirstNameEndingWith(reader.readLine().trim())
-                    .forEach(System.out::println);
+//            System.out.print("Enter first name ending to search authors: ");
+//            this.authorService
+//                    .getAuthorNamesWithFirstNameEndingWith(reader.readLine().trim())
+//                    .forEach(System.out::println);
+
+            // 07. Books Search
+//            System.out.print("Enter text to search for in book titles: ");
+//            this.bookService
+//                    .getBookTitleForBookTitlesContainingText(reader.readLine().trim())
+//                    .forEach(System.out::println);
+
+            // 08. Book Titles Search
+//            System.out.print("Search books by authors' last name ending by: ");
+//            this.bookService
+//                    .getBookTitleAndAuthorForAuthorsLastNameStartsWith(reader.readLine().trim())
+//                    .forEach(System.out::println);
+
+            // 09. Count Books
+//            System.out.print("Search books with titles containing more symbols than: ");
+//            System.out.println(this.bookService
+//                    .getCountOfBooksWithTitleLongerThan(Integer.parseInt(reader.readLine())));
+
+            // 10. Total Book Copies
+//            this.authorService.getAuthorsByBookCopiesCount().forEach(System.out::println);
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }

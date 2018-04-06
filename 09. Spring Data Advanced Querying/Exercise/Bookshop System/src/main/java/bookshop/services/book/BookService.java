@@ -23,4 +23,10 @@ public interface BookService {
     List<String> getBookTitleOfBooksNotReleasedOnGivenYear(int year);
 
     List<String> getBookTitleEditionTypeAndPriceForBooksReleasedBeforeDate(LocalDate date);
+
+    List<String> getBookTitleForBookTitlesContainingText(String text);
+
+    List<String> getBookTitleAndAuthorForAuthorsLastNameStartsWith(String starting);
+
+    int getCountOfBooksWithTitleLongerThan(int length);
 }
