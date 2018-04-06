@@ -8,13 +8,13 @@ import app.repositories.LabelRepository;
 import app.repositories.ShampooRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
-@SpringBootApplication
+@Controller
 public class ConsoleRunner implements CommandLineRunner {
 
     private final ShampooRepository shampooRepository;

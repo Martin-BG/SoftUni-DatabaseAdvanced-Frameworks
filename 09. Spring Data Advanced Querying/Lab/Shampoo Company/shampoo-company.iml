@@ -15,7 +15,7 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/src/main/java/ConsoleRunner.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/app/Application.java</file>
         </fileset>
       </configuration>
     </facet>
