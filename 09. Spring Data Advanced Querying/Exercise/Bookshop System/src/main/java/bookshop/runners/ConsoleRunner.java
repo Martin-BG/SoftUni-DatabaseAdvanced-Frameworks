@@ -108,13 +108,18 @@ public class ConsoleRunner implements CommandLineRunner {
 //            System.out.println(this.bookService.getBookDetailsByTitle(reader.readLine().trim()));
 
             // 12. Increase Book Copies
-            System.out.print("Enter start release date to increase book copies (dd MMM yyyy): ");
-            LocalDate startDate = LocalDate.parse(reader.readLine().trim(), DATE_FORMAT_MONTH_SHORT_NAME);
-            System.out.print("Enter copies to add to each title: ");
-            int copiesToAdd = Integer.parseInt(reader.readLine());
-            int modifiedBooks = this.bookService.increaseCopiesForBooksReleasedAfterDate(startDate, copiesToAdd);
-            System.out.println(modifiedBooks * copiesToAdd);
+//            System.out.print("Enter start release date to increase book copies (dd MMM yyyy): ");
+//            LocalDate startDate = LocalDate.parse(reader.readLine().trim(), DATE_FORMAT_MONTH_SHORT_NAME);
+//            System.out.print("Enter copies to add to each title: ");
+//            int copiesToAdd = Integer.parseInt(reader.readLine());
+//            int modifiedBooks = this.bookService.increaseCopiesForBooksReleasedAfterDate(startDate, copiesToAdd);
+//            System.out.println(modifiedBooks * copiesToAdd);
 
+            // 13. Remove Books
+//            System.out.print("Enter min copies to remove books: ");
+//            int minCopies = Integer.parseInt(reader.readLine());
+//            int deletedTitles = this.bookService.removeBooksWithCopiesLessThan(minCopies);
+//            System.out.printf("%d books were removed%n", deletedTitles);
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }

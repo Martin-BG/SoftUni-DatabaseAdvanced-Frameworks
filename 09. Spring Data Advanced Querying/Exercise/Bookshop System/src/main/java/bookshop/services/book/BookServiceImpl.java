@@ -120,4 +120,9 @@ public class BookServiceImpl implements BookService {
     public int increaseCopiesForBooksReleasedAfterDate(final LocalDate startDate, final int copiesToAdd) {
         return this.bookRepository.increaseCopiesForBooksReleasedAfterDate(startDate, copiesToAdd);
     }
+
+    @Override
+    public int removeBooksWithCopiesLessThan(final int minCopies) {
+        return this.bookRepository.removeBooksWithCopiesLessThan(minCopies);
+    }
 }
