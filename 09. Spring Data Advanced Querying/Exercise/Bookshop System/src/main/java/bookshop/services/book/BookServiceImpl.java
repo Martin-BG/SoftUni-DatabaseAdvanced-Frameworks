@@ -1,11 +1,17 @@
 package bookshop.services.book;
 
+import bookshop.enums.AgeRestriction;
+import bookshop.enums.EditionType;
 import bookshop.models.Book;
 import bookshop.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -31,5 +37,51 @@ public class BookServiceImpl implements BookService {
     @Override
     public long getBooksCount() {
         return this.bookRepository.count();
+    }
+
+    @Override
+    public List<String> getBookTitleByAgeRestriction(final AgeRestriction ageRestriction) {
+        return this.bookRepository
+                .getBooksByAgeRestrictionIs(ageRestriction)
+                .stream()
+                .map(Book::getTitle)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getBookTitleOfGoldenEditionBookWithLessThen5000Copies() {
+        return this.bookRepository
+                .getBooksByEditionTypeIsAndCopiesLessThan(EditionType.GOLD, 5000)
+                .stream()
+                .map(Book::getTitle)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getBookTitleAndPriceForBooksWithPriceUnder5AndHigherThan40() {
+        return this.bookRepository
+                .getBooksByPriceIsLessThanOrPriceGreaterThan(BigDecimal.valueOf(5), BigDecimal.valueOf(40))
+                .stream()
+                .map(book -> String.format("%s - $%.2f", book.getTitle(), book.getPrice()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getBookTitleOfBooksNotReleasedOnGivenYear(final int year) {
+        return this.bookRepository
+                .getBooksByReleaseDateNot_Year(year)
+                .stream()
+                .map(Book::getTitle)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getBookTitleEditionTypeAndPriceForBooksReleasedBeforeDate(final LocalDate date) {
+        return this.bookRepository
+                .getBooksByReleaseDateBefore(date)
+                .stream()
+                .map(book -> String.format("%s - %s - $%.2f", book.getTitle(), book.getEditionType(), book.getPrice()))
+                .collect(Collectors.toList());
+
     }
 }

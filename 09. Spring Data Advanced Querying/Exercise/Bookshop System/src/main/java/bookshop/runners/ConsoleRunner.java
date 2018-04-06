@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -32,6 +33,7 @@ public class ConsoleRunner implements CommandLineRunner {
     private static final String INPUT_SEPARATOR = "\\s+";
     private static final String NAME_DELIMITER = " ";
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy");
+    private static final DateTimeFormatter CONSOLE_INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     private final AuthorService authorService;
     private final BookService bookService;
@@ -52,6 +54,32 @@ public class ConsoleRunner implements CommandLineRunner {
             seedDatabase();
         }
 
+        try (final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, Charset.forName("UTF-8")))) {
+            // 01. Books Titles by Age Restriction
+//            System.out.print("Enter age restriction (minor, teen, adult): ");
+//            AgeRestriction restriction = AgeRestriction.valueOf(reader.readLine().trim().toUpperCase(Locale.ENGLISH));
+//            this.bookService.getBookTitleByAgeRestriction(restriction).forEach(System.out::println);
+
+            // 02. Golden Books
+//            this.bookService.getBookTitleOfGoldenEditionBookWithLessThen5000Copies().forEach(System.out::println);
+
+            // 03. Books by Price
+//            this.bookService.getBookTitleAndPriceForBooksWithPriceUnder5AndHigherThan40().forEach(System.out::println);
+
+            // 04. Not Released Books
+//            System.out.print("Enter release year of books to skip (ex. 2000): ");
+//            int year = Integer.parseInt(reader.readLine());
+//            this.bookService.getBookTitleOfBooksNotReleasedOnGivenYear(year).forEach(System.out::println);
+
+            // 05. Books Released Before Date
+//            System.out.print("Enter release date to search books before (dd-MM-YYYY): ");
+//            LocalDate date = LocalDate.parse(reader.readLine().trim(), CONSOLE_INPUT_DATE_FORMAT);
+//            this.bookService.getBookTitleEditionTypeAndPriceForBooksReleasedBeforeDate(date).forEach(System.out::println);
+
+            // 06. Authors Search
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     private void seedDatabase() {
