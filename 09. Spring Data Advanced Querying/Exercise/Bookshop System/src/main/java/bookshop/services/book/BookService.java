@@ -31,4 +31,6 @@ public interface BookService {
     int getCountOfBooksWithTitleLongerThan(int length);
 
     String getBookDetailsByTitle(String title);
+
+    int increaseCopiesForBooksReleasedAfterDate(LocalDate startDate, int copiesToAdd);
 }

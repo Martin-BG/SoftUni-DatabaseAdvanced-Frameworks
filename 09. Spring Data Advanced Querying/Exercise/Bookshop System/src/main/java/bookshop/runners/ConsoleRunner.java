@@ -33,7 +33,8 @@ public class ConsoleRunner implements CommandLineRunner {
     private static final String INPUT_SEPARATOR = "\\s+";
     private static final String NAME_DELIMITER = " ";
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy");
-    private static final DateTimeFormatter CONSOLE_INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static final DateTimeFormatter DATE_FORMAT_DASHES = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static final DateTimeFormatter DATE_FORMAT_MONTH_SHORT_NAME = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     private final AuthorService authorService;
     private final BookService bookService;
@@ -73,7 +74,7 @@ public class ConsoleRunner implements CommandLineRunner {
 
             // 05. Books Released Before Date
 //            System.out.print("Enter release date to search books before (dd-MM-YYYY): ");
-//            LocalDate date = LocalDate.parse(reader.readLine().trim(), CONSOLE_INPUT_DATE_FORMAT);
+//            LocalDate date = LocalDate.parse(reader.readLine().trim(), DATE_FORMAT_DASHES);
 //            this.bookService.getBookTitleEditionTypeAndPriceForBooksReleasedBeforeDate(date).forEach(System.out::println);
 
             // 06. Authors Search
@@ -105,6 +106,15 @@ public class ConsoleRunner implements CommandLineRunner {
             // 11. Reduced Book
 //            System.out.print("Enter book title to get details for: ");
 //            System.out.println(this.bookService.getBookDetailsByTitle(reader.readLine().trim()));
+
+            // 12. Increase Book Copies
+            System.out.print("Enter start release date to increase book copies (dd MMM yyyy): ");
+            LocalDate startDate = LocalDate.parse(reader.readLine().trim(), DATE_FORMAT_MONTH_SHORT_NAME);
+            System.out.print("Enter copies to add to each title: ");
+            int copiesToAdd = Integer.parseInt(reader.readLine());
+            int modifiedBooks = this.bookService.increaseCopiesForBooksReleasedAfterDate(startDate, copiesToAdd);
+            System.out.println(modifiedBooks * copiesToAdd);
+
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }

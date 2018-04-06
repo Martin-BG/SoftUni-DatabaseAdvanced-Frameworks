@@ -115,4 +115,9 @@ public class BookServiceImpl implements BookService {
         ReducedBook reducedBook = this.bookRepository.getBookByTitle(title);
         return (reducedBook == null) ? "Book Not Found" : reducedBook.toString();
     }
+
+    @Override
+    public int increaseCopiesForBooksReleasedAfterDate(final LocalDate startDate, final int copiesToAdd) {
+        return this.bookRepository.increaseCopiesForBooksReleasedAfterDate(startDate, copiesToAdd);
+    }
 }

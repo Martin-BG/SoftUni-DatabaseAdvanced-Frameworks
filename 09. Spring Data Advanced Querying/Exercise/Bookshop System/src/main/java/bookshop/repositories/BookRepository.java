@@ -5,10 +5,12 @@ import bookshop.enums.AgeRestriction;
 import bookshop.enums.EditionType;
 import bookshop.models.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -35,9 +37,14 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("SELECT COUNT(b) FROM Book AS b WHERE LENGTH(b.title) > :length ")
     int getCountOfBooksWithTitleLongerThan(@Param("length") final int length);
 
-    //    @Query("SELECT new bookshop.dto.book.ReducedBook(b.title, b.editionType, b.ageRestriction, b.price) " +
-//            "FROM Book AS b " +
-//            "WHERE b.title = :title")
-//    ReducedBook getBookByTitle(@Param("title")final String title);
+    /*    @Query("SELECT new bookshop.dto.book.ReducedBook(b.title, b.editionType, b.ageRestriction, b.price) " +
+                "FROM Book AS b " +
+                "WHERE b.title = :title")
+        ReducedBook getBookByTitle(@Param("title")final String title);*/
     ReducedBook getBookByTitle(final String title);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Book AS b SET b.copies = b.copies + :cnt WHERE b.releaseDate > :date")
+    int increaseCopiesForBooksReleasedAfterDate(@Param("date") LocalDate startDate, @Param("cnt") int copiesToAdd);
 }
