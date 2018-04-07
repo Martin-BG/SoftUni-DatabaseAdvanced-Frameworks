@@ -5,7 +5,6 @@ import app.dto.EmployeeWithManagerDto;
 import app.dto.ManagerDto;
 import app.entities.Address;
 import app.entities.Employee;
-import app.repositories.AddressRepository;
 import app.repositories.EmployeeRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -15,22 +14,15 @@ import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Controller
 public class ConsoleRunner implements CommandLineRunner {
 
-    private static final String INPUT_SEPARATOR = "\\s+";
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy");
-
     private final EmployeeRepository employeeRepository;
-    private final AddressRepository addressRepository;
 
     @Autowired
-    public ConsoleRunner(final EmployeeRepository employeeRepository,
-                         final AddressRepository addressRepository) {
+    public ConsoleRunner(final EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
-        this.addressRepository = addressRepository;
     }
 
     @Override
