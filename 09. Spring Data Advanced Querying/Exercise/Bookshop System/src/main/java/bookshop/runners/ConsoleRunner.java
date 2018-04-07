@@ -112,14 +112,26 @@ public class ConsoleRunner implements CommandLineRunner {
 //            LocalDate startDate = LocalDate.parse(reader.readLine().trim(), DATE_FORMAT_MONTH_SHORT_NAME);
 //            System.out.print("Enter copies to add to each title: ");
 //            int copiesToAdd = Integer.parseInt(reader.readLine());
-//            int modifiedBooks = this.bookService.increaseCopiesForBooksReleasedAfterDate(startDate, copiesToAdd);
+//            Integer modifiedBooks = this.bookService.increaseCopiesForBooksReleasedAfterDate(startDate, copiesToAdd);
 //            System.out.println(modifiedBooks * copiesToAdd);
 
             // 13. Remove Books
 //            System.out.print("Enter min copies to remove books: ");
 //            int minCopies = Integer.parseInt(reader.readLine());
-//            int deletedTitles = this.bookService.removeBooksWithCopiesLessThan(minCopies);
+//            Integer deletedTitles = this.bookService.removeBooksWithCopiesLessThan(minCopies);
 //            System.out.printf("%d books were removed%n", deletedTitles);
+
+            // 14. Stored Procedure - NOTE: execute resources/procedure_create.sql first!
+//            System.out.print("Enter author's name to find books for: ");
+//            String[] names = reader.readLine().trim().split(INPUT_SEPARATOR);
+//            Integer books = this.authorService.getAuthorBooksCount(names[0], names[1]);
+//            if (books == null) {
+//                System.out.printf("%s %s has not written any books yet%n", names[0], names[1]);
+//            } else if (books == 1) {
+//                System.out.printf("%s %s has written 1 book%n", names[0], names[1]);
+//            } else {
+//                System.out.printf("%s %s has written %d books%n", names[0], names[1], books);
+//            }
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }

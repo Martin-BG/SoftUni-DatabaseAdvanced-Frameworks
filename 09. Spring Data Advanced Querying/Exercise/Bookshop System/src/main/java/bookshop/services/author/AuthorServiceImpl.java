@@ -61,4 +61,9 @@ public class AuthorServiceImpl implements AuthorService {
                 .map(obj -> (String) obj)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Integer getAuthorBooksCount(final String firstName, final String lastName) {
+        return this.authorRepository.getAuthorBooksCount(firstName, lastName);
+    }
 }

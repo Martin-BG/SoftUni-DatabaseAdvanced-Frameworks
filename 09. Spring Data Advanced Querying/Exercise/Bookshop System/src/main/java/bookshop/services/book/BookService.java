@@ -20,7 +20,7 @@ public interface BookService {
 
     List<String> getBookTitleAndPriceForBooksWithPriceUnder5AndHigherThan40();
 
-    List<String> getBookTitleOfBooksNotReleasedOnGivenYear(int year);
+    List<String> getBookTitleOfBooksNotReleasedOnGivenYear(Integer year);
 
     List<String> getBookTitleEditionTypeAndPriceForBooksReleasedBeforeDate(LocalDate date);
 
@@ -28,11 +28,11 @@ public interface BookService {
 
     List<String> getBookTitleAndAuthorForAuthorsLastNameStartsWith(String starting);
 
-    int getCountOfBooksWithTitleLongerThan(int length);
+    Integer getCountOfBooksWithTitleLongerThan(Integer length);
 
     String getBookDetailsByTitle(String title);
 
-    int increaseCopiesForBooksReleasedAfterDate(LocalDate startDate, int copiesToAdd);
+    Integer increaseCopiesForBooksReleasedAfterDate(LocalDate startDate, Integer copiesToAdd);
 
-    int removeBooksWithCopiesLessThan(int minCopies);
+    Integer removeBooksWithCopiesLessThan(Integer minCopies);
 }

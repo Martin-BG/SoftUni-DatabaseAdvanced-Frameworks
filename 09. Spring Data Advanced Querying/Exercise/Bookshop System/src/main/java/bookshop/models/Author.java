@@ -6,9 +6,16 @@ import java.util.Set;
 
 @Entity
 @Table(name = "authors")
+@NamedStoredProcedureQuery(name = "udp_find_books_by_author",
+        procedureName = "udp_find_books_by_author",
+        parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "first_name", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "last_name", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.OUT, name = "books_count", type = Integer.class)
+        })
 public class Author {
 
-    private long id;
+    private Long id;
     private String firstName;
     private String lastName;
     private Set<Book> books;
@@ -20,11 +27,11 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "author_id")
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(final long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 

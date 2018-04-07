@@ -13,12 +13,12 @@ import java.util.Set;
 @Table(name = "books")
 public class Book {
 
-    private long id;
+    private Long id;
     private String title;
     private String description;
     private EditionType editionType;
     private BigDecimal price;
-    private int copies;
+    private Integer copies;
     private LocalDate releaseDate;
     private AgeRestriction ageRestriction;
     private Author author;
@@ -31,11 +31,11 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(final long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -84,11 +84,11 @@ public class Book {
     }
 
     @Column(nullable = false)
-    public int getCopies() {
+    public Integer getCopies() {
         return this.copies;
     }
 
-    public void setCopies(final int copies) {
+    public void setCopies(final Integer copies) {
         this.copies = copies;
     }
 

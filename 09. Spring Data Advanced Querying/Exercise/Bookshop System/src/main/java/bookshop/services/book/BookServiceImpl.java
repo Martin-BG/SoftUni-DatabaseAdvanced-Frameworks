@@ -68,7 +68,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<String> getBookTitleOfBooksNotReleasedOnGivenYear(final int year) {
+    public List<String> getBookTitleOfBooksNotReleasedOnGivenYear(final Integer year) {
         return this.bookRepository
                 .getBooksByReleaseDateNot_Year(year)
                 .stream()
@@ -105,7 +105,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public int getCountOfBooksWithTitleLongerThan(final int length) {
+    public Integer getCountOfBooksWithTitleLongerThan(final Integer length) {
         return this.bookRepository
                 .getCountOfBooksWithTitleLongerThan(length);
     }
@@ -117,12 +117,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public int increaseCopiesForBooksReleasedAfterDate(final LocalDate startDate, final int copiesToAdd) {
+    public Integer increaseCopiesForBooksReleasedAfterDate(final LocalDate startDate, final Integer copiesToAdd) {
         return this.bookRepository.increaseCopiesForBooksReleasedAfterDate(startDate, copiesToAdd);
     }
 
     @Override
-    public int removeBooksWithCopiesLessThan(final int minCopies) {
+    public Integer removeBooksWithCopiesLessThan(final Integer minCopies) {
         return this.bookRepository.removeBooksWithCopiesLessThan(minCopies);
     }
 }

@@ -7,10 +7,10 @@ import java.math.BigDecimal;
 
 public class ReducedBook {
 
-    private String title;
-    private EditionType editionType;
-    private AgeRestriction ageRestriction;
-    private BigDecimal price;
+    private final String title;
+    private final EditionType editionType;
+    private final AgeRestriction ageRestriction;
+    private final BigDecimal price;
 
     public ReducedBook(final String title, final EditionType editionType,
                        final AgeRestriction ageRestriction, final BigDecimal price) {

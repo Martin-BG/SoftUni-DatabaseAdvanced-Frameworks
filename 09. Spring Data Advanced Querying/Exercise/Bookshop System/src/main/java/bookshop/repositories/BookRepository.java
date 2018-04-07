@@ -34,7 +34,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> getBooksByAuthorLastNameStartsWith(@Param("start") final String start);
 
     @Query("SELECT COUNT(b) FROM Book AS b WHERE LENGTH(b.title) > :length ")
-    int getCountOfBooksWithTitleLongerThan(@Param("length") final int length);
+    Integer getCountOfBooksWithTitleLongerThan(@Param("length") final int length);
 
     /*    @Query("SELECT new bookshop.dto.book.ReducedBook(b.title, b.editionType, b.ageRestriction, b.price) " +
                 "FROM Book AS b " +
@@ -44,9 +44,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Modifying
     @Query("UPDATE Book AS b SET b.copies = b.copies + :cnt WHERE b.releaseDate > :date")
-    int increaseCopiesForBooksReleasedAfterDate(@Param("date") LocalDate startDate, @Param("cnt") int copiesToAdd);
+    Integer increaseCopiesForBooksReleasedAfterDate(@Param("date") LocalDate startDate, @Param("cnt") int copiesToAdd);
 
     @Modifying
     @Query("DELETE FROM Book AS b WHERE b.copies < :copies")
-    int removeBooksWithCopiesLessThan(@Param("copies") int minCopies);
+    Integer removeBooksWithCopiesLessThan(@Param("copies") int minCopies);
 }

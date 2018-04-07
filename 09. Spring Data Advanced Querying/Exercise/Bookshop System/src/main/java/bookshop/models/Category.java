@@ -8,7 +8,7 @@ import java.util.Set;
 @Table(name = "categories")
 public class Category {
 
-    private long id;
+    private Long id;
     private String name;
     private Set<Book> books;
 
@@ -19,11 +19,11 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(final long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 

@@ -3,6 +3,8 @@ package bookshop.repositories;
 import bookshop.models.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,4 +20,8 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
             "GROUP BY a.id " +
             "ORDER BY SUM(b.copies) DESC ")
     List<Object> getAuthorsByBooksCopies();
+
+    @Procedure(name = "udp_find_books_by_author")
+    Integer getAuthorBooksCount(@Param("first_name") String first_name, @Param("last_name") String last_name);
+
 }
