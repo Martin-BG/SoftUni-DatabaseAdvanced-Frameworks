@@ -7,7 +7,7 @@ import app.entities.Address;
 import app.entities.Employee;
 import app.repositories.EmployeeRepository;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
+import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
@@ -81,7 +81,15 @@ public class ConsoleRunner implements CommandLineRunner {
         ManagerDto managerDto = mapper.map(employee, ManagerDto.class);
         System.out.println(managerDto);
 
-        mapper.addMappings(new PropertyMap<Employee, EmployeeWithManagerDto>() {
+        TypeMap<Employee, EmployeeWithManagerDto> typeMap = mapper.createTypeMap(Employee.class, EmployeeWithManagerDto.class);
+        typeMap.addMappings(m -> m.map(src -> src.getManager().getLastName(), EmployeeWithManagerDto::setManagerLastName));
+        this.employeeRepository
+                .findAllByBirthdayBeforeOrderBySalaryDesc(LocalDate.parse("1990-01-01"))
+                .stream()
+                .map(typeMap::map)
+                .forEach(System.out::println);
+
+/*        mapper.addMappings(new PropertyMap<Employee, EmployeeWithManagerDto>() {
             @Override
             protected void configure() {
                 map().setManagerLastName(source.getManager().getLastName());
@@ -92,6 +100,6 @@ public class ConsoleRunner implements CommandLineRunner {
                 .findAllByBirthdayBeforeOrderBySalaryDesc(LocalDate.parse("1990-01-01"))
                 .stream()
                 .map(emp -> mapper.map(emp, EmployeeWithManagerDto.class))
-                .forEach(System.out::println);
+                .forEach(System.out::println);*/
     }
 }
