@@ -3,6 +3,7 @@ package game_store.commands.manage;
 import game_store.commands.Command;
 import game_store.constants.CommandConstants;
 import game_store.constants.CommandMessages;
+import game_store.constants.ValidationConstrains;
 import game_store.exceptions.InvalidCommandException;
 import game_store.model.dto.binding.AddGameDto;
 import game_store.model.utils.ObjectValidator;
@@ -38,7 +39,7 @@ public class AddGame extends Command {
                     args[TITLE_INDEX],
                     new BigDecimal(args[PRICE_INDEX]),
                     new BigDecimal(args[SIZE_INDEX]),
-                    args[TRAILER_INDEX],
+                    args[TRAILER_INDEX].substring(args[TRAILER_INDEX].length() - ValidationConstrains.GAME_TRAILER_MAX_LENGTH),
                     args[THUMBNAIL_INDEX],
                     args[DESCRIPTION_INDEX],
                     LocalDate.parse(args[RELEASE_DATE_INDEX], CommandConstants.DATE_FORMAT));
