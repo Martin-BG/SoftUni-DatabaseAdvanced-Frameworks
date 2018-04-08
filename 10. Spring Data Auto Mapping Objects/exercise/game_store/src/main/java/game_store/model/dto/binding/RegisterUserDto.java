@@ -10,10 +10,13 @@ public class RegisterUserDto {
 
     @Email
     private String email;
+
     @Password
     private String password;
+
     @Password
     private String confirmPassword;
+
     @UserName
     private String fullName;
 

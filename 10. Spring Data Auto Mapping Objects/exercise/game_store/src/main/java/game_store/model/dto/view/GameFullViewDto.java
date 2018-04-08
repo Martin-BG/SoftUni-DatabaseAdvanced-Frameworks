@@ -1,16 +1,35 @@
 package game_store.model.dto.view;
 
+import game_store.model.validators.game_description.GameDescription;
+import game_store.model.validators.game_price.GamePrice;
+import game_store.model.validators.game_size.GameSize;
+import game_store.model.validators.game_title.GameTitle;
+import game_store.model.validators.game_trailer.GameTrailer;
+import game_store.model.validators.thumbnail_url.ThumbnailUrl;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class GameFullViewDto {
 
+    @GameTitle
     private String title;
+
+    @GamePrice
     private BigDecimal price;
+
+    @GameSize
     private BigDecimal size;
+
+    @GameTrailer
     private String trailer;
+
+    @ThumbnailUrl
     private String thumbnailUrl;
+
+    @GameDescription
     private String description;
+
     private LocalDate releaseDate;
 
     public GameFullViewDto() {

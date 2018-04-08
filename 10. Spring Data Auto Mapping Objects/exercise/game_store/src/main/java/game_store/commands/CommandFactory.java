@@ -1,6 +1,7 @@
 package game_store.commands;
 
 import game_store.commands.manage.AddGame;
+import game_store.commands.manage.DeleteGame;
 import game_store.commands.manage.EditGame;
 import game_store.commands.user.Register;
 import game_store.constants.CommandConstants;
@@ -27,6 +28,8 @@ public class CommandFactory {
             return new AddGame(this.userService, this.gameService);
         case CommandConstants.EDIT_GAME:
             return new EditGame(this.userService, this.gameService);
+        case CommandConstants.DELETE_GAME:
+            return new DeleteGame(this.userService, this.gameService);
         default:
             return null;
         }

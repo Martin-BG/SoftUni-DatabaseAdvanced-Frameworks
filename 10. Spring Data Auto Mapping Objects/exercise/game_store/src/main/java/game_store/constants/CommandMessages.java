@@ -12,6 +12,7 @@ public final class CommandMessages {
     public static final String INVALID_GAME_ID = "Invalid game ID!";
     public static final String GAME_EDITED = "Edited %s";
     public static final String UNKNOWN_PARAMETER_TYPE = "Unknown game parameter type: %s";
+    public static final String GAME_DELETED = "Deleted %s";
 
     private CommandMessages() {
     }

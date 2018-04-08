@@ -2,6 +2,7 @@ package game_store.persistance.services.impl;
 
 import game_store.model.dto.binding.AddGameDto;
 import game_store.model.dto.binding.EditGameDto;
+import game_store.model.dto.view.GameTitleViewDto;
 import game_store.model.entities.Game;
 import game_store.model.utils.ObjectMapper;
 import game_store.persistance.repositories.GameRepository;
@@ -29,11 +30,21 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    public boolean gameExists(final Long id) {
+        return this.gameRepository.existsById(id);
+    }
+
+    @Override
     public void update(final long id, final EditGameDto editGameDto) {
         // TODO - Investigate best practices for merging DTOs back into their entities
         Game game = ObjectMapper.getInstance().map(editGameDto, Game.class);
         game.setId(id);
         this.gameRepository.save(game);
+    }
+
+    @Override
+    public void delete(final Long id) {
+        this.gameRepository.deleteById(id);
     }
 
     @Override
@@ -46,5 +57,11 @@ public class GameServiceImpl implements GameService {
     public EditGameDto getEditGameDtoById(final Long id) {
         Optional<Game> game = this.gameRepository.findById(id);
         return game.map(game1 -> ObjectMapper.getInstance().map(game1, EditGameDto.class)).orElse(null);
+    }
+
+    @Override
+    public GameTitleViewDto getGameTitleViewDtoById(final Long id) {
+        Optional<Game> game = this.gameRepository.findById(id);
+        return game.map(game1 -> ObjectMapper.getInstance().map(game1, GameTitleViewDto.class)).orElse(null);
     }
 }
