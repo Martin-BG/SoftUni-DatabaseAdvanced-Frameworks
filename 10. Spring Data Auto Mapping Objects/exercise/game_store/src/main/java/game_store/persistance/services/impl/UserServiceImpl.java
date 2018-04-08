@@ -1,6 +1,7 @@
 package game_store.persistance.services.impl;
 
 import game_store.model.dto.binding.RegisterUserDto;
+import game_store.model.dto.view.LoggedInUserDto;
 import game_store.model.entities.User;
 import game_store.model.enums.Role;
 import game_store.model.utils.ObjectMapper;
@@ -33,6 +34,17 @@ public class UserServiceImpl implements UserService {
         }
 
         return this.userRepository.save(user);
+    }
+
+    @Override
+    public LoggedInUserDto logInUser(final String email, final String password) {
+        User user = this.userRepository.findByEmailAndPassword(email, password);
+
+        if (user != null) {
+            return ObjectMapper.getInstance().map(user, LoggedInUserDto.class);
+        }
+
+        return null;
     }
 
     @Override

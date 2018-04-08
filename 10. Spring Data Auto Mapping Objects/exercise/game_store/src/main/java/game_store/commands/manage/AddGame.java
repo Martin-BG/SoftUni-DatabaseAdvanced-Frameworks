@@ -9,6 +9,7 @@ import game_store.model.dto.binding.AddGameDto;
 import game_store.model.utils.ObjectValidator;
 import game_store.persistance.services.api.GameService;
 import game_store.persistance.services.api.UserService;
+import game_store.store.LoggedUserRegister;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.math.BigDecimal;
@@ -30,6 +31,10 @@ public class AddGame extends Command {
 
     @Override
     public String execute(final String... args) {
+        if (!LoggedUserRegister.isAdmin()) {
+            return CommandMessages.ADMIN_REQUIRED;
+        }
+
         try {
             if (super.getGameService().gameExists(args[TITLE_INDEX])) {
                 throw new InvalidCommandException(CommandMessages.GAME_BY_THAT_NAME_ALREADY_EXIST);

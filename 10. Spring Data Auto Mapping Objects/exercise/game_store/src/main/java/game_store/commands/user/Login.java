@@ -1,36 +1,33 @@
-package game_store.commands.manage;
+package game_store.commands.user;
 
 import game_store.commands.Command;
 import game_store.constants.CommandMessages;
 import game_store.exceptions.InvalidCommandException;
-import game_store.model.dto.view.GameTitleViewDto;
+import game_store.model.dto.view.LoggedInUserDto;
 import game_store.persistance.services.api.GameService;
 import game_store.persistance.services.api.UserService;
 import game_store.store.LoggedUserRegister;
 import org.springframework.dao.DataIntegrityViolationException;
 
-public class DeleteGame extends Command {
+public class Login extends Command {
 
-    public DeleteGame(final UserService userService, final GameService gameService) {
+    private static final int EMAIL_INDEX = 0;
+    private static final int PASSWORD_INDEX = 1;
+
+    public Login(final UserService userService, final GameService gameService) {
         super(userService, gameService);
     }
 
     @Override
     public String execute(final String... args) {
-        if (!LoggedUserRegister.isAdmin()) {
-            return CommandMessages.ADMIN_REQUIRED;
-        }
-
         try {
-            GameTitleViewDto gameTitleViewDto = super.getGameService().getGameTitleViewDtoById(Long.parseLong(args[0]));
-            if (gameTitleViewDto == null) {
-                throw new InvalidCommandException(CommandMessages.INVALID_GAME_ID);
+            LoggedInUserDto loggedUser = super.getUserService().logInUser(args[EMAIL_INDEX], args[PASSWORD_INDEX]);
+
+            if (loggedUser == null) {
+                throw new InvalidCommandException(CommandMessages.INVALID_USER_OR_PASSWORD);
             }
 
-            super.getGameService().delete(Long.parseLong(args[0]));
-
-            return String.format(CommandMessages.GAME_DELETED, gameTitleViewDto.getTitle());
-
+            return LoggedUserRegister.logInUser(loggedUser);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidCommandException(CommandMessages.INVALID_COMMAND_ARGUMENTS);
         } catch (DataIntegrityViolationException e) {

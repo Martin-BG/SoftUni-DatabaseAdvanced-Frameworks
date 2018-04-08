@@ -29,34 +29,37 @@ public class ConsoleRunner implements CommandLineRunner {
     public void run(final String... args) {
 
         try (final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8))) {
+            while (true) {
+                String input = reader.readLine();
 
-            String input;
-            while (!"end".equalsIgnoreCase(input = reader.readLine().trim())) {
+                if (input == null) {
+                    continue;
+                }
+
+                input = input.trim();
+
+                if (CommandConstants.END_COMMAND.equalsIgnoreCase(input)) {
+                    break;
+                }
 
                 String[] tokens = input.split(CommandConstants.INPUT_COMMANDS_SEPARATOR);
 
                 String cmd = tokens[0];
 
-                if ("LoginUser".equals(cmd)) {
-                    //Login
-                } else if ("Logout".equals(cmd)) {
-                    //Logout
-                } else {
-                    String[] params = Arrays.copyOfRange(tokens, 1, tokens.length);
+                String[] params = Arrays.copyOfRange(tokens, 1, tokens.length);
 
-                    Executable command = this.commandFactory.getCommand(cmd);
+                Executable command = this.commandFactory.getCommand(cmd);
 
-                    if (command != null) {
-                        try {
-                            System.out.println(command.execute(params));
-                        } catch (InvalidCommandException e) {
-                            System.out.println(e.getMessage());
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-                    } else {
-                        System.out.println(CommandMessages.INVALID_COMMAND);
+                if (command != null) {
+                    try {
+                        System.out.println(command.execute(params));
+                    } catch (InvalidCommandException e) {
+                        System.out.println(e.getMessage());
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
                     }
+                } else {
+                    System.out.println(CommandMessages.INVALID_COMMAND);
                 }
             }
         } catch (IOException | NullPointerException e) {
