@@ -10,6 +10,7 @@ public final class CommandConstants {
 
     public static final String REGISTER_USER = "RegisterUser";
     public static final String ADD_GAME = "AddGame";
+    public static final String EDIT_GAME = "EditGame";
 
     private CommandConstants() {
     }

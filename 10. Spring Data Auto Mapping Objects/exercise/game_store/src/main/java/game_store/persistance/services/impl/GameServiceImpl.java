@@ -1,6 +1,7 @@
 package game_store.persistance.services.impl;
 
 import game_store.model.dto.binding.AddGameDto;
+import game_store.model.dto.binding.EditGameDto;
 import game_store.model.entities.Game;
 import game_store.model.utils.ObjectMapper;
 import game_store.persistance.repositories.GameRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -27,20 +29,22 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    public void update(final long id, final EditGameDto editGameDto) {
+        // TODO - Investigate best practices for merging DTOs back into their entities
+        Game game = ObjectMapper.getInstance().map(editGameDto, Game.class);
+        game.setId(id);
+        this.gameRepository.save(game);
+    }
+
+    @Override
     public Game persist(final AddGameDto addGameDto) {
         Game game = ObjectMapper.getInstance().map(addGameDto, Game.class);
-
-/*        TypeMap<AddGameDto, Game> typeMap = ObjectMapper.getInstance().createTypeMap(AddGameDto.class, Game.class);
-        typeMap.addMappings(m -> {
-            m.map(AddGameDto::getTitle, Game::setTitle);
-            m.map(AddGameDto::getPrice, Game::setPrice);
-            m.map(AddGameDto::getSize, Game::setSize);
-            m.map(AddGameDto::getDescription, Game::setDescription);
-            m.map(AddGameDto::getReleaseDate, Game::setReleaseDate);
-            m.map(AddGameDto::getThumbnailUrl, Game::setThumbnailUrl);
-            m.map(AddGameDto::getTrailer, Game::setTrailer);
-        });
-        Game game = typeMap.map(addGameDto);*/
         return this.gameRepository.save(game);
+    }
+
+    @Override
+    public EditGameDto getEditGameDtoById(final Long id) {
+        Optional<Game> game = this.gameRepository.findById(id);
+        return game.map(game1 -> ObjectMapper.getInstance().map(game1, EditGameDto.class)).orElse(null);
     }
 }
