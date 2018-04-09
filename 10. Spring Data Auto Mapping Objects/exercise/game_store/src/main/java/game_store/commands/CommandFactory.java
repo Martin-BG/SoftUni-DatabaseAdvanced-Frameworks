@@ -3,6 +3,9 @@ package game_store.commands;
 import game_store.commands.game.AddGame;
 import game_store.commands.game.DeleteGame;
 import game_store.commands.game.EditGame;
+import game_store.commands.shop.AddItem;
+import game_store.commands.shop.BuyItem;
+import game_store.commands.shop.RemoveItem;
 import game_store.commands.user.Login;
 import game_store.commands.user.Logout;
 import game_store.commands.user.Register;
@@ -45,6 +48,12 @@ public class CommandFactory {
             return new DetailGameView(this.userService, this.gameService);
         case CommandConstants.OWNED_GAME:
             return new OwnedGames(this.userService, this.gameService);
+        case CommandConstants.ADD_ITEM:
+            return new AddItem(this.userService, this.gameService);
+        case CommandConstants.REMOVE_ITEM:
+            return new RemoveItem(this.userService, this.gameService);
+        case CommandConstants.BUY_ITEM:
+            return new BuyItem(this.userService, this.gameService);
         default:
             return null;
         }
