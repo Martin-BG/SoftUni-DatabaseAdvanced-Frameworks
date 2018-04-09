@@ -4,7 +4,6 @@ import game_store.commands.CommandFactory;
 import game_store.commands.Executable;
 import game_store.constants.CommandConstants;
 import game_store.constants.CommandMessages;
-import game_store.exceptions.InvalidCommandException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
@@ -53,8 +52,6 @@ public class ConsoleRunner implements CommandLineRunner {
                 if (command != null) {
                     try {
                         System.out.println(command.execute(params));
-                    } catch (InvalidCommandException e) {
-                        System.out.println(e.getMessage());
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
