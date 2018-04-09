@@ -20,7 +20,7 @@ public class OwnedGames extends Command {
 
         final StringBuilder sb = new StringBuilder(CommandMessages.OWNED_GAMES);
 
-        super.getUserService().getOwnedGamesTitle()
+        super.getUserService().getOwnedGamesTitle(LoggedUserRegister.getLoggedUserId())
                 .forEach(game -> sb.append(game.getTitle()).append(System.lineSeparator()));
 
         return sb.toString().trim();
