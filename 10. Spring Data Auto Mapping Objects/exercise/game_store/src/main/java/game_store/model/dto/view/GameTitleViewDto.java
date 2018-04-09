@@ -17,4 +17,23 @@ public class GameTitleViewDto {
     public void setTitle(final String title) {
         this.title = title;
     }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        final GameTitleViewDto that = (GameTitleViewDto) o;
+
+        return title != null ? title.equals(that.title) : that.title == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return title != null ? title.hashCode() : 0;
+    }
 }
