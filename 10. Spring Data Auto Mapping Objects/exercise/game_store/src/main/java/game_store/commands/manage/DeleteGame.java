@@ -24,7 +24,7 @@ public class DeleteGame extends Command {
         try {
             GameTitleViewDto gameTitleViewDto = super.getGameService().getGameTitleViewDtoById(Long.parseLong(args[0]));
             if (gameTitleViewDto == null) {
-                throw new InvalidCommandException(CommandMessages.INVALID_GAME_ID);
+                return CommandMessages.INVALID_GAME_ID;
             }
 
             super.getGameService().delete(Long.parseLong(args[0]));

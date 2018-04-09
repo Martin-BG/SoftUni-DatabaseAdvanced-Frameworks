@@ -6,6 +6,9 @@ import game_store.commands.manage.EditGame;
 import game_store.commands.user.Login;
 import game_store.commands.user.Logout;
 import game_store.commands.user.Register;
+import game_store.commands.view.AllGameTilesAndPrice;
+import game_store.commands.view.DetailGameView;
+import game_store.commands.view.OwnedGames;
 import game_store.constants.CommandConstants;
 import game_store.persistance.services.api.GameService;
 import game_store.persistance.services.api.UserService;
@@ -36,6 +39,12 @@ public class CommandFactory {
             return new EditGame(this.userService, this.gameService);
         case CommandConstants.DELETE_GAME:
             return new DeleteGame(this.userService, this.gameService);
+        case CommandConstants.ALL_GAME:
+            return new AllGameTilesAndPrice(this.userService, this.gameService);
+        case CommandConstants.DETAIL_GAME:
+            return new DetailGameView(this.userService, this.gameService);
+        case CommandConstants.OWNED_GAME:
+            return new OwnedGames(this.userService, this.gameService);
         default:
             return null;
         }

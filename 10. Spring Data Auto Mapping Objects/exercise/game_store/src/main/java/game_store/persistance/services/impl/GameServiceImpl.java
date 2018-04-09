@@ -2,6 +2,8 @@ package game_store.persistance.services.impl;
 
 import game_store.model.dto.binding.AddGameDto;
 import game_store.model.dto.binding.EditGameDto;
+import game_store.model.dto.view.GameFullViewDto;
+import game_store.model.dto.view.GameTitleAndPriceViewDto;
 import game_store.model.dto.view.GameTitleViewDto;
 import game_store.model.entities.Game;
 import game_store.model.utils.ObjectMapper;
@@ -11,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -63,5 +67,21 @@ public class GameServiceImpl implements GameService {
     public GameTitleViewDto getGameTitleViewDtoById(final Long id) {
         Optional<Game> game = this.gameRepository.findById(id);
         return game.map(game1 -> ObjectMapper.getInstance().map(game1, GameTitleViewDto.class)).orElse(null);
+    }
+
+    @Override
+    public GameFullViewDto getFullGameViewDtoByTitle(final String title) {
+        Game game = this.gameRepository.getGameByTitleEquals(title);
+        if (game != null) {
+            return ObjectMapper.getInstance().map(game, GameFullViewDto.class);
+        }
+        return null;
+    }
+
+    @Override
+    public List<GameTitleAndPriceViewDto> getAllGamesTitleAndPrice() {
+        return this.gameRepository.findAll().stream()
+                .map(game -> ObjectMapper.getInstance().map(game, GameTitleAndPriceViewDto.class))
+                .collect(Collectors.toList());
     }
 }

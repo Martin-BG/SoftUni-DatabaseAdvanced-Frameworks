@@ -39,4 +39,12 @@ public class LoggedUserRegister {
     public static boolean hasLoggedUser() {
         return currentUser != null;
     }
+
+    public static Long getLoggedUserId() {
+        if (currentUser != null) {
+            return currentUser.getId();
+        }
+
+        return null;
+    }
 }

@@ -34,7 +34,7 @@ public class EditGame extends Command {
             EditGameDto editGameDto = super.getGameService().getEditGameDtoById(Long.parseLong(args[ID_INDEX]));
 
             if (editGameDto == null) {
-                throw new InvalidCommandException(CommandMessages.INVALID_GAME_ID);
+                return CommandMessages.INVALID_GAME_ID;
             }
 
             for (int i = 1; i < args.length; i++) {

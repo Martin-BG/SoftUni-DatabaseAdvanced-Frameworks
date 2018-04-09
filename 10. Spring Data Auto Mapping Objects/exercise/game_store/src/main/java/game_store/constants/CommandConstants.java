@@ -15,6 +15,9 @@ public final class CommandConstants {
     public static final String LOGIN_USER = "LoginUser";
     public static final String LOGOUT_USER = "LogoutUser";
     public static final String END_COMMAND = "End";
+    public static final String ALL_GAME = "AllGame";
+    public static final String DETAIL_GAME = "DetailGame";
+    public static final String OWNED_GAME = "OwnedGame";
 
     private CommandConstants() {
     }

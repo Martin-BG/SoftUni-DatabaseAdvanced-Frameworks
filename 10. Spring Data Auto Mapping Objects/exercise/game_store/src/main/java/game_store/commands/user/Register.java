@@ -24,7 +24,7 @@ public class Register extends Command {
     public String execute(final String... args) {
         try {
             if (super.getUserService().userExists(args[EMAIL_INDEX])) {
-                throw new InvalidCommandException(CommandMessages.CANNOT_REGISTER_USER_EMAIL_ALREADY_USED);
+                return CommandMessages.CANNOT_REGISTER_USER_EMAIL_ALREADY_USED;
             }
 
             RegisterUserDto registerUserDto = new RegisterUserDto(

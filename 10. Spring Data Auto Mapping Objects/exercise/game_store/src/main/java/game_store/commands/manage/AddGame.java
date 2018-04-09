@@ -37,7 +37,7 @@ public class AddGame extends Command {
 
         try {
             if (super.getGameService().gameExists(args[TITLE_INDEX])) {
-                throw new InvalidCommandException(CommandMessages.GAME_BY_THAT_NAME_ALREADY_EXIST);
+                return CommandMessages.GAME_BY_THAT_NAME_ALREADY_EXIST;
             }
 
             AddGameDto addGameDto = new AddGameDto(

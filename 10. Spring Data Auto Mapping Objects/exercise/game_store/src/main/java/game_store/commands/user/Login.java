@@ -24,7 +24,7 @@ public class Login extends Command {
             LoggedInUserDto loggedUser = super.getUserService().logInUser(args[EMAIL_INDEX], args[PASSWORD_INDEX]);
 
             if (loggedUser == null) {
-                throw new InvalidCommandException(CommandMessages.INVALID_USER_OR_PASSWORD);
+                return CommandMessages.INVALID_USER_OR_PASSWORD;
             }
 
             return LoggedUserRegister.logInUser(loggedUser);
