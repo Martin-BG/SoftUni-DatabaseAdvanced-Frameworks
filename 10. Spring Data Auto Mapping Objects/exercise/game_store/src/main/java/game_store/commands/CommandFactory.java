@@ -1,8 +1,8 @@
 package game_store.commands;
 
-import game_store.commands.manage.AddGame;
-import game_store.commands.manage.DeleteGame;
-import game_store.commands.manage.EditGame;
+import game_store.commands.game.AddGame;
+import game_store.commands.game.DeleteGame;
+import game_store.commands.game.EditGame;
 import game_store.commands.user.Login;
 import game_store.commands.user.Logout;
 import game_store.commands.user.Register;

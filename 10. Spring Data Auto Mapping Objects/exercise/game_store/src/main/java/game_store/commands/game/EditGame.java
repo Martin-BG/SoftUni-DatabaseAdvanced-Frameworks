@@ -1,4 +1,4 @@
-package game_store.commands.manage;
+package game_store.commands.game;
 
 import game_store.commands.Command;
 import game_store.constants.CommandConstants;
