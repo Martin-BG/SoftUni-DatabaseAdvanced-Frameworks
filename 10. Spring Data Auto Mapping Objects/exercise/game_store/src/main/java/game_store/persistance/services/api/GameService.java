@@ -7,7 +7,7 @@ import game_store.model.dto.view.GameTitleAndPriceViewDto;
 import game_store.model.dto.view.GameTitleViewDto;
 import game_store.model.entities.Game;
 
-import java.util.List;
+import java.util.Set;
 
 public interface GameService {
 
@@ -19,13 +19,15 @@ public interface GameService {
 
     GameFullViewDto getFullGameViewDtoByTitle(String title);
 
-    List<GameTitleAndPriceViewDto> getAllGamesTitleAndPrice();
+    Set<GameTitleAndPriceViewDto> getAllGamesTitleAndPrice();
+
+    GameTitleViewDto getGameTitleViewDtoByTitle(String title);
 
     boolean gameExists(String title);
-
-    boolean gameExists(Long id);
 
     void update(long id, EditGameDto editGameDto);
 
     void delete(Long id);
+
+    Game getGameFromTitle(String title);
 }

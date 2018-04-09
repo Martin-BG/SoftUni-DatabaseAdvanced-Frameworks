@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,11 +31,6 @@ public class GameServiceImpl implements GameService {
     @Override
     public boolean gameExists(final String title) {
         return this.gameRepository.existsByTitleEquals(title);
-    }
-
-    @Override
-    public boolean gameExists(final Long id) {
-        return this.gameRepository.existsById(id);
     }
 
     @Override
@@ -79,9 +74,23 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public List<GameTitleAndPriceViewDto> getAllGamesTitleAndPrice() {
+    public Set<GameTitleAndPriceViewDto> getAllGamesTitleAndPrice() {
         return this.gameRepository.findAll().stream()
                 .map(game -> ObjectMapper.getInstance().map(game, GameTitleAndPriceViewDto.class))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public GameTitleViewDto getGameTitleViewDtoByTitle(final String title) {
+        Game game = this.gameRepository.getGameByTitleEquals(title);
+        if (game != null) {
+            return ObjectMapper.getInstance().map(game, GameTitleViewDto.class);
+        }
+        return null;
+    }
+
+    @Override
+    public Game getGameFromTitle(final String title) {
+        return this.gameRepository.getGameByTitleEquals(title);
     }
 }
