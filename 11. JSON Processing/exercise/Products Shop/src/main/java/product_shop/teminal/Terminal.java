@@ -11,9 +11,11 @@ import product_shop.persistance.service.impl.ProductServiceImpl;
 import product_shop.persistance.service.impl.UserServiceImpl;
 import product_shop.utils.JsonParser;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 
 @Controller
+@Transactional
 public class Terminal implements CommandLineRunner {
 
     private final JsonParser jsonParser;
@@ -35,9 +37,9 @@ public class Terminal implements CommandLineRunner {
 
     @Override
     public void run(final String... args) {
-//        seedDatabase();
-//
-//        saveAvailableProductsInPriceRange(BigDecimal.valueOf(500), BigDecimal.valueOf(1000));
+        seedDatabase();
+
+        saveAvailableProductsInPriceRange(BigDecimal.valueOf(500), BigDecimal.valueOf(1000));
 
         //saveSuccessfulSellers();
     }
@@ -62,7 +64,7 @@ public class Terminal implements CommandLineRunner {
 
     private void saveSuccessfulSellers() {
         this.jsonParser.objectToFile(
-                this.userService.GetSuccessfulSellers(),
+                this.userService.getSuccessfulSellers(),
                 "output/users-sold-products.json");
     }
 }

@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserFirstAndLastNamesAndSoldProductsDto> GetSuccessfulSellers() {
+    public List<UserFirstAndLastNamesAndSoldProductsDto> getSuccessfulSellers() {
         final List<User> allBySellContainsProduct_buyer = this.userRepository.getAllBySellContainsProduct_Buyer();
         System.out.println();
         return this.userRepository.getAllBySellContainsProduct_Buyer()

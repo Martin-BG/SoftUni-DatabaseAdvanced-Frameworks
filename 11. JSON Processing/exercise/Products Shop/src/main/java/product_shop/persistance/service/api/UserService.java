@@ -14,5 +14,5 @@ public interface UserService {
 
     User getFromId(Long id);
 
-    List<UserFirstAndLastNamesAndSoldProductsDto> GetSuccessfulSellers();
+    List<UserFirstAndLastNamesAndSoldProductsDto> getSuccessfulSellers();
 }
