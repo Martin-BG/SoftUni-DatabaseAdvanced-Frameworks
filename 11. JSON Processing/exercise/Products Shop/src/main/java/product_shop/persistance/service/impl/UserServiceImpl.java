@@ -46,12 +46,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserFirstAndLastNamesAndSoldProductsDto> getSuccessfulSellers() {
-        return this.userRepository.getAllBySellContainsProduct_Buyer()
+        return this.userRepository
+                .getAllBySellContainsProduct_Buyer()
                 .stream()
                 .map(user -> {
                     final UserFirstAndLastNamesAndSoldProductsDto userDto =
                             this.modelMapper.map(user, UserFirstAndLastNamesAndSoldProductsDto.class);
-                    userDto.setSoldProducts(user.getSell().stream()
+                    userDto.setSoldProducts(user
+                            .getSell()
+                            .stream()
                             .filter(sale -> sale.getBuyer() != null)
                             .map(sale -> this.modelMapper.map(sale, ProductNamePriceBuyerFirstAndLastNamesDto.class))
                             .collect(Collectors.toSet()));
