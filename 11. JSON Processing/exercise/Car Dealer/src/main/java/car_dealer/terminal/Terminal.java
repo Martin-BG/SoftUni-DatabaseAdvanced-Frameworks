@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import javax.transaction.Transactional;
 
 @Controller
-@Transactional
 public class Terminal implements CommandLineRunner {
 
     private static final String RESOURCES_PATH = System.getProperty("user.dir") + "/src/main/resources/";
@@ -53,17 +52,17 @@ public class Terminal implements CommandLineRunner {
 
     @Override
     public void run(final String... args) {
-//        this.seedDatabase();
-//
-//        this.getAllCustomersOrderedByBirthday();
-//
-//        this.getCarsFromMake("Toyota");
-//
-//        this.getLocalSuppliers();
-//
-//        this.getAllCarsWithTheirParts();
-//
-//        this.getAllCustomersWithPurchases();
+        this.seedDatabase();
+
+        this.getAllCustomersOrderedByBirthday();
+
+        this.getCarsFromMake("Toyota");
+
+        this.getLocalSuppliers();
+
+        this.getAllCarsWithTheirParts();
+
+        this.getAllCustomersWithPurchases();
 
         this.getAllSaleDetails();
     }
@@ -104,6 +103,7 @@ public class Terminal implements CommandLineRunner {
                 OUTPUT_ORDERED_CUSTOMERS_JSON);
     }
 
+    @Transactional
     private void seedDatabase() {
         SupplierDto[] supplierDtos = this.jsonParser.objectFromFile(SupplierDto[].class, SEED_SUPPLIERS_JSON);
         this.supplierService.saveAll(supplierDtos);
