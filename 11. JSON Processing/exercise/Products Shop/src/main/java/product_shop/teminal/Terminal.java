@@ -24,6 +24,7 @@ public class Terminal implements CommandLineRunner {
     private static final String SEED_PRODUCTS_JSON = RESOURCES_PATH + "seed/products.json";
     private static final String OUTPUT_PRODUCTS_IN_RANGE_JSON = RESOURCES_PATH + "output/products-in-range.json";
     private static final String OUTPUT_USERS_SOLD_PRODUCTS_JSON = RESOURCES_PATH + "output/users-sold-products.json";
+    private static final String OUTPUT_CATEGORIES_BY_PRODUCTS_JSON = RESOURCES_PATH + "output/categories-by-products.json";
 
     private final JsonParser jsonParser;
     private final CategoryServiceImpl categoryService;
@@ -49,6 +50,8 @@ public class Terminal implements CommandLineRunner {
 //        saveAvailableProductsInPriceRange(BigDecimal.valueOf(500), BigDecimal.valueOf(1000));
 
 //        saveSuccessfulSellers();
+
+        saveCategoriesByProductCount();
     }
 
     private void seedDatabase() {
@@ -73,5 +76,11 @@ public class Terminal implements CommandLineRunner {
         this.jsonParser.objectToFile(
                 this.userService.getSuccessfulSellers(),
                 OUTPUT_USERS_SOLD_PRODUCTS_JSON);
+    }
+
+    private void saveCategoriesByProductCount() {
+        this.jsonParser.objectToFile(
+                this.categoryService.getCategoriesByProductsCount(),
+                OUTPUT_CATEGORIES_BY_PRODUCTS_JSON);
     }
 }
