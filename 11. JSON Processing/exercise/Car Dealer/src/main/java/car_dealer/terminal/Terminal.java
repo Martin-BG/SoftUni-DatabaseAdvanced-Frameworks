@@ -21,6 +21,7 @@ public class Terminal implements CommandLineRunner {
     private static final String SEED_PARTS_JSON = RESOURCES_PATH + "seed/parts.json";
     private static final String SEED_CARS_JSON = RESOURCES_PATH + "seed/cars.json";
     private static final String SEED_CUSTOMERS_JSON = RESOURCES_PATH + "seed/customers.json";
+    private static final String OUTPUT_ORDERED_CUSTOMERS_JSON = RESOURCES_PATH + "output/ordered-customers.json";
 
     private final JsonParser jsonParser;
     private final CarServiceImpl carService;
@@ -47,8 +48,16 @@ public class Terminal implements CommandLineRunner {
 
     @Override
     public void run(final String... args) {
-        seedDatabase();
+//        this.seedDatabase();
 
+        this.getAllCustomersOrderedByBirthday();
+
+    }
+
+    private void getAllCustomersOrderedByBirthday() {
+        this.jsonParser.objectToFile(
+                this.customerService.getAllSortedByBirthday(),
+                OUTPUT_ORDERED_CUSTOMERS_JSON);
     }
 
     private void seedDatabase() {

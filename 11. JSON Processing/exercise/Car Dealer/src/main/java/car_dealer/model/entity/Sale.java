@@ -25,6 +25,6 @@ public class Sale implements Serializable {
     @OneToOne
     private Car car;
 
-    @OneToOne
+    @ManyToOne
     private Customer customer;
 }

@@ -50,6 +50,7 @@ public class SaleServiceImpl implements SaleService {
             sale.setCar(car);
             sale.setCustomer(customers.get(random.nextInt(customers.size())));
             sale.setDiscount(discounts[random.nextInt(discounts.length)]);
+            this.saleRepository.saveAndFlush(sale);
             sales.add(sale);
         }
 

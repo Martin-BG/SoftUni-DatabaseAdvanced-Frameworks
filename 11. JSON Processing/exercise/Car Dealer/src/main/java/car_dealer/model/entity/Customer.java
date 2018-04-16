@@ -8,6 +8,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,4 +27,7 @@ public class Customer implements Serializable {
     private Date birthDate;
 
     private Boolean isYoungDriver;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Sale> purchases;
 }
