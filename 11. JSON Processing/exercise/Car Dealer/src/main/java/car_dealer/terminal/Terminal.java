@@ -24,6 +24,7 @@ public class Terminal implements CommandLineRunner {
     private static final String OUTPUT_ORDERED_CUSTOMERS_JSON = RESOURCES_PATH + "output/ordered-customers.json";
     private static final String OUTPUT_TOYOTA_CARS_JSON = RESOURCES_PATH + "output/toyota-cars.json";
     private static final String OUTPUT_LOCAL_SUPPLIERS_JSON = RESOURCES_PATH + "output/local-suppliers.json";
+    private static final String OUTPUT_CARS_PARTS_JSON = RESOURCES_PATH + "output/cars-parts.json";
 
     private final JsonParser jsonParser;
     private final CarServiceImpl carService;
@@ -51,13 +52,21 @@ public class Terminal implements CommandLineRunner {
     @Override
     public void run(final String... args) {
 //        this.seedDatabase();
-
+//
 //        this.getAllCustomersOrderedByBirthday();
-
+//
 //        this.getCarsFromMake("Toyota");
+//
+//        this.getLocalSuppliers();
 
-        this.getLocalSuppliers();
+        this.getAllCarsWithTheirParts();
 
+    }
+
+    private void getAllCarsWithTheirParts() {
+        this.jsonParser.objectToFile(
+                this.carService.getAllCarsWithTheirParts(),
+                OUTPUT_CARS_PARTS_JSON);
     }
 
     private void getLocalSuppliers() {

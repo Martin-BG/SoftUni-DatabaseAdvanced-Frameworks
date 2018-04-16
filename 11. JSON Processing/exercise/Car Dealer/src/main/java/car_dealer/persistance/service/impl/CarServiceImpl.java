@@ -1,7 +1,10 @@
 package car_dealer.persistance.service.impl;
 
 import car_dealer.model.dto.binding.CarDto;
+import car_dealer.model.dto.view.CarPartsViewDto;
 import car_dealer.model.dto.view.CarViewDto;
+import car_dealer.model.dto.view.CarViewShortDto;
+import car_dealer.model.dto.view.PartViewDto;
 import car_dealer.model.entity.Car;
 import car_dealer.model.entity.Part;
 import car_dealer.persistance.repository.CarRepository;
@@ -65,5 +68,24 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<Car> getAllCars() {
         return this.carRepository.findAll();
+    }
+
+    @Override
+    public List<CarPartsViewDto> getAllCarsWithTheirParts() {
+        return this.carRepository
+                .findAll()
+                .stream()
+                .map(car -> {
+                    CarPartsViewDto carView = new CarPartsViewDto();
+                    carView.setCar(this.modelMapper.map(car, CarViewShortDto.class));
+                    carView.setParts(car
+                            .getParts()
+                            .stream()
+                            .map(part -> this.modelMapper.map(part, PartViewDto.class))
+                            .collect(Collectors.toSet())
+                    );
+                    return carView;
+                })
+                .collect(Collectors.toList());
     }
 }
