@@ -4,8 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import product_shop.model.dto.binding.UserDto;
-import product_shop.model.dto.view.ProductNamePriceBuyerFirstAndLastNamesDto;
-import product_shop.model.dto.view.UserFirstAndLastNamesAndSoldProductsDto;
+import product_shop.model.dto.view.*;
 import product_shop.model.entity.User;
 import product_shop.persistance.repository.UserRepository;
 import product_shop.persistance.service.api.UserService;
@@ -63,13 +62,49 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
+
     @Override
-    public User getRandom() {
-        return this.userRepository.getRandomEntity();
+    public UsersWithSalesListDto getSellsByUser() {
+        final List<UserFirstLastNamesAgeAndSoldProductsNameAndPriceDto> users = this.userRepository
+                .getAllBySellContainsProduct_Buyer()
+                .stream()
+                .map(user -> {
+                    final UserFirstLastNamesAgeAndSoldProductsNameAndPriceDto userDto =
+                            this.modelMapper.map(user, UserFirstLastNamesAgeAndSoldProductsNameAndPriceDto.class);
+
+                    final SoldProductsDto soldProductsDto = new SoldProductsDto();
+
+                    soldProductsDto.setSoldProducts(user
+                            .getSell()
+                            .stream()
+                            .filter(sale -> sale.getBuyer() != null)
+                            .map(sale -> this.modelMapper.map(sale, ProductNameAndPriceDto.class))
+                            .collect(Collectors.toSet()));
+
+                    soldProductsDto.setCount(soldProductsDto.getSoldProducts().size());
+
+                    userDto.setSoldProducts(soldProductsDto);
+
+                    return userDto;
+                })
+                .sorted((u1, u2) -> {
+                    int cmp = u2.getSoldProducts().getCount() - u1.getSoldProducts().getCount();
+                    if (cmp == 0) {
+                        cmp = u1.getLastName().compareTo(u2.getLastName());
+                    }
+                    return cmp;
+                })
+                .collect(Collectors.toList());
+
+        final UsersWithSalesListDto usersWithSalesListDto = new UsersWithSalesListDto();
+        usersWithSalesListDto.setUsers(users);
+        usersWithSalesListDto.setUsersCount(users.size());
+
+        return usersWithSalesListDto;
     }
 
     @Override
-    public User getFromId(final Long id) {
-        return this.userRepository.getOne(id);
+    public User getRandom() {
+        return this.userRepository.getRandomEntity();
     }
 }
