@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import product_shop.model.dto.binding.UserDto;
+import product_shop.model.dto.view.ProductNamePriceBuyerFirstAndLastNamesDto;
 import product_shop.model.dto.view.UserFirstAndLastNamesAndSoldProductsDto;
 import product_shop.model.entity.User;
 import product_shop.persistance.repository.UserRepository;
@@ -11,7 +12,6 @@ import product_shop.persistance.service.api.UserService;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,12 +46,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserFirstAndLastNamesAndSoldProductsDto> getSuccessfulSellers() {
-        final List<User> allBySellContainsProduct_buyer = this.userRepository.getAllBySellContainsProduct_Buyer();
-        System.out.println();
         return this.userRepository.getAllBySellContainsProduct_Buyer()
                 .stream()
-                .sorted(Comparator.comparing(User::getLastName).thenComparing(User::getFirstName))
-                .map(user -> this.modelMapper.map(user, UserFirstAndLastNamesAndSoldProductsDto.class))
+                .map(user -> {
+                    final UserFirstAndLastNamesAndSoldProductsDto userDto =
+                            this.modelMapper.map(user, UserFirstAndLastNamesAndSoldProductsDto.class);
+                    userDto.setSoldProducts(user.getSell().stream()
+                            .filter(sale -> sale.getBuyer() != null)
+                            .map(sale -> this.modelMapper.map(sale, ProductNamePriceBuyerFirstAndLastNamesDto.class))
+                            .collect(Collectors.toSet()));
+                    return userDto;
+                })
                 .collect(Collectors.toList());
     }
 

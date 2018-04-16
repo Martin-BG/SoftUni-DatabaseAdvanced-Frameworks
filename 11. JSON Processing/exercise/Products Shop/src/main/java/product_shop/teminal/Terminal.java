@@ -44,11 +44,11 @@ public class Terminal implements CommandLineRunner {
 
     @Override
     public void run(final String... args) {
-        seedDatabase();
+//        seedDatabase();
 
-        saveAvailableProductsInPriceRange(BigDecimal.valueOf(500), BigDecimal.valueOf(1000));
+//        saveAvailableProductsInPriceRange(BigDecimal.valueOf(500), BigDecimal.valueOf(1000));
 
-        //saveSuccessfulSellers();
+//        saveSuccessfulSellers();
     }
 
     private void seedDatabase() {

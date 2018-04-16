@@ -21,9 +21,9 @@ public class UserFirstAndLastNamesAndSoldProductsDto implements Serializable {
     @Length(min = 3)
     private String lastName;
 
-    private Set<ProductNamePriceSellerNameDto> sold;
+    private Set<ProductNamePriceBuyerFirstAndLastNamesDto> soldProducts;
 
     public UserFirstAndLastNamesAndSoldProductsDto() {
-        this.sold = new HashSet<>();
+        this.soldProducts = new HashSet<>();
     }
 }
