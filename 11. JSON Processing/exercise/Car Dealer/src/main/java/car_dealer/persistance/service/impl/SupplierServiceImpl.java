@@ -1,6 +1,7 @@
 package car_dealer.persistance.service.impl;
 
 import car_dealer.model.dto.binding.SupplierDto;
+import car_dealer.model.dto.view.SupplierViewDto;
 import car_dealer.model.entity.Supplier;
 import car_dealer.persistance.repository.SupplierRepository;
 import car_dealer.persistance.service.api.SupplierService;
@@ -35,5 +36,17 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public List<Supplier> getAllSuppliers() {
         return this.supplierRepository.findAll();
+    }
+
+    @Override
+    public List<SupplierViewDto> getLocalSuppliers() {
+        return this.supplierRepository.getLocalSuppliers();
+//                .stream()
+//                .map(supplier -> {
+//                    final SupplierViewDto supplierDto = this.modelMapper.map(supplier, SupplierViewDto.class);
+//                    supplierDto.setPartsCount(supplier.getParts().size());
+//                    return supplierDto;
+//                })
+//                .collect(Collectors.toList());
     }
 }
