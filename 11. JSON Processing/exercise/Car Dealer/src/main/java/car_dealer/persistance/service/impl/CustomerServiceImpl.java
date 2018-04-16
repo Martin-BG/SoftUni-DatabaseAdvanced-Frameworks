@@ -3,8 +3,10 @@ package car_dealer.persistance.service.impl;
 import car_dealer.model.dto.binding.CustomerDto;
 import car_dealer.model.dto.view.CarViewDto;
 import car_dealer.model.dto.view.CustomerByBirthdayDto;
+import car_dealer.model.dto.view.CustomerPurchasesViewDto;
 import car_dealer.model.dto.view.SaleViewDto;
 import car_dealer.model.entity.Customer;
+import car_dealer.model.entity.Part;
 import car_dealer.persistance.repository.CustomerRepository;
 import car_dealer.persistance.service.api.CustomerService;
 import org.modelmapper.ModelMapper;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,6 +61,39 @@ public class CustomerServiceImpl implements CustomerService {
                             })
                             .collect(Collectors.toSet()));
                     return customerDto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CustomerPurchasesViewDto> getCustomersPurchases() {
+        return this.customerRepository
+                .findAll()
+                .stream()
+                .map(customer -> {
+                    CustomerPurchasesViewDto customerDto = new CustomerPurchasesViewDto();
+                    customerDto.setName(customer.getName());
+                    customerDto.setBoughtCars(customer.getPurchases().size());
+
+                    BigDecimal moneySpent = customer.getPurchases()
+                            .stream()
+                            .map(sale -> sale.getCar()
+                                    .getParts()
+                                    .stream()
+                                    .map(Part::getPrice)
+                                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                            )
+                            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+                    customerDto.setSpentMoney(moneySpent);
+                    return customerDto;
+                })
+                .sorted((c1, c2) -> {
+                    int cmp = c2.getSpentMoney().compareTo(c1.getSpentMoney());
+                    if (cmp == 0) {
+                        cmp = c2.getBoughtCars().compareTo(c1.getBoughtCars());
+                    }
+                    return cmp;
                 })
                 .collect(Collectors.toList());
     }
