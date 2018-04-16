@@ -9,9 +9,9 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class SaleDto implements Serializable {
+public class SaleViewDto implements Serializable {
 
     private Double discount;
 
-    private CarDto car;
+    private CarViewDto car;
 }

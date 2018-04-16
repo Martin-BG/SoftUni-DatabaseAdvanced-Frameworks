@@ -1,6 +1,7 @@
 package car_dealer.persistance.service.impl;
 
 import car_dealer.model.dto.binding.CarDto;
+import car_dealer.model.dto.view.CarViewDto;
 import car_dealer.model.entity.Car;
 import car_dealer.model.entity.Part;
 import car_dealer.persistance.repository.CarRepository;
@@ -14,6 +15,7 @@ import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -49,6 +51,15 @@ public class CarServiceImpl implements CarService {
         }
 
         this.carRepository.saveAll(Arrays.asList(cars));
+    }
+
+    @Override
+    public List<CarViewDto> getCarsByMake(final String make) {
+        return this.carRepository
+                .findByMakeOrderByModelAscTravelledDistanceDesc(make)
+                .stream()
+                .map(car -> this.modelMapper.map(car, CarViewDto.class))
+                .collect(Collectors.toList());
     }
 
     @Override

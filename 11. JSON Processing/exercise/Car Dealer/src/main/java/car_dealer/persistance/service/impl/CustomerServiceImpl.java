@@ -1,9 +1,9 @@
 package car_dealer.persistance.service.impl;
 
 import car_dealer.model.dto.binding.CustomerDto;
-import car_dealer.model.dto.view.CarDto;
+import car_dealer.model.dto.view.CarViewDto;
 import car_dealer.model.dto.view.CustomerByBirthdayDto;
-import car_dealer.model.dto.view.SaleDto;
+import car_dealer.model.dto.view.SaleViewDto;
 import car_dealer.model.entity.Customer;
 import car_dealer.persistance.repository.CustomerRepository;
 import car_dealer.persistance.service.api.CustomerService;
@@ -52,9 +52,9 @@ public class CustomerServiceImpl implements CustomerService {
                             .getPurchases()
                             .stream()
                             .map(sale -> {
-                                final SaleDto saleDto = this.modelMapper.map(sale, SaleDto.class);
-                                saleDto.setCar(this.modelMapper.map(sale.getCar(), CarDto.class));
-                                return saleDto;
+                                final SaleViewDto saleViewDto = this.modelMapper.map(sale, SaleViewDto.class);
+                                saleViewDto.setCar(this.modelMapper.map(sale.getCar(), CarViewDto.class));
+                                return saleViewDto;
                             })
                             .collect(Collectors.toSet()));
                     return customerDto;

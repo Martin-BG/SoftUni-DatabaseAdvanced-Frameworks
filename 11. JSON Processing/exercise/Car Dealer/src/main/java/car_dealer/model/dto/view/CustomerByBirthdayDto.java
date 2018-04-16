@@ -28,7 +28,7 @@ public class CustomerByBirthdayDto implements Serializable {
     private boolean isYoungDriver;
 
     @SerializedName("Sales")
-    private Set<SaleDto> purchases;
+    private Set<SaleViewDto> purchases;
 
     public CustomerByBirthdayDto() {
         this.purchases = new HashSet<>();
