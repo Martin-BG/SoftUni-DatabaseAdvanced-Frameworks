@@ -1,11 +1,10 @@
-package car_dealer.model.entity;
+package car_dealer.model.dto.binding;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,13 +12,7 @@ import java.util.Date;
 @Setter
 @ToString
 @NoArgsConstructor
-@Entity
-@Table(name = "customers")
-public class Customer implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class CustomerDto implements Serializable {
 
     private String name;
 

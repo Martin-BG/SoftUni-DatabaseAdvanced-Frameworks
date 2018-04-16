@@ -10,7 +10,10 @@ public class JsonParser {
     private final Gson gson;
 
     public JsonParser() {
-        this.gson = new GsonBuilder().setPrettyPrinting().create();
+        this.gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .setDateFormat("yyyy-MM-dd'T'hh:mm:ss")
+                .create();
     }
 
     public <T> T objectFromFile(Class<T> tClass, String path) {
