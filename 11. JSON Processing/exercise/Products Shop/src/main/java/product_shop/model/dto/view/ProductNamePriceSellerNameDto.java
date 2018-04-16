@@ -1,5 +1,6 @@
 package product_shop.model.dto.view;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,5 +26,6 @@ public class ProductNamePriceSellerNameDto implements Serializable {
 
     @NotNull
     @Length(min = 3)
+    @SerializedName("seller")
     private String sellerFullName;
 }
