@@ -8,7 +8,9 @@ import car_dealer.model.dto.binding.xml.CarsCarDto;
 import car_dealer.model.dto.binding.xml.CustomersCustomerDto;
 import car_dealer.model.dto.binding.xml.PartsPartDto;
 import car_dealer.model.dto.binding.xml.SuppliersSupplierDto;
+import car_dealer.model.dto.view.CarViewDto;
 import car_dealer.model.dto.view.CustomerByBirthdayDto;
+import car_dealer.model.dto.view.xml.CarsCarViewDto;
 import car_dealer.model.dto.view.xml.CustomersCustomerByBirthdayDto;
 import car_dealer.persistance.service.impl.*;
 import car_dealer.utils.JsonParser;
@@ -39,6 +41,7 @@ public class Terminal implements CommandLineRunner {
     private static final String XML_IN_PARTS_XML = RESOURCES_PATH + "xml/in/parts.xml";
     private static final String XML_IN_CARS_XML = RESOURCES_PATH + "xml/in/cars.xml";
     private static final String XML_OUT_ORDERED_CUSTOMERS_XML = RESOURCES_PATH + "xml/out/ordered-customers.xml";
+    private static final String XML_OUT_TOYOTA_CARS_XML = RESOURCES_PATH + "xml/out/toyota-cars.xml";
 
     private final JsonParser jsonParser;
     private final XmlParser xmlParser;
@@ -76,10 +79,10 @@ public class Terminal implements CommandLineRunner {
     private void xmlSolution() {
 //        this.seedDatabaseXml();
 
-        this.getAllCustomersOrderedByBirthdayXml();
+//        this.getAllCustomersOrderedByBirthdayXml();
 
-//        this.getCarsFromMakeXml("Toyota");
-//
+        this.getCarsFromMakeXml("Toyota");
+
 //        this.getLocalSuppliersXml();
 //
 //        this.getAllCarsWithTheirPartsXml();
@@ -87,6 +90,13 @@ public class Terminal implements CommandLineRunner {
 //        this.getAllCustomersWithPurchasesXml();
 //
 //        this.getAllSaleDetailsXml();
+    }
+
+    private void getCarsFromMakeXml(final String make) {
+        final List<CarViewDto> carsByMake = this.carService.getCarsByMake(make);
+        CarsCarViewDto cars = new CarsCarViewDto();
+        cars.setCars(carsByMake);
+        this.xmlParser.objectToFile(cars, XML_OUT_TOYOTA_CARS_XML);
     }
 
     private void getAllCustomersOrderedByBirthdayXml() {
