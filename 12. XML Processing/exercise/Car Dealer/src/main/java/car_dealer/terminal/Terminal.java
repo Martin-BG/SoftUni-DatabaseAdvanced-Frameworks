@@ -10,8 +10,10 @@ import car_dealer.model.dto.binding.xml.PartsPartDto;
 import car_dealer.model.dto.binding.xml.SuppliersSupplierDto;
 import car_dealer.model.dto.view.CarViewDto;
 import car_dealer.model.dto.view.CustomerByBirthdayDto;
+import car_dealer.model.dto.view.SupplierViewDto;
 import car_dealer.model.dto.view.xml.CarsCarViewDto;
 import car_dealer.model.dto.view.xml.CustomersCustomerByBirthdayDto;
+import car_dealer.model.dto.view.xml.SuppliersSupplierViewDto;
 import car_dealer.persistance.service.impl.*;
 import car_dealer.utils.JsonParser;
 import car_dealer.utils.XmlParser;
@@ -42,6 +44,7 @@ public class Terminal implements CommandLineRunner {
     private static final String XML_IN_CARS_XML = RESOURCES_PATH + "xml/in/cars.xml";
     private static final String XML_OUT_ORDERED_CUSTOMERS_XML = RESOURCES_PATH + "xml/out/ordered-customers.xml";
     private static final String XML_OUT_TOYOTA_CARS_XML = RESOURCES_PATH + "xml/out/toyota-cars.xml";
+    private static final String XML_OUT_LOCAL_SUPPLIERS_XML = RESOURCES_PATH + "xml/out/local-suppliers.xml";
 
     private final JsonParser jsonParser;
     private final XmlParser xmlParser;
@@ -81,15 +84,22 @@ public class Terminal implements CommandLineRunner {
 
 //        this.getAllCustomersOrderedByBirthdayXml();
 
-        this.getCarsFromMakeXml("Toyota");
+//        this.getCarsFromMakeXml("Toyota");
 
-//        this.getLocalSuppliersXml();
-//
+        this.getLocalSuppliersXml();
+
 //        this.getAllCarsWithTheirPartsXml();
 //
 //        this.getAllCustomersWithPurchasesXml();
 //
 //        this.getAllSaleDetailsXml();
+    }
+
+    private void getLocalSuppliersXml() {
+        final List<SupplierViewDto> localSuppliers = this.supplierService.getLocalSuppliers();
+        SuppliersSupplierViewDto suppliers = new SuppliersSupplierViewDto();
+        suppliers.setSuppliers(localSuppliers);
+        this.xmlParser.objectToFile(suppliers, XML_OUT_LOCAL_SUPPLIERS_XML);
     }
 
     private void getCarsFromMakeXml(final String make) {
