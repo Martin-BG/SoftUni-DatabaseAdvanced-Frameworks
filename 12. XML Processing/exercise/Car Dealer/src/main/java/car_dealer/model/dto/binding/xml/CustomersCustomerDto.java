@@ -1,6 +1,6 @@
 package car_dealer.model.dto.binding.xml;
 
-import car_dealer.model.dto.binding.SupplierDto;
+import car_dealer.model.dto.binding.CustomerDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,14 +16,14 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@XmlRootElement(name = "suppliers")
+@XmlRootElement(name = "customers")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class SuppliersSupplierDto implements Serializable {
+public class CustomersCustomerDto implements Serializable {
 
-    @XmlElement(name = "supplier")
-    private List<SupplierDto> suppliers;
+    @XmlElement(name = "customer")
+    private List<CustomerDto> customers;
 
-    public SuppliersSupplierDto() {
-        this.suppliers = new ArrayList<>();
+    public CustomersCustomerDto() {
+        this.customers = new ArrayList<>();
     }
 }
