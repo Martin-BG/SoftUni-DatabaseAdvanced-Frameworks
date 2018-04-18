@@ -8,6 +8,8 @@ import car_dealer.model.dto.binding.xml.CarsCarDto;
 import car_dealer.model.dto.binding.xml.CustomersCustomerDto;
 import car_dealer.model.dto.binding.xml.PartsPartDto;
 import car_dealer.model.dto.binding.xml.SuppliersSupplierDto;
+import car_dealer.model.dto.view.CustomerByBirthdayDto;
+import car_dealer.model.dto.view.xml.CustomersCustomerByBirthdayDto;
 import car_dealer.persistance.service.impl.*;
 import car_dealer.utils.JsonParser;
 import car_dealer.utils.XmlParser;
@@ -16,6 +18,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Controller
 public class Terminal implements CommandLineRunner {
@@ -35,6 +38,7 @@ public class Terminal implements CommandLineRunner {
     private static final String XML_IN_CUSTOMERS_XML = RESOURCES_PATH + "xml/in/customers.xml";
     private static final String XML_IN_PARTS_XML = RESOURCES_PATH + "xml/in/parts.xml";
     private static final String XML_IN_CARS_XML = RESOURCES_PATH + "xml/in/cars.xml";
+    private static final String XML_OUT_ORDERED_CUSTOMERS_XML = RESOURCES_PATH + "xml/out/ordered-customers.xml";
 
     private final JsonParser jsonParser;
     private final XmlParser xmlParser;
@@ -64,13 +68,32 @@ public class Terminal implements CommandLineRunner {
 
     @Override
     public void run(final String... args) {
-//        jsonSolution();
+//        this.jsonSolution();
 
-        xmlSolution();
+        this.xmlSolution();
     }
 
     private void xmlSolution() {
-        this.seedDatabaseXml();
+//        this.seedDatabaseXml();
+
+        this.getAllCustomersOrderedByBirthdayXml();
+
+//        this.getCarsFromMakeXml("Toyota");
+//
+//        this.getLocalSuppliersXml();
+//
+//        this.getAllCarsWithTheirPartsXml();
+//
+//        this.getAllCustomersWithPurchasesXml();
+//
+//        this.getAllSaleDetailsXml();
+    }
+
+    private void getAllCustomersOrderedByBirthdayXml() {
+        final List<CustomerByBirthdayDto> allSortedByBirthday = this.customerService.getAllSortedByBirthday();
+        CustomersCustomerByBirthdayDto customerDto = new CustomersCustomerByBirthdayDto();
+        customerDto.setCustomers(allSortedByBirthday);
+        this.xmlParser.objectToFile(customerDto, XML_OUT_ORDERED_CUSTOMERS_XML);
     }
 
     @Transactional
