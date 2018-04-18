@@ -43,6 +43,7 @@ public class Terminal implements CommandLineRunner {
     private static final String XML_OUT_PRODUCTS_IN_RANGE_XML = RESOURCES_PATH + "xml/out/products-in-range.xml";
     private static final String XML_OUT_USERS_SOLD_PRODUCTS_XML = RESOURCES_PATH + "xml/out/users-sold-products.xml";
     private static final String XML_OUT_CATEGORIES_BY_PRODUCTS_XML = RESOURCES_PATH + "xml/out/categories-by-products.xml";
+    private static final String XML_OUT_USERS_AND_PRODUCTS_XML = RESOURCES_PATH + "xml/out/users-and-products.xml";
 
     private final JsonParser jsonParser;
     private final CategoryServiceImpl categoryService;
@@ -72,15 +73,19 @@ public class Terminal implements CommandLineRunner {
     }
 
     private void xmlSolution() {
-//        seedDatabaseXml();
+        seedDatabaseXml();
 
-//        saveAvailableProductsInPriceRangeXml(BigDecimal.valueOf(500), BigDecimal.valueOf(1000));
+        saveAvailableProductsInPriceRangeXml(BigDecimal.valueOf(500), BigDecimal.valueOf(1000));
 
-//        saveSuccessfulSellersXml();
+        saveSuccessfulSellersXml();
 
         saveCategoriesByProductCountXml();
 
-//        saveUsersAndSoldProductsXml();
+        saveUsersAndSoldProductsXml();
+    }
+
+    private void saveUsersAndSoldProductsXml() {
+        this.xmlParser.objectToFile(this.userService.getSellsByUser(), XML_OUT_USERS_AND_PRODUCTS_XML);
     }
 
     private void saveCategoriesByProductCountXml() {
@@ -142,7 +147,6 @@ public class Terminal implements CommandLineRunner {
         this.jsonParser.objectToFile(
                 this.productService.getAvailableProductsInPriceRange(low, high),
                 OUTPUT_PRODUCTS_IN_RANGE_JSON);
-
     }
 
     private void saveSuccessfulSellersJson() {

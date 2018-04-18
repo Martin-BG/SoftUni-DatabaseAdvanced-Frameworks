@@ -2,7 +2,10 @@ package product_shop.utils;
 
 import org.springframework.stereotype.Component;
 
-import javax.xml.bind.*;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
@@ -18,9 +21,7 @@ public class XmlParser {
             JAXBContext jaxbContext = JAXBContext.newInstance(tClass);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             return (T) unmarshaller.unmarshal(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JAXBException e) {
+        } catch (IOException | JAXBException e) {
             e.printStackTrace();
         }
         return null;
@@ -33,11 +34,7 @@ public class XmlParser {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.setProperty(Marshaller.JAXB_ENCODING, StandardCharsets.UTF_8.displayName());
             marshaller.marshal(obj, outputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (PropertyException e) {
-            e.printStackTrace();
-        } catch (JAXBException e) {
+        } catch (IOException | JAXBException e) {
             e.printStackTrace();
         }
     }

@@ -26,7 +26,7 @@ public class UserFirstAndLastNamesAndSoldProductsDto implements Serializable {
     @XmlAttribute(name = "last-name")
     private String lastName;
 
-    @XmlElementWrapper
+    @XmlElementWrapper(name = "sold-products")
     @XmlElement(name = "product")
     private Set<ProductNamePriceBuyerFirstAndLastNamesDto> soldProducts;
 
