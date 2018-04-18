@@ -7,6 +7,7 @@ import product_shop.model.dto.binding.CategoryDto;
 import product_shop.model.dto.binding.ProductDto;
 import product_shop.model.dto.binding.UserDto;
 import product_shop.model.dto.xml.CategoriesCategoryDto;
+import product_shop.model.dto.xml.ProductsProductDto;
 import product_shop.model.dto.xml.UsersUserDto;
 import product_shop.persistance.service.impl.CategoryServiceImpl;
 import product_shop.persistance.service.impl.ProductServiceImpl;
@@ -31,6 +32,7 @@ public class Terminal implements CommandLineRunner {
     private static final String OUTPUT_USERS_AND_PRODUCTS_JSON = RESOURCES_PATH + "json/out/users-and-products.json";
     private static final String XML_IN_USERS_XML = RESOURCES_PATH + "xml/in/users.xml";
     private static final String XML_IN_CATEGORIES_XML = RESOURCES_PATH + "xml/in/categories.xml";
+    private static final String XML_IN_PRODUCTS_XML = RESOURCES_PATH + "xml/in/products.xml";
 
     private final JsonParser jsonParser;
     private final CategoryServiceImpl categoryService;
@@ -70,8 +72,8 @@ public class Terminal implements CommandLineRunner {
         CategoriesCategoryDto categoriesDto = this.xmlParser.objectFromFile(CategoriesCategoryDto.class, XML_IN_CATEGORIES_XML);
         this.categoryService.saveAll(categoriesDto.getCategories().toArray(new CategoryDto[0]));
 
-        ProductDto[] productsDto = this.xmlParser.objectFromFile(ProductDto[].class, SEED_PRODUCTS_JSON);
-        this.productService.saveAll(productsDto);
+        ProductsProductDto productsDto = this.xmlParser.objectFromFile(ProductsProductDto.class, XML_IN_PRODUCTS_XML);
+        this.productService.saveAll(productsDto.getProducts().toArray(new ProductDto[0]));
     }
 
     private void jsonSolution() {
