@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import product_shop.model.dto.binding.CategoryDto;
 import product_shop.model.dto.binding.ProductDto;
 import product_shop.model.dto.binding.UserDto;
+import product_shop.model.dto.xml.CategoriesCategoryDto;
 import product_shop.model.dto.xml.UsersUserDto;
 import product_shop.persistance.service.impl.CategoryServiceImpl;
 import product_shop.persistance.service.impl.ProductServiceImpl;
@@ -29,6 +30,7 @@ public class Terminal implements CommandLineRunner {
     private static final String OUTPUT_CATEGORIES_BY_PRODUCTS_JSON = RESOURCES_PATH + "json/out/categories-by-products.json";
     private static final String OUTPUT_USERS_AND_PRODUCTS_JSON = RESOURCES_PATH + "json/out/users-and-products.json";
     private static final String XML_IN_USERS_XML = RESOURCES_PATH + "xml/in/users.xml";
+    private static final String XML_IN_CATEGORIES_XML = RESOURCES_PATH + "xml/in/categories.xml";
 
     private final JsonParser jsonParser;
     private final CategoryServiceImpl categoryService;
@@ -64,6 +66,12 @@ public class Terminal implements CommandLineRunner {
     private void seedDatabaseXml() {
         UsersUserDto usersDto = this.xmlParser.objectFromFile(UsersUserDto.class, XML_IN_USERS_XML);
         this.userService.saveAll(usersDto.getUsers().toArray(new UserDto[0]));
+
+        CategoriesCategoryDto categoriesDto = this.xmlParser.objectFromFile(CategoriesCategoryDto.class, XML_IN_CATEGORIES_XML);
+        this.categoryService.saveAll(categoriesDto.getCategories().toArray(new CategoryDto[0]));
+
+        ProductDto[] productsDto = this.xmlParser.objectFromFile(ProductDto[].class, SEED_PRODUCTS_JSON);
+        this.productService.saveAll(productsDto);
     }
 
     private void jsonSolution() {
