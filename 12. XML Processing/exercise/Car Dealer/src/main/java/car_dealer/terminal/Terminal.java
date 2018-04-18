@@ -4,6 +4,7 @@ import car_dealer.model.dto.binding.CarDto;
 import car_dealer.model.dto.binding.CustomerDto;
 import car_dealer.model.dto.binding.PartDto;
 import car_dealer.model.dto.binding.SupplierDto;
+import car_dealer.model.dto.binding.xml.CarsCarDto;
 import car_dealer.model.dto.binding.xml.CustomersCustomerDto;
 import car_dealer.model.dto.binding.xml.PartsPartDto;
 import car_dealer.model.dto.binding.xml.SuppliersSupplierDto;
@@ -33,6 +34,7 @@ public class Terminal implements CommandLineRunner {
     private static final String XML_IN_SUPPLIERS_XML = RESOURCES_PATH + "xml/in/suppliers.xml";
     private static final String XML_IN_CUSTOMERS_XML = RESOURCES_PATH + "xml/in/customers.xml";
     private static final String XML_IN_PARTS_XML = RESOURCES_PATH + "xml/in/parts.xml";
+    private static final String XML_IN_CARS_XML = RESOURCES_PATH + "xml/in/cars.xml";
 
     private final JsonParser jsonParser;
     private final XmlParser xmlParser;
@@ -82,10 +84,10 @@ public class Terminal implements CommandLineRunner {
         PartsPartDto partDtos = this.xmlParser.objectFromFile(PartsPartDto.class, XML_IN_PARTS_XML);
         this.partService.saveAll(partDtos.getParts().toArray(new PartDto[0]));
 
-//        CarDto[] carDtos = this.jsonParser.objectFromFile(CarDto[].class, SEED_CARS_JSON);
-//        this.carService.saveAll(carDtos);
-//
-//        this.saleService.generateSales();
+        CarsCarDto carDtos = this.xmlParser.objectFromFile(CarsCarDto.class, XML_IN_CARS_XML);
+        this.carService.saveAll(carDtos.getCars().toArray(new CarDto[0]));
+
+        this.saleService.generateSales();
     }
 
     private void jsonSolution() {
