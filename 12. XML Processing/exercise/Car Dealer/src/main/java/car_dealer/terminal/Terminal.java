@@ -4,6 +4,7 @@ import car_dealer.model.dto.binding.CarDto;
 import car_dealer.model.dto.binding.CustomerDto;
 import car_dealer.model.dto.binding.PartDto;
 import car_dealer.model.dto.binding.SupplierDto;
+import car_dealer.model.dto.binding.xml.SuppliersSupplierDto;
 import car_dealer.persistance.service.impl.*;
 import car_dealer.utils.JsonParser;
 import car_dealer.utils.XmlParser;
@@ -27,6 +28,7 @@ public class Terminal implements CommandLineRunner {
     private static final String OUTPUT_CARS_PARTS_JSON = RESOURCES_PATH + "json/out/cars-and-parts.json";
     private static final String OUTPUT_CUSTOMERS_PURCHASES_JSON = RESOURCES_PATH + "json/out/customers-total-sales.json";
     private static final String OUTPUT_SALES_DETAILS_JSON = RESOURCES_PATH + "json/out/sales-discounts.json";
+    private static final String XML_IN_SUPPLIERS_XML = RESOURCES_PATH + "xml/in/suppliers.xml";
 
     private final JsonParser jsonParser;
     private final XmlParser xmlParser;
@@ -56,7 +58,30 @@ public class Terminal implements CommandLineRunner {
 
     @Override
     public void run(final String... args) {
-        jsonSolution();
+//        jsonSolution();
+
+        xmlSolution();
+    }
+
+    private void xmlSolution() {
+        this.seedDatabaseXml();
+    }
+
+    @Transactional
+    protected void seedDatabaseXml() {
+        SuppliersSupplierDto supplierDtos = this.xmlParser.objectFromFile(SuppliersSupplierDto.class, XML_IN_SUPPLIERS_XML);
+        this.supplierService.saveAll(supplierDtos.getSuppliers().toArray(new SupplierDto[0]));
+
+//        CustomerDto[] customerDtos = this.jsonParser.objectFromFile(CustomerDto[].class, SEED_CUSTOMERS_JSON);
+//        this.customerService.saveAll(customerDtos);
+//
+//        PartDto[] partDtos = this.jsonParser.objectFromFile(PartDto[].class, SEED_PARTS_JSON);
+//        this.partService.saveAll(partDtos);
+//
+//        CarDto[] carDtos = this.jsonParser.objectFromFile(CarDto[].class, SEED_CARS_JSON);
+//        this.carService.saveAll(carDtos);
+//
+//        this.saleService.generateSales();
     }
 
     private void jsonSolution() {
@@ -112,7 +137,7 @@ public class Terminal implements CommandLineRunner {
     }
 
     @Transactional
-    private void seedDatabaseJson() {
+    protected void seedDatabaseJson() {
         SupplierDto[] supplierDtos = this.jsonParser.objectFromFile(SupplierDto[].class, SEED_SUPPLIERS_JSON);
         this.supplierService.saveAll(supplierDtos);
 
