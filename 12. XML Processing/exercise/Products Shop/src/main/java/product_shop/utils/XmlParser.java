@@ -31,7 +31,7 @@ public class XmlParser {
             JAXBContext jaxbContext = JAXBContext.newInstance(obj.getClass());
             Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.setProperty(Marshaller.JAXB_ENCODING, StandardCharsets.UTF_8);
+            marshaller.setProperty(Marshaller.JAXB_ENCODING, StandardCharsets.UTF_8.displayName());
             marshaller.marshal(obj, outputStream);
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,9 +1,9 @@
-package product_shop.model.dto.xml;
+package product_shop.model.dto.binding.xml;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import product_shop.model.dto.binding.CategoryDto;
+import product_shop.model.dto.binding.ProductDto;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -16,14 +16,14 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@XmlRootElement(name = "categories")
+@XmlRootElement(name = "products")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class CategoriesCategoryDto implements Serializable {
+public class ProductsProductDto implements Serializable {
 
-    @XmlElement(name = "category")
-    private Set<CategoryDto> categories;
+    @XmlElement(name = "product")
+    private Set<ProductDto> products;
 
-    public CategoriesCategoryDto() {
-        this.categories = new HashSet<>();
+    public ProductsProductDto() {
+        this.products = new HashSet<>();
     }
 }

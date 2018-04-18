@@ -1,4 +1,4 @@
-package product_shop.model.dto.xml;
+package product_shop.model.dto.binding.xml;
 
 import lombok.Getter;
 import lombok.Setter;

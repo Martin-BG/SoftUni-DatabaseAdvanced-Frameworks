@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import product_shop.model.dto.binding.CategoryDto;
 import product_shop.model.dto.binding.ProductDto;
 import product_shop.model.dto.binding.UserDto;
-import product_shop.model.dto.xml.CategoriesCategoryDto;
-import product_shop.model.dto.xml.ProductsProductDto;
-import product_shop.model.dto.xml.UsersUserDto;
+import product_shop.model.dto.binding.xml.CategoriesCategoryDto;
+import product_shop.model.dto.binding.xml.ProductsProductDto;
+import product_shop.model.dto.binding.xml.UsersUserDto;
+import product_shop.model.dto.view.ProductNamePriceSellerNameDto;
+import product_shop.model.dto.view.xml.ProductsProductNamePriceSellerNameDto;
 import product_shop.persistance.service.impl.CategoryServiceImpl;
 import product_shop.persistance.service.impl.ProductServiceImpl;
 import product_shop.persistance.service.impl.UserServiceImpl;
@@ -17,6 +19,7 @@ import product_shop.utils.XmlParser;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Controller
 @Transactional
@@ -33,6 +36,7 @@ public class Terminal implements CommandLineRunner {
     private static final String XML_IN_USERS_XML = RESOURCES_PATH + "xml/in/users.xml";
     private static final String XML_IN_CATEGORIES_XML = RESOURCES_PATH + "xml/in/categories.xml";
     private static final String XML_IN_PRODUCTS_XML = RESOURCES_PATH + "xml/in/products.xml";
+    private static final String XML_OUT_PRODUCTS_IN_RANGE_XML = RESOURCES_PATH + "xml/out/products-in-range.xml";
 
     private final JsonParser jsonParser;
     private final CategoryServiceImpl categoryService;
@@ -62,7 +66,24 @@ public class Terminal implements CommandLineRunner {
     }
 
     private void xmlSolution() {
-        seedDatabaseXml();
+//        seedDatabaseXml();
+
+        saveAvailableProductsInPriceRangeXml(BigDecimal.valueOf(500), BigDecimal.valueOf(1000));
+
+//        saveSuccessfulSellersXml();
+//
+//        saveCategoriesByProductCountXml();
+//
+//        saveUsersAndSoldProductsXml();
+    }
+
+    private void saveAvailableProductsInPriceRangeXml(final BigDecimal low, final BigDecimal high) {
+        final List<ProductNamePriceSellerNameDto> productsList = this.productService.getAvailableProductsInPriceRange(low, high);
+        ProductsProductNamePriceSellerNameDto products = new ProductsProductNamePriceSellerNameDto();
+        products.setProducts(productsList);
+        this.xmlParser.objectToFile(
+                products,
+                XML_OUT_PRODUCTS_IN_RANGE_XML);
     }
 
     private void seedDatabaseXml() {
