@@ -9,8 +9,10 @@ import product_shop.model.dto.binding.UserDto;
 import product_shop.model.dto.binding.xml.CategoriesCategoryDto;
 import product_shop.model.dto.binding.xml.ProductsProductDto;
 import product_shop.model.dto.binding.xml.UsersUserDto;
+import product_shop.model.dto.view.CategoryNameProductsCountAverageAndTotalPricesDto;
 import product_shop.model.dto.view.ProductNamePriceSellerNameDto;
 import product_shop.model.dto.view.UserFirstAndLastNamesAndSoldProductsDto;
+import product_shop.model.dto.view.xml.CategoriesCategoryNameProductsCountAverageAndTotalPricesDto;
 import product_shop.model.dto.view.xml.ProductsProductNamePriceSellerNameDto;
 import product_shop.model.dto.view.xml.UsersUserFirstAndLastNamesAndSoldProductsDto;
 import product_shop.persistance.service.impl.CategoryServiceImpl;
@@ -40,6 +42,7 @@ public class Terminal implements CommandLineRunner {
     private static final String XML_IN_PRODUCTS_XML = RESOURCES_PATH + "xml/in/products.xml";
     private static final String XML_OUT_PRODUCTS_IN_RANGE_XML = RESOURCES_PATH + "xml/out/products-in-range.xml";
     private static final String XML_OUT_USERS_SOLD_PRODUCTS_XML = RESOURCES_PATH + "xml/out/users-sold-products.xml";
+    private static final String XML_OUT_CATEGORIES_BY_PRODUCTS_XML = RESOURCES_PATH + "xml/out/categories-by-products.xml";
 
     private final JsonParser jsonParser;
     private final CategoryServiceImpl categoryService;
@@ -71,31 +74,34 @@ public class Terminal implements CommandLineRunner {
     private void xmlSolution() {
 //        seedDatabaseXml();
 
-        saveAvailableProductsInPriceRangeXml(BigDecimal.valueOf(500), BigDecimal.valueOf(1000));
+//        saveAvailableProductsInPriceRangeXml(BigDecimal.valueOf(500), BigDecimal.valueOf(1000));
 
-        saveSuccessfulSellersXml();
-//
-//        saveCategoriesByProductCountXml();
-//
+//        saveSuccessfulSellersXml();
+
+        saveCategoriesByProductCountXml();
+
 //        saveUsersAndSoldProductsXml();
+    }
+
+    private void saveCategoriesByProductCountXml() {
+        final List<CategoryNameProductsCountAverageAndTotalPricesDto> categoriesByProductsCount = this.categoryService.getCategoriesByProductsCount();
+        CategoriesCategoryNameProductsCountAverageAndTotalPricesDto categoriesDto = new CategoriesCategoryNameProductsCountAverageAndTotalPricesDto();
+        categoriesDto.setCategories(categoriesByProductsCount);
+        this.xmlParser.objectToFile(categoriesDto, XML_OUT_CATEGORIES_BY_PRODUCTS_XML);
     }
 
     private void saveSuccessfulSellersXml() {
         final List<UserFirstAndLastNamesAndSoldProductsDto> successfulSellers = this.userService.getSuccessfulSellers();
         UsersUserFirstAndLastNamesAndSoldProductsDto users = new UsersUserFirstAndLastNamesAndSoldProductsDto();
         users.setUsers(successfulSellers);
-        this.xmlParser.objectToFile(
-                users,
-                XML_OUT_USERS_SOLD_PRODUCTS_XML);
+        this.xmlParser.objectToFile(users, XML_OUT_USERS_SOLD_PRODUCTS_XML);
     }
 
     private void saveAvailableProductsInPriceRangeXml(final BigDecimal low, final BigDecimal high) {
         final List<ProductNamePriceSellerNameDto> productsList = this.productService.getAvailableProductsInPriceRange(low, high);
         ProductsProductNamePriceSellerNameDto products = new ProductsProductNamePriceSellerNameDto();
         products.setProducts(productsList);
-        this.xmlParser.objectToFile(
-                products,
-                XML_OUT_PRODUCTS_IN_RANGE_XML);
+        this.xmlParser.objectToFile(products, XML_OUT_PRODUCTS_IN_RANGE_XML);
     }
 
     private void seedDatabaseXml() {
