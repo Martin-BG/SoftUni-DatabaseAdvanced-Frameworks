@@ -14,7 +14,7 @@ public class JsonParser {
     }
 
     public <T> T objectFromFile(Class<T> tClass, String path) {
-        return this.gson.fromJson(TextFileUtils.read(path), tClass);
+        return this.objectFromJson(tClass, TextFileUtils.read(path));
     }
 
     public <T> void objectToFile(T obj, String path) {
