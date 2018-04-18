@@ -10,7 +10,9 @@ import product_shop.model.dto.binding.xml.CategoriesCategoryDto;
 import product_shop.model.dto.binding.xml.ProductsProductDto;
 import product_shop.model.dto.binding.xml.UsersUserDto;
 import product_shop.model.dto.view.ProductNamePriceSellerNameDto;
+import product_shop.model.dto.view.UserFirstAndLastNamesAndSoldProductsDto;
 import product_shop.model.dto.view.xml.ProductsProductNamePriceSellerNameDto;
+import product_shop.model.dto.view.xml.UsersUserFirstAndLastNamesAndSoldProductsDto;
 import product_shop.persistance.service.impl.CategoryServiceImpl;
 import product_shop.persistance.service.impl.ProductServiceImpl;
 import product_shop.persistance.service.impl.UserServiceImpl;
@@ -37,6 +39,7 @@ public class Terminal implements CommandLineRunner {
     private static final String XML_IN_CATEGORIES_XML = RESOURCES_PATH + "xml/in/categories.xml";
     private static final String XML_IN_PRODUCTS_XML = RESOURCES_PATH + "xml/in/products.xml";
     private static final String XML_OUT_PRODUCTS_IN_RANGE_XML = RESOURCES_PATH + "xml/out/products-in-range.xml";
+    private static final String XML_OUT_USERS_SOLD_PRODUCTS_XML = RESOURCES_PATH + "xml/out/users-sold-products.xml";
 
     private final JsonParser jsonParser;
     private final CategoryServiceImpl categoryService;
@@ -70,11 +73,20 @@ public class Terminal implements CommandLineRunner {
 
         saveAvailableProductsInPriceRangeXml(BigDecimal.valueOf(500), BigDecimal.valueOf(1000));
 
-//        saveSuccessfulSellersXml();
+        saveSuccessfulSellersXml();
 //
 //        saveCategoriesByProductCountXml();
 //
 //        saveUsersAndSoldProductsXml();
+    }
+
+    private void saveSuccessfulSellersXml() {
+        final List<UserFirstAndLastNamesAndSoldProductsDto> successfulSellers = this.userService.getSuccessfulSellers();
+        UsersUserFirstAndLastNamesAndSoldProductsDto users = new UsersUserFirstAndLastNamesAndSoldProductsDto();
+        users.setUsers(successfulSellers);
+        this.xmlParser.objectToFile(
+                users,
+                XML_OUT_USERS_SOLD_PRODUCTS_XML);
     }
 
     private void saveAvailableProductsInPriceRangeXml(final BigDecimal low, final BigDecimal high) {
