@@ -5,6 +5,8 @@ import car_dealer.model.dto.view.CarPartsViewDto;
 import car_dealer.model.dto.view.CarViewDto;
 import car_dealer.model.dto.view.CarViewShortDto;
 import car_dealer.model.dto.view.PartViewDto;
+import car_dealer.model.dto.view.xml.CarPartsViewXmlDto;
+import car_dealer.model.dto.view.xml.CarsCarPartsViewDto;
 import car_dealer.model.entity.Car;
 import car_dealer.model.entity.Part;
 import car_dealer.persistance.repository.CarRepository;
@@ -87,5 +89,23 @@ public class CarServiceImpl implements CarService {
                     return carView;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public CarsCarPartsViewDto getAllCarsWithTheirPartsXml() {
+        final CarsCarPartsViewDto carsDto = new CarsCarPartsViewDto();
+        this.carRepository
+                .findAll()
+                .forEach(car -> {
+                    CarPartsViewXmlDto carView = this.modelMapper.map(car, CarPartsViewXmlDto.class);
+                    carView.setParts(car
+                            .getParts()
+                            .stream()
+                            .map(part -> this.modelMapper.map(part, PartViewDto.class))
+                            .collect(Collectors.toSet())
+                    );
+                    carsDto.getCars().add(carView);
+                });
+        return carsDto;
     }
 }

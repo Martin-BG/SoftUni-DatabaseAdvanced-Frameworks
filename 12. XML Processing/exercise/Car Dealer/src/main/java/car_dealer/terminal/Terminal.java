@@ -45,6 +45,7 @@ public class Terminal implements CommandLineRunner {
     private static final String XML_OUT_ORDERED_CUSTOMERS_XML = RESOURCES_PATH + "xml/out/ordered-customers.xml";
     private static final String XML_OUT_TOYOTA_CARS_XML = RESOURCES_PATH + "xml/out/toyota-cars.xml";
     private static final String XML_OUT_LOCAL_SUPPLIERS_XML = RESOURCES_PATH + "xml/out/local-suppliers.xml";
+    private static final String XML_OUT_CARS_AND_PARTS_XML = RESOURCES_PATH + "xml/out/cars-and-parts.xml";
 
     private final JsonParser jsonParser;
     private final XmlParser xmlParser;
@@ -86,13 +87,17 @@ public class Terminal implements CommandLineRunner {
 
 //        this.getCarsFromMakeXml("Toyota");
 
-        this.getLocalSuppliersXml();
+//        this.getLocalSuppliersXml();
 
-//        this.getAllCarsWithTheirPartsXml();
-//
+        this.getAllCarsWithTheirPartsXml();
+
 //        this.getAllCustomersWithPurchasesXml();
 //
 //        this.getAllSaleDetailsXml();
+    }
+
+    private void getAllCarsWithTheirPartsXml() {
+        this.xmlParser.objectToFile(this.carService.getAllCarsWithTheirPartsXml(), XML_OUT_CARS_AND_PARTS_XML);
     }
 
     private void getLocalSuppliersXml() {
