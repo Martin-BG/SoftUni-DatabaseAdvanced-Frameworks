@@ -79,17 +79,17 @@ public class Terminal implements CommandLineRunner {
     }
 
     private void xmlSolution() {
-//        this.seedDatabaseXml();
+        this.seedDatabaseXml();
 
-//        this.getAllCustomersOrderedByBirthdayXml();
+        this.getAllCustomersOrderedByBirthdayXml();
 
-//        this.getCarsFromMakeXml("Toyota");
+        this.getCarsFromMakeXml("Toyota");
 
-//        this.getLocalSuppliersXml();
+        this.getLocalSuppliersXml();
 
-//        this.getAllCarsWithTheirPartsXml();
+        this.getAllCarsWithTheirPartsXml();
 
-//        this.getAllCustomersWithPurchasesXml();
+        this.getAllCustomersWithPurchasesXml();
 
         this.getAllSaleDetailsXml();
     }
