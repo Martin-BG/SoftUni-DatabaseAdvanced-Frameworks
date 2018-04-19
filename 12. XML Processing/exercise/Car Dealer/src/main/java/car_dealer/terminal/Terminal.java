@@ -10,9 +10,11 @@ import car_dealer.model.dto.binding.xml.PartsPartDto;
 import car_dealer.model.dto.binding.xml.SuppliersSupplierDto;
 import car_dealer.model.dto.view.CarViewDto;
 import car_dealer.model.dto.view.CustomerByBirthdayDto;
+import car_dealer.model.dto.view.CustomerPurchasesViewDto;
 import car_dealer.model.dto.view.SupplierViewDto;
 import car_dealer.model.dto.view.xml.CarsCarViewDto;
 import car_dealer.model.dto.view.xml.CustomersCustomerByBirthdayDto;
+import car_dealer.model.dto.view.xml.CustomersCustomerPurchasesViewDto;
 import car_dealer.model.dto.view.xml.SuppliersSupplierViewDto;
 import car_dealer.persistance.service.impl.*;
 import car_dealer.utils.JsonParser;
@@ -46,6 +48,7 @@ public class Terminal implements CommandLineRunner {
     private static final String XML_OUT_TOYOTA_CARS_XML = RESOURCES_PATH + "xml/out/toyota-cars.xml";
     private static final String XML_OUT_LOCAL_SUPPLIERS_XML = RESOURCES_PATH + "xml/out/local-suppliers.xml";
     private static final String XML_OUT_CARS_AND_PARTS_XML = RESOURCES_PATH + "xml/out/cars-and-parts.xml";
+    private static final String XML_OUT_CUSTOMERS_TOTAL_SALES_XML = RESOURCES_PATH + "xml/out/customers-total-sales.xml";
 
     private final JsonParser jsonParser;
     private final XmlParser xmlParser;
@@ -89,11 +92,18 @@ public class Terminal implements CommandLineRunner {
 
 //        this.getLocalSuppliersXml();
 
-        this.getAllCarsWithTheirPartsXml();
+//        this.getAllCarsWithTheirPartsXml();
 
-//        this.getAllCustomersWithPurchasesXml();
-//
+        this.getAllCustomersWithPurchasesXml();
+
 //        this.getAllSaleDetailsXml();
+    }
+
+    private void getAllCustomersWithPurchasesXml() {
+        final List<CustomerPurchasesViewDto> customersPurchases = this.customerService.getCustomersPurchases();
+        CustomersCustomerPurchasesViewDto customersListDto = new CustomersCustomerPurchasesViewDto();
+        customersListDto.setCustomers(customersPurchases);
+        this.xmlParser.objectToFile(customersListDto, XML_OUT_CUSTOMERS_TOTAL_SALES_XML);
     }
 
     private void getAllCarsWithTheirPartsXml() {
