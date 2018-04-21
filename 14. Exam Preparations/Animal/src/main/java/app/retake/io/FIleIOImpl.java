@@ -1,9 +1,12 @@
 package app.retake.io;
 
 import app.retake.io.api.FileIO;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
+@Component
 public class FIleIOImpl implements FileIO {
 
     @Override
@@ -11,7 +14,8 @@ public class FIleIOImpl implements FileIO {
         StringBuilder fileContent = new StringBuilder();
 
         try (InputStream inputStream = getClass().getResourceAsStream(file);
-             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
+             BufferedReader bufferedReader = new BufferedReader(
+                     new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 fileContent.append(line);
@@ -25,8 +29,10 @@ public class FIleIOImpl implements FileIO {
 
     @Override
     public void write(String fileContent, String file) {
-        try (OutputStream outputStream = new FileOutputStream(file);
-             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream))) {
+        String path = System.getProperty("user.dir") + "/src/main/resources" + file;
+        try (OutputStream outputStream = new FileOutputStream(path);
+             BufferedWriter bufferedWriter = new BufferedWriter(
+                     new OutputStreamWriter(outputStream, StandardCharsets.UTF_8))) {
             bufferedWriter.write(fileContent);
         } catch (IOException e) {
             e.printStackTrace();
