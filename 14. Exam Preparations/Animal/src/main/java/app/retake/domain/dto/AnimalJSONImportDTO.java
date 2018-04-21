@@ -39,7 +39,7 @@ public class AnimalJSONImportDTO implements Serializable, Importable {
 
     @Override
     public String successMessage() {
-        return String.format(Config.RECORD_S_PASSPORT_S_SUCCESSFULLY_IMPORTED,
+        return String.format(Config.MESSAGE_RECORD_S_PASSPORT_S_SUCCESSFULLY_IMPORTED,
                 this.name, this.passport.getSerialNumber());
     }
 }
