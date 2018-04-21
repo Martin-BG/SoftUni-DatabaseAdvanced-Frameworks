@@ -38,8 +38,12 @@ final class Importer {
         final StringBuilder sb = new StringBuilder();
         for (T dto : dtos) {
             if (this.validator.isValid(dto)) {
-                service.create(dto);
-                sb.append(dto.successMessage()).append(System.lineSeparator());
+                try {
+                    service.create(dto);
+                    sb.append(dto.successMessage()).append(System.lineSeparator());
+                } catch (IllegalArgumentException e) {
+                    sb.append(dto.errorMessage()).append(System.lineSeparator());
+                }
             } else {
                 sb.append(dto.errorMessage()).append(System.lineSeparator());
             }
