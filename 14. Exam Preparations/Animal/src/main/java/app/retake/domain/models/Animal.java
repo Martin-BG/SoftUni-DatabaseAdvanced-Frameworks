@@ -28,7 +28,7 @@ public class Animal implements Serializable {
 
     private Integer age;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Passport passport;
 
     @OneToMany(mappedBy = "animal")
@@ -36,5 +36,11 @@ public class Animal implements Serializable {
 
     public Animal() {
         this.procedures = new HashSet<>();
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void updatePassport() {
+        this.passport.setAnimal(this);
     }
 }
