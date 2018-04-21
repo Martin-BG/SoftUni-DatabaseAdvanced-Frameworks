@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,10 +38,10 @@ public class Procedure implements Serializable {
         this.services = new HashSet<>();
     }
 
-    public Double getCost() {
+    public BigDecimal getCost() {
         return this.services
                 .stream()
                 .map(AnimalAid::getPrice)
-                .reduce(0d, (d1, d2) -> d1 + d2);
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Getter
@@ -24,7 +25,7 @@ public class AnimalAid implements Serializable {
     @Column(length = 50)
     private String name;
 
-    private Double price;
+    private BigDecimal price;
 
     @ManyToMany
     @JoinTable(name = "animal_aids_procedures",
