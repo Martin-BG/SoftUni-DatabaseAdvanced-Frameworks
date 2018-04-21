@@ -1,16 +1,20 @@
 package app.retake.parser;
 
+import org.springframework.stereotype.Component;
+
 import javax.validation.Validation;
 import javax.validation.Validator;
 
+@Component
 public final class ValidationUtil {
 
-    private static Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+    private final Validator validator;
 
-    private ValidationUtil() {
+    public ValidationUtil() {
+        this.validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
-    public static <T> boolean isValid(T t) {
-        return t != null && validator.validate(t).isEmpty();
+    public <T> boolean isValid(T t) {
+        return t != null && this.validator.validate(t).isEmpty();
     }
 }
