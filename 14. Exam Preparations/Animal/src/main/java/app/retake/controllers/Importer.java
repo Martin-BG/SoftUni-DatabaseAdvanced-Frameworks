@@ -4,35 +4,40 @@ import app.retake.domain.dto.Importable;
 import app.retake.parser.ValidationUtil;
 import app.retake.parser.interfaces.Parser;
 import app.retake.services.api.Creatable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
 @Controller
 final class Importer {
 
-    @Validated
-    <T extends Importable> String importData(final @NotNull Parser parser,
-                                             final @NotNull T[] t,
-                                             final @NotNull String content,
-                                             final @NotNull Creatable service) {
+    private final ValidationUtil validator;
+
+    @Autowired
+    Importer(final ValidationUtil validator) {
+        this.validator = validator;
+    }
+
+    <T extends Importable> String importData(final Parser parser,
+                                             final Class<T[]> clazz,
+                                             final String content,
+                                             final Creatable service) {
         try {
             return this.persist(
-                    parser.read(t.getClass(), content),
+                    parser.read(clazz, content),
                     service);
         } catch (IOException | JAXBException e) {
             return e.getMessage();
         }
     }
 
-    private <T extends Importable> String persist(final @NotNull T[] dtos,
-                                                  final @NotNull Creatable service) {
+    private <T extends Importable> String persist(final T[] dtos,
+                                                  final Creatable service) {
         final StringBuilder sb = new StringBuilder();
         for (T dto : dtos) {
-            if (ValidationUtil.isValid(dto)) {
+            if (this.validator.isValid(dto)) {
                 service.create(dto);
                 sb.append(dto.successMessage()).append(System.lineSeparator());
             } else {
