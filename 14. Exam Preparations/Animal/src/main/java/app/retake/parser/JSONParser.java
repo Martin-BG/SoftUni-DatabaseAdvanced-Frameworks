@@ -13,6 +13,7 @@ public class JSONParser implements Parser {
     public JSONParser() {
         this.gson = new GsonBuilder()
 //                .excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("dd-MM-yyyy")
                 .setPrettyPrinting()
                 .create();
     }
