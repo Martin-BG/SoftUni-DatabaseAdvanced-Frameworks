@@ -1,4 +1,9 @@
 package app.retake.repositories;
 
-public interface AnimalAidRepository {
+import app.retake.domain.models.AnimalAid;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface AnimalAidRepository extends JpaRepository<AnimalAid, Integer> {
 }
