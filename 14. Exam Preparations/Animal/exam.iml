@@ -8,7 +8,6 @@
         <datasource-mapping>
           <factory-entry name="entityManagerFactory" value="936e2d1b-73cc-4df1-8263-f0b2a3a2fa44" />
         </datasource-mapping>
-        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/META-INF/persistence.xml" />
       </configuration>
     </facet>
   </component>
