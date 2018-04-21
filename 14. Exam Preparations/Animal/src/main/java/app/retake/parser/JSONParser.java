@@ -1,18 +1,29 @@
 package app.retake.parser;
 
 import app.retake.parser.interfaces.Parser;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.stereotype.Component;
 
 @Component(value = "JSONParser")
 public class JSONParser implements Parser {
 
+    private final Gson gson;
+
+    public JSONParser() {
+        this.gson = new GsonBuilder()
+//                .excludeFieldsWithoutExposeAnnotation()
+                .setPrettyPrinting()
+                .create();
+    }
+
     @Override
     public <T> T read(Class<T> objectClass, String fileContent) {
-        return null;
+        return this.gson.fromJson(fileContent, objectClass);
     }
 
     @Override
     public <T> String write(T object) {
-        return null;
+        return this.gson.toJson(object);
     }
 }
