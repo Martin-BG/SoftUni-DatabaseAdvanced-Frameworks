@@ -1,6 +1,7 @@
 package app.retake.services.impl;
 
-import app.retake.domain.dto.VetXMLImportDTO;
+import app.retake.domain.models.Vet;
+import app.retake.parser.interfaces.ModelParser;
 import app.retake.repositories.VetRepository;
 import app.retake.services.api.VetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,18 @@ import javax.transaction.Transactional;
 public class VetServiceImpl implements VetService {
 
     private final VetRepository vetRepository;
+    private final ModelParser modelParser;
 
     @Autowired
-    public VetServiceImpl(final VetRepository vetRepository) {
+    public VetServiceImpl(final VetRepository vetRepository,
+                          final ModelParser modelParser) {
         this.vetRepository = vetRepository;
+        this.modelParser = modelParser;
     }
 
     @Override
-    public void create(VetXMLImportDTO dto) {
+    public <T> void create(final T dto) {
+        final Vet vet = this.modelParser.convert(dto, Vet.class);
+        this.vetRepository.saveAndFlush(vet);
     }
 }

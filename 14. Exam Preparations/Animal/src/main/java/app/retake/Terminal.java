@@ -2,6 +2,7 @@ package app.retake;
 
 import app.retake.controllers.AnimalAidController;
 import app.retake.controllers.AnimalController;
+import app.retake.controllers.VetController;
 import app.retake.io.api.ConsoleIO;
 import app.retake.io.api.FileIO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +16,19 @@ public class Terminal implements CommandLineRunner {
     private final ConsoleIO consoleIO;
     private final AnimalAidController animalAidController;
     private final AnimalController animalController;
+    private final VetController vetController;
 
     @Autowired
     public Terminal(final FileIO fileIO,
                     final ConsoleIO consoleIO,
                     final AnimalAidController animalAidController,
-                    final AnimalController animalController) {
+                    final AnimalController animalController,
+                    final VetController vetController) {
         this.fileIO = fileIO;
         this.consoleIO = consoleIO;
         this.animalAidController = animalAidController;
         this.animalController = animalController;
+        this.vetController = vetController;
     }
 
     @Override
@@ -34,5 +38,8 @@ public class Terminal implements CommandLineRunner {
 
         consoleIO.write(this.animalController
                 .importDataFromJSON(fileIO.read(Config.ANIMALS_IMPORT_JSON)));
+
+        consoleIO.write(this.vetController
+                .importDataFromXML(fileIO.read(Config.VETS_IMPORT_XML)));
     }
 }
