@@ -1,5 +1,6 @@
 package app.retake.controllers;
 
+import app.retake.domain.dto.ProcedureWrapperXMLExportDTO;
 import app.retake.domain.dto.ProcedureWrapperXMLImportDTO;
 import app.retake.domain.dto.ProcedureXMLImportDTO;
 import app.retake.parser.interfaces.Parser;
@@ -35,6 +36,11 @@ public class ProcedureController {
     }
 
     public String exportProcedures() {
-        return null;
+        try {
+            final ProcedureWrapperXMLExportDTO object = this.procedureService.exportProcedures();
+            return this.parser.write(object);
+        } catch (IOException | JAXBException e) {
+            return e.toString();
+        }
     }
 }

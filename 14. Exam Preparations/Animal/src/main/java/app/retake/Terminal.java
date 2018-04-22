@@ -50,5 +50,7 @@ public class Terminal implements CommandLineRunner {
                 .importDataFromXML(fileIO.read(Config.PROCEDURES_IMPORT_XML)));
 
         consoleIO.write(this.animalController.exportAnimalsByOwnerPhoneNumber("0887446123"));
+
+        consoleIO.write(this.procedureController.exportProcedures());
     }
 }

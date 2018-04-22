@@ -1,8 +1,6 @@
 package app.retake.services.impl;
 
-import app.retake.domain.dto.ProcedureAnimalAidXMLImportDTO;
-import app.retake.domain.dto.ProcedureWrapperXMLExportDTO;
-import app.retake.domain.dto.ProcedureXMLImportDTO;
+import app.retake.domain.dto.*;
 import app.retake.domain.models.Animal;
 import app.retake.domain.models.AnimalAid;
 import app.retake.domain.models.Procedure;
@@ -19,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -72,7 +71,25 @@ public class ProcedureServiceImpl implements ProcedureService {
 
     @Override
     public ProcedureWrapperXMLExportDTO exportProcedures() {
-        return null;
+        final ProcedureWrapperXMLExportDTO procedures = new ProcedureWrapperXMLExportDTO();
+        procedures.setProcedures(
+                this.procedureRepository
+                        .findAll()
+                        .stream()
+                        .map(procedure -> {
+                            final ProcedureXMLExportDTO dto = new ProcedureXMLExportDTO();
+                            dto.setOwner(procedure.getAnimal().getPassport().getOwnerPhoneNumber());
+                            dto.setPassport(procedure.getAnimal().getPassport().getSerialNumber());
+                            dto.setAids(procedure.getServices()
+                                    .stream()
+                                    .map(animalAid -> this.modelParser
+                                            .convert(animalAid, ProcedureAnimalAidXMLExportDTO.class))
+                                    .collect(Collectors.toList()));
+                            return dto;
+                        })
+                        .collect(Collectors.toList()));
+
+        return procedures;
     }
 }
 
