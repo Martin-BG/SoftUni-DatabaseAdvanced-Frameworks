@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
 import javax.xml.bind.JAXBException;
-import java.io.IOException;
 
 @Controller
 public class AnimalController {
@@ -32,7 +31,7 @@ public class AnimalController {
     public String exportAnimalsByOwnerPhoneNumber(String phoneNumber) {
         try {
             return this.parser.write(this.animalService.findByOwnerPhoneNumber(phoneNumber));
-        } catch (IOException | JAXBException e) {
+        } catch (JAXBException e) {
             return e.toString();
         }
     }

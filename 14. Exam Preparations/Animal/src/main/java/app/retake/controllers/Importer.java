@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import javax.xml.bind.JAXBException;
-import java.io.IOException;
 
 @Controller
 final class Importer {
@@ -28,7 +27,7 @@ final class Importer {
             return this.persist(
                     parser.read(clazz, content),
                     service);
-        } catch (IOException | JAXBException e) {
+        } catch (JAXBException e) {
             return e.toString();
         }
     }

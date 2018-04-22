@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
 import javax.xml.bind.JAXBException;
-import java.io.IOException;
 
 @Controller
 public class ProcedureController {
@@ -30,7 +29,7 @@ public class ProcedureController {
         try {
             final ProcedureWrapperXMLImportDTO procsDto = this.parser.read(ProcedureWrapperXMLImportDTO.class, xmlContent);
             return this.importer.persist(procsDto.getProcedures().toArray(new ProcedureXMLImportDTO[0]), this.procedureService);
-        } catch (JAXBException | IOException e) {
+        } catch (JAXBException e) {
             return e.toString();
         }
     }
@@ -39,7 +38,7 @@ public class ProcedureController {
         try {
             final ProcedureWrapperXMLExportDTO object = this.procedureService.exportProcedures();
             return this.parser.write(object);
-        } catch (IOException | JAXBException e) {
+        } catch (JAXBException e) {
             return e.toString();
         }
     }

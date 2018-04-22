@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
 import javax.xml.bind.JAXBException;
-import java.io.IOException;
 
 @Controller
 public class VetController {
@@ -29,7 +28,7 @@ public class VetController {
         try {
             final VetWrapperXMLImportDTO vetsDto = this.parser.read(VetWrapperXMLImportDTO.class, xmlContent);
             return this.importer.persist(vetsDto.getVets().toArray(new VetXMLImportDTO[0]), this.vetService);
-        } catch (JAXBException | IOException e) {
+        } catch (JAXBException e) {
             return e.toString();
         }
     }
