@@ -29,12 +29,12 @@ final class Importer {
                     parser.read(clazz, content),
                     service);
         } catch (IOException | JAXBException e) {
-            return e.getMessage();
+            return e.toString();
         }
     }
 
-    private <T extends Importable> String persist(final T[] dtos,
-                                                  final Creatable service) {
+    <T extends Importable> String persist(final T[] dtos,
+                                          final Creatable service) {
         final StringBuilder sb = new StringBuilder();
         for (T dto : dtos) {
             if (this.validator.isValid(dto)) {
