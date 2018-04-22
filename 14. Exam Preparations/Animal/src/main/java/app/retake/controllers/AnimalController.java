@@ -7,6 +7,9 @@ import app.retake.services.api.AnimalService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
+import javax.xml.bind.JAXBException;
+import java.io.IOException;
+
 @Controller
 public class AnimalController {
 
@@ -27,7 +30,11 @@ public class AnimalController {
     }
 
     public String exportAnimalsByOwnerPhoneNumber(String phoneNumber) {
-        return null;
+        try {
+            return this.parser.write(this.animalService.findByOwnerPhoneNumber(phoneNumber));
+        } catch (IOException | JAXBException e) {
+            return e.toString();
+        }
     }
 
     private <T extends Importable> String importData(Class<T[]> clazz, String data) {

@@ -41,7 +41,7 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Override
     public List<AnimalsJSONExportDTO> findByOwnerPhoneNumber(String phoneNumber) {
-        return null;
+        return this.animalRepository.exportAnimalsByOwnerPhoneNumber(phoneNumber);
     }
 
     @Override
