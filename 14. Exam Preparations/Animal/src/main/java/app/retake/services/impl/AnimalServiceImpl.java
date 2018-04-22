@@ -44,5 +44,10 @@ public class AnimalServiceImpl implements AnimalService {
         return null;
     }
 
+    @Override
+    public Animal findByPassportNumber(final String passportNumber) {
+        return this.animalRepository.findByPassport_SerialNumber(passportNumber);
+    }
+
 
 }

@@ -44,4 +44,9 @@ public class Procedure implements Serializable {
                 .map(AnimalAid::getPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+
+    @PostPersist
+    private void updateAids() {
+        this.getServices().forEach(animalAid -> animalAid.getProcedures().add(this));
+    }
 }

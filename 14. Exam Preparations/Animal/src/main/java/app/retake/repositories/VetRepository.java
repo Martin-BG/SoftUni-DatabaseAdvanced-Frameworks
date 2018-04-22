@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VetRepository extends JpaRepository<Vet, Integer> {
+
+    Vet findByName(final String name);
 }

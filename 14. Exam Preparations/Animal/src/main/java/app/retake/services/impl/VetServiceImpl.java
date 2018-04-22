@@ -28,4 +28,9 @@ public class VetServiceImpl implements VetService {
         final Vet vet = this.modelParser.convert(dto, Vet.class);
         this.vetRepository.saveAndFlush(vet);
     }
+
+    @Override
+    public Vet findByName(final String name) {
+        return this.vetRepository.findByName(name);
+    }
 }

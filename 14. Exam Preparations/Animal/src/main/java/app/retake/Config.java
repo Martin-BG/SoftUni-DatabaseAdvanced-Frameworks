@@ -9,4 +9,5 @@ public final class Config {
     public static final String MESSAGE_ERROR_INVALID_DATA = "Error: Invalid data.";
     public static final String MESSAGE_RECORD_S_SUCCESSFULLY_IMPORTED = "Record %s successfully imported.";
     public static final String MESSAGE_RECORD_S_PASSPORT_S_SUCCESSFULLY_IMPORTED = "Record %s Passport №: %s successfully imported.";
+    public static final String RECORD_SUCCESSFULLY_IMPORTED = "Record successfully imported.";
 }
