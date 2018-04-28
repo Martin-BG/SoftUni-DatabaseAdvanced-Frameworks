@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.DecimalMin;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -19,14 +18,13 @@ import java.util.List;
 @NoArgsConstructor
 public class EmployeesWithClientsDto implements Serializable {
 
-    List<String> clients = new ArrayList<>();
-
     @SerializedName("full_name")
     private String fullName;
 
-    @DecimalMin("0")
     private BigDecimal salary;
 
     @SerializedName("started_on")
     private Date startedOn;
+
+    private List<String> clients = new ArrayList<>();
 }
