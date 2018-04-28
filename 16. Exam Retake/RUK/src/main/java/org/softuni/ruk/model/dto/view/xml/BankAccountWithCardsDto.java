@@ -18,7 +18,7 @@ public class BankAccountWithCardsDto implements Serializable {
 
     @XmlElementWrapper(name = "cards")
     @XmlElement(name = "card")
-    List<CardDto> cards = new ArrayList<>();
+    private List<CardDto> cards = new ArrayList<>();
 
     @XmlAttribute(name = "account-number")
     private String accountNumber;
