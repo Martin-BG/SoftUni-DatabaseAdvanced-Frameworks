@@ -7,12 +7,12 @@
                 <status>Active</status>
             </card>
             <card>
-                <card-number>IL63 6769 4037 2438</card-number>
-                <status>Frozen</status>
-            </card>
-            <card>
                 <card-number>LU06 857S JEHT OORI</card-number>
                 <status>Active</status>
+            </card>
+            <card>
+                <card-number>IL63 6769 4037 2438</card-number>
+                <status>Frozen</status>
             </card>
             <card>
                 <card-number>CZ46 3592 1711 7749</card-number>
