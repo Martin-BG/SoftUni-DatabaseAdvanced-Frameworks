@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<anomalies>
+    <anomaly origin-homePlanet="Voyager-10" teleport-homePlanet="Kepler-1">
+        <victims>
+            <victim name="Vox Populi"/>
+            <victim name="Antra Foul"/>
+            <victim name="Baron Newhousen"/>
+        </victims>
+    </anomaly>
+    <anomaly origin-homePlanet="Alpha-N20" teleport-homePlanet="Kepler-3">
+        <victims>
+            <victim name="Saine"/>
+        </victims>
+    </anomaly>
+    <anomaly origin-homePlanet="Kepler-6" teleport-homePlanet="Kepler-1">
+        <victims>
+            <victim name="Indiga Gabic"/>
+            <victim name="Pokolri Paputo"/>
+        </victims>
+    </anomaly>
+    <anomaly origin-homePlanet="Kepler-3" teleport-homePlanet="Kepler-6">
+        <victims>
+            <victim name="Qort Xurst"/>
+        </victims>
+    </anomaly>
+    <anomaly origin-homePlanet="Indigo-3" teleport-homePlanet="Voyager-10">
+        <victims>
+            <victim name="Eifell Sync"/>
+        </victims>
+    </anomaly>
+    <anomaly origin-homePlanet="Indigo-3" teleport-homePlanet="Alpha-N20">
+        <victims>
+            <victim name="Zukhar Thurc"/>
+        </victims>
+    </anomaly>
+    <anomaly origin-homePlanet="Indigo-3" teleport-homePlanet="Voyager-10">
+        <victims>
+            <victim name="Dante"/>
+        </victims>
+    </anomaly>
+    <anomaly origin-homePlanet="Kepler-3" teleport-homePlanet="Kepler-1">
+        <victims>
+            <victim name="Eifell Sync"/>
+            <victim name="Kaliowe Okalinaine"/>
+        </victims>
+    </anomaly>
+    <anomaly origin-homePlanet="Voyager-11" teleport-homePlanet="Alpha-N20">
+        <victims>
+            <victim name="Eifell Sync"/>
+        </victims>
+    </anomaly>
+    <anomaly origin-homePlanet="Kepler-3" teleport-homePlanet="Kepler-6">
+        <victims>
+            <victim name="Moria Bane"/>
+            <victim name="Vox Populi"/>
+        </victims>
+    </anomaly>
+    <anomaly origin-homePlanet="Alpha-N20" teleport-homePlanet="Indigo-3">
+        <victims>
+            <victim name="Moria Bane"/>
+        </victims>
+    </anomaly>
+    <anomaly origin-homePlanet="Alpha-N20" teleport-homePlanet="Kepler-3">
+        <victims/>
+    </anomaly>
+    <anomaly origin-homePlanet="Alpha-N20" teleport-homePlanet="Indigo-3">
+        <victims>
+            <victim name="Ixel Bane"/>
+        </victims>
+    </anomaly>
+    <anomaly origin-homePlanet="Kepler-1" teleport-homePlanet="Alpha-N20">
+        <victims>
+            <victim name="Dante"/>
+            <victim name="Viria Destr"/>
+            <victim name="Pokolri Paputo"/>
+            <victim name="Eifell Sync"/>
+            <victim name="Vox Populi"/>
+        </victims>
+    </anomaly>
+    <anomaly origin-homePlanet="Alpha-N20" teleport-homePlanet="Kepler-1">
+        <victims>
+            <victim name="Eifell Sync"/>
+            <victim name="Moria Bane"/>
+        </victims>
+    </anomaly>
+    <anomaly origin-homePlanet="Kepler-3" teleport-homePlanet="Voyager-10">
+        <victims/>
+    </anomaly>
+    <anomaly origin-homePlanet="Kepler-6" teleport-homePlanet="Alpha-N20">
+        <victims/>
+    </anomaly>
+    <anomaly origin-homePlanet="Indigo-3" teleport-homePlanet="Kepler-1">
+        <victims/>
+    </anomaly>
+    <anomaly origin-homePlanet="Voyager-11" teleport-homePlanet="Indigo-3">
+        <victims/>
+    </anomaly>
+    <anomaly origin-homePlanet="Voyager-10" teleport-homePlanet="Voyager-11">
+        <victims/>
+    </anomaly>
+</anomalies>
