@@ -1,0 +1,53 @@
+OneToMany with no join table:
+
+##########################################
+#### Join table racers_cars:
+
+# Car class
+	@ManyToOne
+    @JoinColumn(name = "racer_id")
+    private Racer racer;
+	
+# Racer class
+    @OneToMany
+    @JoinTable(
+            name = "racers_cars",
+            joinColumns = @JoinColumn(name = "racer_id"),
+            inverseJoinColumns = @JoinColumn(name = "car_id")
+    )
+    private Set<Car> cars;
+	
+#### NO join table:
+
+# Car class
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name = "racer_id")
+	
+# Racer class
+    @OneToMany(mappedBy = "racer",fetch=FetchType.EAGER)
+    private Set<Car> cars;
+	
+##########################################
+#### Join table races_race_entries:
+
+# Race class
+    @OneToMany
+    @JoinTable(
+            name = "races_race_entries",
+            joinColumns = @JoinColumn(name = "race_id"),
+            inverseJoinColumns = @JoinColumn(name = "entry_id")
+    )
+    private Set<RaceEntry> entries;
+
+# RaceEntry class:
+	no reference
+	
+#### NO join table:
+
+# Race class
+    @OneToMany(mappedBy = "race",fetch=FetchType.EAGER)
+    private Set<RaceEntry> entries;
+
+# RaceEntry class:
+    @ManyToOne
+    private Race race;
