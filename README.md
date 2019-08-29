@@ -1,6 +1,6 @@
 # Databases Frameworks - Hibernate & Spring Data
 
-[**Databases Frameworks** course at SoftUni - Mar 2017](https://softuni.bg/trainings/1847/databases-frameworks-hibernate-and-spring-data-march-2018)
+[**Databases Frameworks** course at SoftUni - Mar 2018](https://softuni.bg/trainings/1847/databases-frameworks-hibernate-and-spring-data-march-2018)
 
 1. Java Basics
 1. Java OOP Overview
